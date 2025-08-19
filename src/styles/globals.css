@@ -1100,7 +1100,6 @@ body {
 }
 
 .modal {
-    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -1109,6 +1108,9 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-content {

@@ -37,11 +37,14 @@ const AulaModal = ({ aulaId, onClose, onNavigate }) => {
     }
   };
 
-  if (!aula) return null;
+  if (!aula) {
+    console.log('Aula não encontrada:', aulaId);
+    return null;
+  }
 
   return (
-    <div className="modal" onClick={handleBackdropClick}>
-      <div className="modal-content">
+    <div className="modal" onClick={handleBackdropClick} style={{ display: 'flex' }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close" onClick={onClose}>&times;</button>
         
         <div className="aula-navigation">

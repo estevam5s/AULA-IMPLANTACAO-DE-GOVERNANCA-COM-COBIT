@@ -58,12 +58,14 @@ function App() {
   }, []);
 
   const openAulaModal = (aulaId) => {
+    console.log('Abrindo modal para aula:', aulaId);
     setCurrentAula(aulaId);
     setModalOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
+    console.log('Fechando modal');
     setModalOpen(false);
     document.body.style.overflow = 'auto';
   };

@@ -2,9 +2,11 @@ import React from 'react';
 
 const Aulas = ({ onOpenAula, className }) => {
   const handleCardClick = (aulaId) => {
-    console.log('Abrindo aula:', aulaId); // Debug
+    console.log('Tentando abrir aula:', aulaId);
     if (onOpenAula) {
       onOpenAula(aulaId);
+    } else {
+      console.error('onOpenAula não está definido');
     }
     
     // Analytics simples

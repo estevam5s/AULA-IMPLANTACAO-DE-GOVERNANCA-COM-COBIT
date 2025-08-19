@@ -1795,3 +1795,53 @@ export const chatSuggestions = [
     'Build vs Acquire - quando usar?',
     'Como implementar COBIT na empresa?'
 ];
+
+// Adicione no final do arquivo src/data/courseData.js
+
+// Sistema de busca avançado para a IA
+export const searchableContent = {
+  keywords: {
+    // Mapeamento de sinônimos e variações
+    'cobit': ['cobit', 'framework', 'isaca', 'governanca de ti'],
+    'eficacia': ['eficacia', 'eficaz', 'fazer certo', 'cumprir funcoes'],
+    'eficiencia': ['eficiencia', 'eficiente', 'otimizar recursos', 'gastar menos'],
+    'governanca': ['governanca', 'estrategico', 'conselho', 'diretoria', 'o que fazer'],
+    'gerenciamento': ['gerenciamento', 'operacional', 'executivos', 'como fazer'],
+    'edm': ['edm', 'evaluate', 'direct', 'monitor', 'avaliar', 'dirigir', 'monitorar'],
+    'apo': ['apo', 'align', 'plan', 'organise', 'alinhar', 'planejar', 'organizar'],
+    'bai': ['bai', 'build', 'acquire', 'implement', 'construir', 'adquirir', 'implementar'],
+    'dss': ['dss', 'deliver', 'service', 'support', 'entregar', 'servico', 'suporte'],
+    'mea': ['mea', 'monitor', 'evaluate', 'assess', 'monitorar', 'avaliar', 'medir']
+  },
+  
+  // Banco de respostas pré-definidas para perguntas comuns
+  commonQuestions: {
+    'qual diferenca governanca gerenciamento': 'Governança define O QUE fazer (estratégico, conselho), Gerenciamento define COMO fazer (operacional, executivos).',
+    'quantos dominios cobit': 'COBIT tem 5 domínios: 1 de Governança (EDM) e 4 de Gerenciamento (APO, BAI, DSS, MEA).',
+    'build vs acquire': 'Regra atual: SEMPRE priorizar AQUISIÇÃO de soluções prontas. Construir internamente apenas quando não existe no mercado ou há vantagem competitiva.',
+    'fundamentos cobit': 'São 5: 1)Atender stakeholders, 2)Cobertura holística, 3)Estrutura integrada, 4)Abordagem holística, 5)Separar governança de gerenciamento.'
+  }
+};
+
+// Exemplos práticos detalhados
+export const practicalExamples = {
+  implementation: {
+    scenario: 'Banco quer reduzir falhas em projetos de TI',
+    before: 'Taxa de falha: 70%, custos altos, baixa satisfação',
+    cobitImplementation: {
+      edm: 'Criou Comitê de Governança de TI',
+      apo: 'Implementou gestão de portfólio',
+      bai: 'Padronizou processo de desenvolvimento',
+      dss: 'Melhorou service desk e monitoramento',
+      mea: 'Implementou auditoria contínua'
+    },
+    results: 'Taxa de sucesso: 90%, redução 25% custos, satisfação 85%'
+  },
+  
+  buildVsAcquire: {
+    scenario: 'Empresa precisa de sistema CRM',
+    acquireOption: 'Salesforce: 2-3 meses, R$50-200/usuário/mês, suporte 24/7',
+    buildOption: 'Desenvolvimento: 12-18 meses, R$500k-2M inicial, manutenção interna',
+    recommendation: 'Acquire - 5x mais rápido e 3x mais barato'
+  }
+};
