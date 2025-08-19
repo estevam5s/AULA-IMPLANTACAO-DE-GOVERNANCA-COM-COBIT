@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMPLANTAÇÃO DE GOVERNANÇA COM COBIT - Aulas 01 e 02</title>
+    <title>IMPLANTAÇÃO DE GOVERNANÇA COM COBIT</title>
     <style>
         * {
             margin: 0;
@@ -48,27 +48,57 @@
             margin-bottom: 20px;
         }
 
-        .lessons-nav {
+        /* Navigation Menu */
+        .main-nav {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
             margin-top: 25px;
+            flex-wrap: wrap;
         }
 
-        .lesson-tab {
+        .nav-tab {
             background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
             color: white;
-            padding: 15px 30px;
+            padding: 15px 25px;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .lessons-nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .lesson-tab {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.85rem;
         }
 
         .lesson-tab:hover, .lesson-tab.active {
             background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         .professor-info {
@@ -111,14 +141,7 @@
             transform: scale(1.05);
         }
 
-        .lesson-content {
-            display: none;
-        }
-
-        .lesson-content.active {
-            display: block;
-        }
-
+        /* Content Sections */
         .content-section {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -126,6 +149,23 @@
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .section-title {
@@ -168,6 +208,7 @@
             max-height: 3000px;
         }
 
+        /* Steps and Content Cards */
         .step-counter {
             background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
             color: white;
@@ -224,20 +265,187 @@
             margin-right: 8px;
         }
 
-        .example-box {
+        /* Chatbot Styles */
+        .chatbot-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+        }
+
+        .chat-messages {
+            background: white;
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message.user {
             background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
             color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
+            margin-left: auto;
+            text-align: right;
         }
 
-        .example-box strong {
-            display: block;
-            margin-bottom: 8px;
+        .message.ai {
+            background: #f1f3f4;
+            color: #333;
+            margin-right: auto;
+        }
+
+        .chat-input-container {
+            background: white;
+            padding: 20px;
+            border-radius: 0 0 15px 15px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+
+        .chat-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Exercise Styles */
+        .exercise-card {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .exercise-question {
             font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
+        .exercise-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .exercise-option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .exercise-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .exercise-option.selected {
+            border-color: #fdcb6e;
+            background: rgba(253, 203, 110, 0.3);
+        }
+
+        .exercise-option.correct {
+            border-color: #00b894;
+            background: rgba(0, 184, 148, 0.3);
+        }
+
+        .exercise-option.incorrect {
+            border-color: #e17055;
+            background: rgba(225, 112, 85, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-nav,
+            .lessons-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .chat-input-group {
+                flex-direction: column;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Utility Classes */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+
+        /* Timeline and other existing styles from original file */
         .comparison-table {
             background: white;
             border-radius: 15px;
@@ -412,37 +620,18 @@
             font-weight: 600;
         }
 
-        .enablers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .enabler-card {
-            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+        .example-box {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
             color: white;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
         }
 
-        .enabler-card:hover {
-            transform: scale(1.05);
-        }
-
-        .enabler-card.resource {
-            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
-        }
-
-        .enabler-type {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: inline-block;
-            margin-bottom: 15px;
+        .example-box strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
         }
 
         .highlight-box {
@@ -472,73 +661,22 @@
             padding: 30px;
             font-size: 0.9rem;
         }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .lessons-nav {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .principles-grid,
-            .enablers-grid,
-            .process-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .timeline-item {
-                margin-left: 40px;
-            }
-            
-            .timeline-item::before {
-                left: -35px;
-            }
-        }
-
-        .animated {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideInUp 0.6s ease forwards;
-        }
-
-        @keyframes slideInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .lesson-indicator {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
     </style>
 </head>
 <body>
-    <div class="lesson-indicator" id="lessonIndicator">Aula 01</div>
-    
     <div class="container">
-        <header class="header animated">
+        <header class="header">
             <h1>IMPLANTAÇÃO DE GOVERNANÇA COM COBIT</h1>
-            <p class="subtitle">Curso Completo - Aulas 01 e 02</p>
+            <p class="subtitle">Curso Completo - Sistema Interativo de Aprendizagem</p>
             
-            <div class="lessons-nav">
-                <div class="lesson-tab active" onclick="showLesson(1)">
-                    📚 Aula 01 - Introdução aos Conceitos
-                </div>
-                <div class="lesson-tab" onclick="showLesson(2)">
-                    🏗️ Aula 02 - Estrutura do COBIT
-                </div>
+            <div class="main-nav">
+                <button class="nav-tab active" onclick="showSection('home')">🏠 Início</button>
+                <button class="nav-tab" onclick="showSection('aulas')">📚 Aulas</button>
+                <button class="nav-tab" onclick="showSection('exercicios')">📝 Exercícios</button>
+                <button class="nav-tab" onclick="showSection('resumo')">📋 Resumo</button>
+                <button class="nav-tab" onclick="showSection('recursos')">🔧 Recursos</button>
+                <button class="nav-tab" onclick="showSection('cronograma')">📅 Cronograma</button>
+                <button class="nav-tab" onclick="showSection('chatbot')">🤖 Assistente IA</button>
             </div>
             
             <div class="professor-info">
@@ -564,564 +702,628 @@
             </div>
         </header>
 
-        <!-- AULA 01 -->
-        <div class="lesson-content active" id="lesson1">
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo1')">
-                    🎯 Passo 1: Conceitos Fundamentais
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo1" class="section-content expanded">
-                    <div class="step-content">
-                        <div class="step-counter">1.1</div>
-                        <div class="step-text">
-                            <h4>Eficácia vs Eficiência</h4>
-                            <div class="comparison-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Conceito</th>
-                                            <th>Definição</th>
-                                            <th>Exemplo Prático</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Eficácia</strong></td>
-                                            <td>Cumprir as tarefas/funções determinadas</td>
-                                            <td>Sistema de folha de pagamento que funciona corretamente</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Eficiência</strong></td>
-                                            <td>Cumprir tarefas otimizando recursos (gastando menos do que fornece)</td>
-                                            <td>Automatização que custa menos que o processo manual</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+        <!-- HOME SECTION -->
+        <section id="home" class="content-section active">
+            <h2 class="section-title">🎯 Bem-vindo ao Curso COBIT</h2>
+            <div class="concept-card">
+                <h4>Sobre o Curso</h4>
+                <p>Este curso aborda a implementação de governança de TI utilizando o framework COBIT, cobrindo desde conceitos fundamentais até aplicações práticas em organizações.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h4>🚀 O que você aprenderá:</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Conceitos fundamentais de governança de TI</li>
+                    <li>Estrutura e componentes do COBIT</li>
+                    <li>Diferenças entre governança e gerenciamento</li>
+                    <li>Os 5 fundamentos e 7 habilitadores do COBIT</li>
+                    <li>Aplicação prática em organizações</li>
+                </ul>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-card">
+                    <h3>Aula 01</h3>
+                    <p>Introdução aos conceitos fundamentais, frameworks para TI, evolução histórica do COBIT e suas características principais.</p>
+                </div>
+                <div class="process-card governance">
+                    <h3>Aula 02</h3>
+                    <p>Estrutura do COBIT, governança vs gerenciamento, os 5 processos/domínios e boas práticas de implementação.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AULAS SECTION -->
+        <section id="aulas" class="content-section">
+            <h2 class="section-title">📚 Aulas do Curso</h2>
+            
+            <div class="lessons-nav">
+                <button class="lesson-tab active" onclick="showLesson(1)">📖 Aula 01 - Conceitos Fundamentais</button>
+                <button class="lesson-tab" onclick="showLesson(2)">🏗️ Aula 02 - Estrutura do COBIT</button>
+            </div>
+
+            <!-- AULA 01 CONTENT -->
+            <div id="lesson1-content" class="lesson-content">
+                <div class="step-content">
+                    <div class="step-counter">1.1</div>
+                    <div class="step-text">
+                        <h4>Eficácia vs Eficiência</h4>
+                        <div class="comparison-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Conceito</th>
+                                        <th>Definição</th>
+                                        <th>Exemplo Prático</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Eficácia</strong></td>
+                                        <td>Cumprir as tarefas/funções determinadas</td>
+                                        <td>Sistema de folha de pagamento que funciona corretamente</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Eficiência</strong></td>
+                                        <td>Cumprir tarefas otimizando recursos (gastando menos do que fornece)</td>
+                                        <td>Automatização que custa menos que o processo manual</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
 
-                    <div class="step-content">
-                        <div class="step-counter">1.2</div>
-                        <div class="step-text">
-                            <h4>Controle Interno</h4>
-                            <div class="concept-card">
-                                <h4>Objetivos do Controle Interno</h4>
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Garantir confiabilidade das demonstrações financeiras</li>
-                                    <li>Assegurar conformidade com leis e regulamentos vigentes</li>
-                                </ul>
+                <div class="step-content">
+                    <div class="step-counter">1.2</div>
+                    <div class="step-text">
+                        <h4>Evolução Histórica do COBIT</h4>
+                        <div class="evolution-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-year">Início - Auditoria</div>
+                                <p>Primeiras versões focadas em auditoria de sistemas</p>
                             </div>
-                            <div class="example-box">
-                                <strong>Exemplo Prático:</strong>
-                                Um processo de automatização da folha de pagamento é eficaz se funciona, mas só é eficiente se seu custo mensal for inferior ao que seria gasto com pessoas fazendo o mesmo trabalho manualmente.
+                            <div class="timeline-item">
+                                <div class="timeline-year">2012 - COBIT 5</div>
+                                <p><strong>Grande revolução:</strong> Integração da governança de TI com a governança corporativa</p>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">2019 - COBIT 2019</div>
+                                <p>Versão ainda mais abrangente e atual</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo2')">
-                    🏗️ Passo 2: Frameworks para TI
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo2" class="section-content expanded">
-                    <div class="step-content">
-                        <div class="step-counter">2.1</div>
-                        <div class="step-text">
-                            <h4>Necessidade de Framework Específico</h4>
-                            <div class="concept-card">
-                                <h4>Por que COBIT e não apenas COSO?</h4>
-                                <p><strong>COSO:</strong> Framework de controle interno geral, mas não trata especificamente de TI</p>
-                                <p><strong>Solução:</strong> Utilizar frameworks específicos como COBIT ou ITIL v4 (que agora também aborda governança)</p>
+                <div class="step-content">
+                    <div class="step-counter">1.3</div>
+                    <div class="step-text">
+                        <h4>Os 5 Fundamentos do COBIT</h4>
+                        <div class="principles-grid">
+                            <div class="principle-card">
+                                <h3>Atendimento das Necessidades das Partes Interessadas</h3>
+                                <p>Foco em atender stakeholders e demonstrar valor gerado pela TI.</p>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="step-content">
-                        <div class="step-counter">2.2</div>
-                        <div class="step-text">
-                            <h4>Geração de Valor</h4>
-                            <div class="highlight-box">
-                                <h4 style="--icon: '💎';">💎 A TI deve gerar valor demonstrável</h4>
-                                <p>A área de TI deve:</p>
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Gerar valor real para a organização</li>
-                                    <li>Não ser apenas uma área de gastos</li>
-                                    <li>Demonstrar eficiência de forma transparente</li>
-                                    <li>Ter processos medidos e transparentes</li>
-                                    <li>Atender requisitos de conformidade legais e regulatórios</li>
-                                </ul>
+                            <div class="principle-card">
+                                <h3>Cobertura de Todas as Áreas</h3>
+                                <p>Visão holística que não deixa nenhuma área de fora.</p>
+                            </div>
+                            <div class="principle-card">
+                                <h3>Aplicação de Estrutura Integrada</h3>
+                                <p>Uma única estrutura unificada, não vários frameworks separados.</p>
+                            </div>
+                            <div class="principle-card">
+                                <h3>Habilitar Abordagem Holística</h3>
+                                <p>Tratar a organização como um sistema integrado.</p>
+                            </div>
+                            <div class="principle-card">
+                                <h3>Separar Governança de Gerenciamento</h3>
+                                <p>Distinção clara entre estratégico e operacional.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo3')">
-                    📈 Passo 3: Evolução Histórica do COBIT
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo3" class="section-content expanded">
-                    <div class="evolution-timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-year">Início - Auditoria</div>
-                            <p>Primeiras versões focadas em auditoria de sistemas</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">Evolução - Controle</div>
-                            <p>Expansão para controles internos de TI</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">Crescimento - Gerenciamento</div>
-                            <p>Incorporação de práticas de gerenciamento de TI</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2012 - COBIT 5</div>
-                            <p><strong>Grande revolução:</strong> Integração da governança de TI com a governança corporativa. Versões anteriores tratavam governança de TI de forma isolada.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2019 - COBIT 2019</div>
-                            <p>Versão ainda mais abrangente e atual</p>
+            <!-- AULA 02 CONTENT -->
+            <div id="lesson2-content" class="lesson-content hidden">
+                <div class="step-content">
+                    <div class="step-counter">2.1</div>
+                    <div class="step-text">
+                        <h4>Governança vs Gerenciamento</h4>
+                        <div class="comparison-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Aspecto</th>
+                                        <th>Governança</th>
+                                        <th>Gerenciamento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Nível</strong></td>
+                                        <td>Estratégico</td>
+                                        <td>Execução/Operacional</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Função</strong></td>
+                                        <td>Define diretrizes, políticas e objetivos</td>
+                                        <td>Implementa e operacionaliza as diretrizes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Responsabilidade</strong></td>
+                                        <td>Definir "o que" deve ser feito</td>
+                                        <td>Definir "como" fazer</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo4')">
-                    🌟 Passo 4: Características do COBIT 5
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo4" class="section-content expanded">
-                    <div class="step-content">
-                        <div class="step-counter">4.1</div>
-                        <div class="step-text">
-                            <h4>Visão Holística</h4>
-                            <div class="concept-card">
-                                <h4>Por que holística?</h4>
-                                <p><strong>Definição:</strong> Trata todas as necessidades e áreas da empresa</p>
-                                <p><strong>Justificativa:</strong> A TI é pervasiva - está presente em todas as áreas da organização. Não existe área empresarial que não tenha pelo menos um mínimo de tecnologia da informação.</p>
+                <div class="step-content">
+                    <div class="step-counter">2.2</div>
+                    <div class="step-text">
+                        <h4>Os 5 Processos/Domínios do COBIT</h4>
+                        <div class="process-grid">
+                            <div class="process-card governance">
+                                <div class="process-type">GOVERNANÇA</div>
+                                <h3>EDM - Evaluate, Direct and Monitor</h3>
+                                <p>Contém 5 processos onde são definidas práticas de avaliação, direção e monitoração.</p>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="step-content">
-                        <div class="step-counter">4.2</div>
-                        <div class="step-text">
-                            <h4>Framework Genérico</h4>
-                            <div class="concept-card">
-                                <h4>Aplicabilidade Universal</h4>
-                                <p>Definições genéricas aplicáveis a:</p>
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Qualquer tipo de organização</li>
-                                    <li>Qualquer tamanho de empresa</li>
-                                    <li>Desde pequenas empresas até corporações gigantes</li>
-                                </ul>
+                            <div class="process-card">
+                                <div class="process-type">GERENCIAMENTO</div>
+                                <h3>APO - Align, Plan and Organise</h3>
+                                <p>Identifica formas através das quais a TI pode contribuir para atender objetivos de negócio.</p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo5')">
-                    🏛️ Passo 5: Os 5 Fundamentos do COBIT
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo5" class="section-content expanded">
-                    <div class="principles-grid">
-                        <div class="principle-card">
-                            <h3>Atendimento das Necessidades das Partes Interessadas</h3>
-                            <p>Foco em atender stakeholders e demonstrar valor gerado pela TI.</p>
-                        </div>
-                        <div class="principle-card">
-                            <h3>Cobertura de Todas as Áreas da Empresa</h3>
-                            <p>Visão do todo - abordagem holística que não deixa nenhuma área de fora.</p>
-                        </div>
-                        <div class="principle-card">
-                            <h3>Aplicação de Estrutura Integrada</h3>
-                            <p>Não ter vários frameworks trabalhando separadamente, mas uma única estrutura unificada.</p>
-                        </div>
-                        <div class="principle-card">
-                            <h3>Habilitar Abordagem Holística</h3>
-                            <p>Permitir que a governança trate a organização como um sistema integrado.</p>
-                        </div>
-                        <div class="principle-card">
-                            <h3>Separar Governança de Gerenciamento</h3>
-                            <p><strong>Fundamental:</strong> Distinção clara entre governança (estratégico) e gerenciamento (operacional).</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo6')">
-                    🔧 Passo 6: Facilitadores/Habilitadores
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo6" class="section-content expanded">
-                    <div class="concept-card">
-                        <h4>Definição de Habilitadores</h4>
-                        <p>Fatores que, individual ou coletivamente, influenciam a forma como a governança e gerenciamento de TI funcionam.</p>
-                    </div>
-
-                    <h3 style="margin: 30px 0 15px 0; color: #2c3e50;">Estruturais</h3>
-                    <div class="enablers-grid">
-                        <div class="enabler-card">
-                            <div class="enabler-type">ESTRUTURAL</div>
-                            <h4>Princípios, Políticas e Modelos</h4>
-                            <p>Diretrizes fundamentais da organização</p>
-                        </div>
-                        <div class="enabler-card">
-                            <div class="enabler-type">ESTRUTURAL</div>
-                            <h4>Processos</h4>
-                            <p>Atividades organizadas para atingir objetivos</p>
-                        </div>
-                        <div class="enabler-card">
-                            <div class="enabler-type">ESTRUTURAL</div>
-                            <h4>Estruturas Organizacionais</h4>
-                            <p>Como a organização está estruturada</p>
-                        </div>
-                        <div class="enabler-card">
-                            <div class="enabler-type">ESTRUTURAL</div>
-                            <h4>Cultura, Ética e Comportamento</h4>
-                            <p>Aspectos humanos e culturais</p>
-                        </div>
-                    </div>
-
-                    <h3 style="margin: 30px 0 15px 0; color: #2c3e50;">Recursos</h3>
-                    <div class="enablers-grid">
-                        <div class="enabler-card resource">
-                            <div class="enabler-type">RECURSO</div>
-                            <h4>Informação</h4>
-                            <p><strong>Recurso mais valioso</strong> da organização</p>
-                        </div>
-                        <div class="enabler-card resource">
-                            <div class="enabler-type">RECURSO</div>
-                            <h4>Serviços, Infraestrutura e Aplicativos</h4>
-                            <p>Tecnologia e sistemas da organização</p>
-                        </div>
-                        <div class="enabler-card resource">
-                            <div class="enabler-type">RECURSO</div>
-                            <h4>Pessoas, Habilidades e Competências</h4>
-                            <p>Capital humano e conhecimento</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- AULA 02 -->
-        <div class="lesson-content" id="lesson2">
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo7')">
-                    🔄 Passo 7: Governança vs Gerenciamento
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo7" class="section-content expanded">
-                    <div class="step-content">
-                        <div class="step-counter">7.1</div>
-                        <div class="step-text">
-                            <h4>Separação Fundamental</h4>
-                            <div class="comparison-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Aspecto</th>
-                                            <th>Governança</th>
-                                            <th>Gerenciamento</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Nível</strong></td>
-                                            <td>Estratégico</td>
-                                            <td>Execução/Operacional</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Função</strong></td>
-                                            <td>Define diretrizes, políticas e objetivos</td>
-                                            <td>Implementa e operacionaliza as diretrizes</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Responsabilidade</strong></td>
-                                            <td>Definir "o que" deve ser feito</td>
-                                            <td>Definir "como" fazer</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="process-card">
+                                <div class="process-type">GERENCIAMENTO</div>
+                                <h3>BAI - Build, Acquire and Implement</h3>
+                                <p>Processo de construção ou aquisição e implementação de soluções de TI.</p>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="step-content">
-                        <div class="step-counter">7.2</div>
-                        <div class="step-text">
-                            <h4>Objetivo Principal do COBIT</h4>
-                            <div class="highlight-box">
-                                <h4 style="--icon: '🎯';">🎯 Missão do COBIT</h4>
-                                <p>Ajudar a empresa a atingir seus objetivos através da governança e gerenciamento eficaz de TI, separando adequadamente essas duas funções e demonstrando valor de forma clara para as partes interessadas.</p>
+                            <div class="process-card">
+                                <div class="process-type">GERENCIAMENTO</div>
+                                <h3>DSS - Deliver, Service and Support</h3>
+                                <p>O dia a dia da TI. Entrega de valor para os usuários através de soluções implementadas.</p>
+                            </div>
+                            <div class="process-card">
+                                <div class="process-type">GERENCIAMENTO</div>
+                                <h3>MEA - Monitor, Evaluate and Assess</h3>
+                                <p>Assegura qualidade dos processos e fornece subsídios para a governança.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo8')">
-                    🌐 Passo 8: Governança Holística e Demonstração de Valor
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo8" class="section-content expanded">
-                    <div class="step-content">
-                        <div class="step-counter">8.1</div>
-                        <div class="step-text">
-                            <h4>Governança Holística</h4>
-                            <div class="concept-card">
-                                <h4>Abordagem Completa</h4>
-                                <p>Abranja todas as partes da empresa, não deixando nada do lado de fora. O COBIT é aplicável a empresas de qualquer natureza ou porte, fornecendo um conjunto de boas práticas genéricas.</p>
-                            </div>
-                        </div>
+        <!-- EXERCÍCIOS SECTION -->
+        <section id="exercicios" class="content-section">
+            <h2 class="section-title">📝 Exercícios Práticos</h2>
+            
+            <div id="exercise1" class="exercise-card">
+                <div class="exercise-question">1. Qual a principal diferença entre eficácia e eficiência em TI?</div>
+                <div class="exercise-options">
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        a) Eficácia é fazer certo, eficiência é fazer rápido
                     </div>
-
-                    <div class="step-content">
-                        <div class="step-counter">8.2</div>
-                        <div class="step-text">
-                            <h4>Demonstração de Valor</h4>
-                            <div class="concept-card">
-                                <h4>TI fora do isolamento</h4>
-                                <p>A TI não só deve agregar valor para a empresa, mas isso deve ser demonstrado de forma clara para as partes interessadas, tirando a TI do isolamento em que vivia décadas atrás.</p>
-                            </div>
-                        </div>
+                    <div class="exercise-option" onclick="selectOption(this, true)">
+                        b) Eficácia é cumprir as funções, eficiência é otimizar recursos
+                    </div>
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        c) Não há diferença entre os conceitos
+                    </div>
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        d) Eficiência é mais importante que eficácia
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo9')">
-                    ⚙️ Passo 9: Os 5 Processos/Domínios do COBIT
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo9" class="section-content expanded">
-                    <div class="highlight-box">
-                        <h4 style="--icon: '📊';">📊 Estrutura dos Domínios</h4>
-                        <p><strong>1 Domínio de Governança:</strong> EDM (Evaluate, Direct and Monitor)</p>
-                        <p><strong>4 Domínios de Gerenciamento:</strong> APO, BAI, DSS, MEA</p>
+            <div id="exercise2" class="exercise-card">
+                <div class="exercise-question">2. Quantos domínios possui o COBIT e qual é focado exclusivamente em governança?</div>
+                <div class="exercise-options">
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        a) 4 domínios, sendo APO o de governança
                     </div>
-
-                    <div class="process-grid">
-                        <div class="process-card governance">
-                            <div class="process-type">GOVERNANÇA</div>
-                            <h3>EDM - Evaluate, Direct and Monitor</h3>
-                            <p><strong>Avaliar, Dirigir e Monitorar</strong></p>
-                            <p>Contém 5 processos de governança onde são definidas as práticas de avaliação, direção e monitoração. É o único domínio focado especificamente em governança.</p>
-                        </div>
-
-                        <div class="process-card">
-                            <div class="process-type">GERENCIAMENTO</div>
-                            <h3>APO - Align, Plan and Organise</h3>
-                            <p><strong>Alinhar, Planejar e Organizar</strong></p>
-                            <p>Tem abrangência estratégica e identifica formas através das quais a TI pode contribuir para atender os objetivos de negócio. Não determina os objetivos, mas como a TI pode agir para atendê-los.</p>
-                        </div>
-
-                        <div class="process-card">
-                            <div class="process-type">GERENCIAMENTO</div>
-                            <h3>BAI - Build, Acquire and Implement</h3>
-                            <p><strong>Construir, Adquirir e Implementar</strong></p>
-                            <p>Trata do processo de construção ou aquisição e implementação de soluções de TI. Inclui mudanças e manutenções de sistemas. Prioriza-se a aquisição de soluções prontas do mercado.</p>
-                        </div>
-
-                        <div class="process-card">
-                            <div class="process-type">GERENCIAMENTO</div>
-                            <h3>DSS - Deliver, Service and Support</h3>
-                            <p><strong>Entregar, Serviço e Suporte</strong></p>
-                            <p>O dia a dia da TI. Quando você já tem a solução implementada e vai utilizá-la para entregar valor para os usuários. É a parte do gerenciamento cotidiano da tecnologia da informação.</p>
-                        </div>
-
-                        <div class="process-card">
-                            <div class="process-type">GERENCIAMENTO</div>
-                            <h3>MEA - Monitor, Evaluate and Assess</h3>
-                            <p><strong>Monitorar, Avaliar e Medir</strong></p>
-                            <p>Assegura a qualidade dos processos, bem como governança e conformidade. Fornece subsídios para o domínio de governança através de mecanismos adequados de avaliação.</p>
-                        </div>
+                    <div class="exercise-option" onclick="selectOption(this, true)">
+                        b) 5 domínios, sendo EDM o de governança
+                    </div>
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        c) 6 domínios, sendo MEA o de governança
+                    </div>
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        d) 3 domínios, sendo DSS o de governança
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo10')">
-                    🏗️ Passo 10: Build vs Acquire - Boas Práticas
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo10" class="section-content expanded">
-                    <div class="step-content">
-                        <div class="step-counter">10.1</div>
-                        <div class="step-text">
-                            <h4>Regra Atual: Priorizar Aquisição</h4>
-                            <div class="concept-card">
-                                <h4>Estratégia Recomendada</h4>
-                                <p><strong>Regra:</strong> Sempre tentar adquirir soluções do mercado prontas e implementá-las com o mínimo de personalização possível.</p>
-                            </div>
-                            
-                            <div class="example-box">
-                                <strong>Por que evitar desenvolvimento interno?</strong>
-                                Desenvolver internamente significa ser responsável por:
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Desenvolvimento completo</li>
-                                    <li>Implementação</li>
-                                    <li>Suporte contínuo</li>
-                                </ul>
-                                Essas tarefas são pesadas e geralmente fogem da expertise e do negócio principal da empresa.
-                            </div>
-                        </div>
+            <div id="exercise3" class="exercise-card">
+                <div class="exercise-question">3. Qual é o objetivo principal do COBIT?</div>
+                <div class="exercise-options">
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        a) Substituir outros frameworks de TI
                     </div>
-
-                    <div class="step-content">
-                        <div class="step-counter">10.2</div>
-                        <div class="step-text">
-                            <h4>Quando Construir Internamente</h4>
-                            <div class="concept-card">
-                                <h4>Exceções à Regra</h4>
-                                <p>Eventualmente há necessidade de construir internamente quando:</p>
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Não existe solução pronta no mercado</li>
-                                    <li>As necessidades são muito específicas</li>
-                                    <li>Representa diferencial competitivo estratégico</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="exercise-option" onclick="selectOption(this, true)">
+                        b) Ajudar empresas a atingir objetivos através de governança eficaz de TI
+                    </div>
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        c) Apenas auditar sistemas de informação
+                    </div>
+                    <div class="exercise-option" onclick="selectOption(this, false)">
+                        d) Focar exclusivamente em gerenciamento operacional
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section class="content-section animated">
-                <h2 class="section-title" onclick="toggleSection('passo11')">
-                    🎯 Passo 11: Características Finais do Framework
-                    <span class="toggle-icon">▼</span>
-                </h2>
-                <div id="passo11" class="section-content expanded">
-                    <div class="step-content">
-                        <div class="step-counter">11.1</div>
-                        <div class="step-text">
-                            <h4>Framework Genérico e Abrangente</h4>
-                            <div class="concept-card">
-                                <h4>Aplicabilidade Universal</h4>
-                                <p>O COBIT não é um "guia do como fazer" específico, mas sim um conjunto de boas práticas que podem ser aplicadas em organizações de qualquer natureza ou porte.</p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="text-center mt-20">
+                <button class="send-button" onclick="checkAllAnswers()">✅ Verificar Respostas</button>
+                <button class="send-button" onclick="resetExercises()" style="margin-left: 10px;">🔄 Reiniciar</button>
+            </div>
+        </section>
 
-                    <div class="step-content">
-                        <div class="step-counter">11.2</div>
-                        <div class="step-text">
-                            <h4>Conexão com Governança Corporativa</h4>
-                            <div class="concept-card">
-                                <h4>Integração Estratégica</h4>
-                                <p>A governança de TI está diretamente atrelada à governança corporativa, sendo partes distintas mas complementares do mesmo sistema organizacional.</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- RESUMO SECTION -->
+        <section id="resumo" class="content-section">
+            <h2 class="section-title">📋 Resumo do Curso</h2>
+            
+            <div class="concept-card">
+                <h4>Conceitos Fundamentais</h4>
+                <p><strong>Eficácia:</strong> Cumprir tarefas/funções determinadas</p>
+                <p><strong>Eficiência:</strong> Cumprir tarefas otimizando recursos</p>
+                <p><strong>Controle Interno:</strong> Garantir confiabilidade e conformidade</p>
+            </div>
 
-                    <div class="step-content">
-                        <div class="step-counter">11.3</div>
-                        <div class="step-text">
-                            <h4>Objetivo Final</h4>
-                            <div class="highlight-box">
-                                <h4 style="--icon: '🚀';">🚀 Meta do COBIT</h4>
-                                <p>Fornecer subsídios adequados para que o domínio de governança (EDM) seja efetivamente implementado na organização, criando valor demonstrável através de TI alinhada aos objetivos de negócio.</p>
-                            </div>
-                        </div>
+            <div class="concept-card">
+                <h4>5 Fundamentos do COBIT</h4>
+                <ol style="margin: 10px 0 0 20px;">
+                    <li>Atendimento das necessidades das partes interessadas</li>
+                    <li>Cobertura de todas as áreas da empresa</li>
+                    <li>Aplicação de estrutura integrada</li>
+                    <li>Habilitar abordagem holística</li>
+                    <li>Separar governança de gerenciamento</li>
+                </ol>
+            </div>
+
+            <div class="concept-card">
+                <h4>5 Domínios do COBIT</h4>
+                <p><strong>EDM</strong> - Evaluate, Direct and Monitor (Governança)</p>
+                <p><strong>APO</strong> - Align, Plan and Organise (Gerenciamento)</p>
+                <p><strong>BAI</strong> - Build, Acquire and Implement (Gerenciamento)</p>
+                <p><strong>DSS</strong> - Deliver, Service and Support (Gerenciamento)</p>
+                <p><strong>MEA</strong> - Monitor, Evaluate and Assess (Gerenciamento)</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>🎯 Pontos-Chave para Memorizar</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>COBIT integra governança de TI com governança corporativa</li>
+                    <li>Framework genérico aplicável a qualquer organização</li>
+                    <li>Separação clara entre governança (estratégico) e gerenciamento (operacional)</li>
+                    <li>Priorizar aquisição de soluções prontas sobre desenvolvimento interno</li>
+                    <li>TI deve demonstrar valor de forma transparente</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- RECURSOS SECTION -->
+        <section id="recursos" class="content-section">
+            <h2 class="section-title">🔧 Recursos Adicionais</h2>
+            
+            <div class="process-grid">
+                <div class="process-card">
+                    <h3>📖 Materiais de Estudo</h3>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Slides das aulas em PDF</li>
+                        <li>Resumos executivos</li>
+                        <li>Mapas mentais</li>
+                        <li>Glossário de termos</li>
+                    </ul>
+                </div>
+                
+                <div class="process-card governance">
+                    <h3>🎥 Conteúdo Multimídia</h3>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Vídeo-aulas gravadas</li>
+                        <li>Webinars complementares</li>
+                        <li>Estudos de caso</li>
+                        <li>Entrevistas com especialistas</li>
+                    </ul>
+                </div>
+                
+                <div class="process-card">
+                    <h3>📚 Bibliografia</h3>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>COBIT 2019 Framework</li>
+                        <li>Livros sobre Governança de TI</li>
+                        <li>Artigos acadêmicos</li>
+                        <li>Cases empresariais</li>
+                    </ul>
+                </div>
+                
+                <div class="process-card governance">
+                    <h3>🔗 Links Úteis</h3>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Site oficial ISACA</li>
+                        <li>Documentação COBIT</li>
+                        <li>Comunidades de prática</li>
+                        <li>Fóruns de discussão</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CRONOGRAMA SECTION -->
+        <section id="cronograma" class="content-section">
+            <h2 class="section-title">📅 Cronograma do Curso</h2>
+            
+            <div class="evolution-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Semana 1</div>
+                    <strong>Aula 01 - Conceitos Fundamentais</strong>
+                    <p>• Eficácia vs Eficiência<br>• Frameworks para TI<br>• Evolução do COBIT<br>• 5 Fundamentos</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">Semana 2</div>
+                    <strong>Aula 02 - Estrutura do COBIT</strong>
+                    <p>• Governança vs Gerenciamento<br>• 5 Domínios/Processos<br>• Build vs Acquire<br>• Exercícios Práticos</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">Semana 3</div>
+                    <strong>Revisão e Avaliação</strong>
+                    <p>• Revisão geral do conteúdo<br>• Exercícios complementares<br>• Estudos de caso<br>• Avaliação final</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">Semana 4</div>
+                    <strong>Projeto Final</strong>
+                    <p>• Elaboração de projeto<br>• Aplicação prática<br>• Apresentação<br>• Feedback e certificação</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>📋 Entregas e Prazos</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li><strong>Exercícios Aula 01:</strong> Até o final da Semana 1</li>
+                    <li><strong>Exercícios Aula 02:</strong> Até o final da Semana 2</li>
+                    <li><strong>Avaliação Intermediária:</strong> Semana 3</li>
+                    <li><strong>Projeto Final:</strong> Semana 4</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CHATBOT SECTION -->
+        <section id="chatbot" class="content-section">
+            <h2 class="section-title">🤖 Assistente de IA - Professor Virtual</h2>
+            
+            <div class="chatbot-container">
+                <div class="chat-header">
+                    <h3>💬 Assistente COBIT</h3>
+                    <p>Tire suas dúvidas sobre o conteúdo das aulas</p>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai">
+                        Olá! Eu sou seu assistente virtual para o curso de COBIT. Posso ajudar com dúvidas sobre:
+                        <br>• Conceitos fundamentais
+                        <br>• Estrutura do COBIT
+                        <br>• Diferenças entre governança e gerenciamento
+                        <br>• Os 5 domínios e processos
+                        <br>• Exercícios e exemplos práticos
+                        <br><br>Como posso ajudar você hoje?
                     </div>
                 </div>
-            </section>
-        </div>
+                
+                <div class="chat-input-container">
+                    <div class="chat-input-group">
+                        <input type="text" id="chatInput" class="chat-input" placeholder="Digite sua pergunta sobre COBIT..." onkeypress="handleChatKeyPress(event)">
+                        <button id="sendButton" class="send-button" onclick="sendMessage()">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <footer class="footer">
             <p>© 2025 - Disciplina: Implantação de Governança com COBIT | Professor: Eder José Cassimiro</p>
-            <p>Material completo baseado nas Aulas 01 e 02 - Conceitos e Estrutura do COBIT</p>
+            <p>Sistema Interativo de Aprendizagem com IA</p>
         </footer>
     </div>
 
     <script>
-        // Variáveis globais
+        // Configuração da API Gemini
+        const GEMINI_API_KEY = 'AIzaSyCRfarEDTrIlXNPdonkf-KNAU414KrGnEQ';
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+
+        // Contexto do curso para a IA
+        const courseContext = `
+        Você é um assistente virtual especializado no curso "Implantação de Governança com COBIT". 
+        Você deve responder apenas perguntas relacionadas ao conteúdo das aulas 01 e 02.
+
+        CONTEÚDO DAS AULAS:
+
+        AULA 01 - CONCEITOS FUNDAMENTAIS:
+        - Eficácia vs Eficiência: Eficácia é cumprir tarefas/funções, eficiência é otimizar recursos
+        - Controle Interno: garantir confiabilidade das demonstrações financeiras e conformidade
+        - Frameworks para TI: necessidade de frameworks específicos como COBIT
+        - Evolução do COBIT: de auditoria para governança integrada (COBIT 5 em 2012)
+        - 5 Fundamentos: 1)Atender necessidades stakeholders, 2)Cobertura holística, 3)Estrutura integrada, 4)Abordagem holística, 5)Separar governança de gerenciamento
+        - 7 Habilitadores: Princípios/políticas, Processos, Estruturas organizacionais, Cultura/ética, Informação, Serviços/infraestrutura, Pessoas/competências
+
+        AULA 02 - ESTRUTURA DO COBIT:
+        - Governança vs Gerenciamento: estratégico vs operacional
+        - 5 Domínios: EDM (governança), APO, BAI, DSS, MEA (gerenciamento)
+        - EDM: Evaluate, Direct and Monitor
+        - APO: Align, Plan and Organise
+        - BAI: Build, Acquire and Implement
+        - DSS: Deliver, Service and Support  
+        - MEA: Monitor, Evaluate and Assess
+        - Build vs Acquire: priorizar aquisição de soluções prontas
+
+        Responda de forma didática, clara e sempre relacionada ao conteúdo do curso.
+        `;
+
+        // Estado da aplicação
+        let currentSection = 'home';
         let currentLesson = 1;
 
-        // Animação de entrada dos elementos
-        document.addEventListener('DOMContentLoaded', function() {
-            const animatedElements = document.querySelectorAll('.animated');
-            animatedElements.forEach((element, index) => {
-                setTimeout(() => {
-                    element.style.animationDelay = `${index * 0.2}s`;
-                }, index * 100);
+        // Funções de navegação
+        function showSection(sectionName) {
+            // Remove active de todas as seções e tabs
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
             });
-        });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
 
-        // Função para alternar entre aulas
-        function showLesson(lessonNumber) {
-            // Remover classe active de todas as tabs e conteúdos
-            document.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.lesson-content').forEach(content => content.classList.remove('active'));
+            // Ativa a seção e tab correspondente
+            document.getElementById(sectionName).classList.add('active');
+            event.target.classList.add('active');
             
-            // Adicionar classe active na tab e conteúdo selecionados
-            document.querySelectorAll('.lesson-tab')[lessonNumber - 1].classList.add('active');
-            document.getElementById(`lesson${lessonNumber}`).classList.add('active');
-            
-            // Atualizar indicador
-            document.getElementById('lessonIndicator').textContent = `Aula ${lessonNumber < 10 ? '0' : ''}${lessonNumber}`;
-            currentLesson = lessonNumber;
+            currentSection = sectionName;
             
             // Scroll para o topo
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Função para toggle das seções
-        function toggleSection(sectionId) {
-            const content = document.getElementById(sectionId);
-            const icon = content.previousElementSibling.querySelector('.toggle-icon');
+        function showLesson(lessonNumber) {
+            // Remove active de todas as lesson tabs
+            document.querySelectorAll('.lesson-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
             
-            if (content.classList.contains('collapsed')) {
-                content.classList.remove('collapsed');
-                content.classList.add('expanded');
-                icon.textContent = '▼';
-                icon.style.transform = 'rotate(0deg)';
+            // Esconde todo conteúdo de aulas
+            document.querySelectorAll('.lesson-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Ativa a tab e mostra o conteúdo da aula
+            event.target.classList.add('active');
+            document.getElementById(`lesson${lessonNumber}-content`).classList.remove('hidden');
+            
+            currentLesson = lessonNumber;
+        }
+
+        // Funções dos exercícios
+        function selectOption(element, isCorrect) {
+            const options = element.parentElement.querySelectorAll('.exercise-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            element.dataset.correct = isCorrect;
+        }
+
+        function checkAllAnswers() {
+            document.querySelectorAll('.exercise-card').forEach(card => {
+                const options = card.querySelectorAll('.exercise-option');
+                options.forEach(option => {
+                    if (option.classList.contains('selected')) {
+                        if (option.dataset.correct === 'true') {
+                            option.classList.add('correct');
+                        } else {
+                            option.classList.add('incorrect');
+                        }
+                    }
+                });
+            });
+        }
+
+        function resetExercises() {
+            document.querySelectorAll('.exercise-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                delete option.dataset.correct;
+            });
+        }
+
+        // Funções do chatbot
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            const messagesContainer = document.getElementById('chatMessages');
+            const sendButton = document.getElementById('sendButton');
+            
+            // Adiciona mensagem do usuário
+            addMessage(message, 'user');
+            
+            // Limpa input e desabilita botão
+            input.value = '';
+            sendButton.disabled = true;
+            sendButton.innerHTML = '<div class="loading"></div>';
+            
+            try {
+                // Chama API do Gemini
+                const response = await callGeminiAPI(message);
+                addMessage(response, 'ai');
+            } catch (error) {
+                console.error('Erro na API:', error);
+                addMessage('Desculpe, ocorreu um erro. Tente novamente em alguns instantes.', 'ai');
+            }
+            
+            // Reabilita botão
+            sendButton.disabled = false;
+            sendButton.innerHTML = 'Enviar';
+            
+            // Scroll para última mensagem
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.textContent = text;
+            messagesContainer.appendChild(messageDiv);
+        }
+
+        async function callGeminiAPI(userMessage) {
+            const prompt = `${courseContext}\n\nPergunta do aluno: ${userMessage}`;
+            
+            const requestBody = {
+                contents: [{
+                    parts: [{
+                        text: prompt
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.7,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 1024,
+                }
+            };
+
+            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                return data.candidates[0].content.parts[0].text;
             } else {
-                content.classList.remove('expanded');
-                content.classList.add('collapsed');
-                icon.textContent = '▶';
-                icon.style.transform = 'rotate(-90deg)';
+                throw new Error('Resposta inválida da API');
             }
         }
 
-        // Efeitos interativos nos cards
-        document.querySelectorAll('.principle-card, .enabler-card, .concept-card, .process-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.02)';
-                this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.25)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-                this.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.15)';
-            });
-        });
-
-        // Smooth scroll para navegação interna
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
 
         // Navegação por teclado
         document.addEventListener('keydown', function(e) {
@@ -1129,73 +1331,72 @@
                 switch(e.key) {
                     case '1':
                         e.preventDefault();
-                        showLesson(1);
+                        showSection('home');
                         break;
                     case '2':
                         e.preventDefault();
-                        showLesson(2);
+                        showSection('aulas');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        showSection('exercicios');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        showSection('chatbot');
                         break;
                 }
             }
         });
 
-        // Destaque de seções ao scroll
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('.content-section');
-            const scrollPos = window.scrollY + 200;
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-
-                if (scrollPos >= sectionTop && scrollPos <= sectionTop + sectionHeight) {
-                    section.style.transform = 'scale(1.005)';
-                    section.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.15)';
-                } else {
-                    section.style.transform = 'scale(1)';
-                    section.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
-                }
-            });
-        });
-
-        // Progress tracker
-        function updateProgress() {
-            const totalSteps = 11;
-            const visibleSections = document.querySelectorAll('.section-content.expanded').length;
-            const progress = (visibleSections / totalSteps) * 100;
-            
-            console.log(`Progresso: ${Math.round(progress)}% (${visibleSections}/${totalSteps} seções abertas)`);
-        }
-
-        // Auto-save progress (simulado)
+        // Auto-save progress
         setInterval(() => {
+            localStorage.setItem('cobit_current_section', currentSection);
             localStorage.setItem('cobit_current_lesson', currentLesson);
             localStorage.setItem('cobit_timestamp', new Date().getTime());
-        }, 30000); // Save every 30 seconds
+        }, 30000);
 
         // Load saved progress
         window.addEventListener('load', function() {
-            const savedLesson = localStorage.getItem('cobit_current_lesson');
-            if (savedLesson && savedLesson !== currentLesson.toString()) {
-                showLesson(parseInt(savedLesson));
+            const savedSection = localStorage.getItem('cobit_current_section');
+            if (savedSection && savedSection !== 'home') {
+                // Simular clique na aba salva
+                const savedTab = document.querySelector(`[onclick="showSection('${savedSection}')"]`);
+                if (savedTab) savedTab.click();
             }
         });
 
-        // Tooltip system for enhanced interactivity
-        function addTooltips() {
-            const cards = document.querySelectorAll('.process-card, .principle-card');
-            cards.forEach(card => {
-                card.setAttribute('title', 'Clique para mais detalhes');
-                card.addEventListener('click', function() {
-                    const title = this.querySelector('h3').textContent;
-                    console.log(`Detalhes de: ${title}`);
-                    // Aqui poderia abrir um modal ou expandir detalhes
+        // Animações e efeitos visuais
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adicionar efeitos hover nos cards
+            document.querySelectorAll('.process-card, .principle-card, .concept-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                    this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.25)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.15)';
                 });
             });
-        }
+        });
 
-        // Initialize tooltips after DOM load
-        document.addEventListener('DOMContentLoaded', addTooltips);
+        // Prevenção de spam no chat
+        let lastMessageTime = 0;
+        const originalSendMessage = sendMessage;
+        sendMessage = function() {
+            const now = Date.now();
+            if (now - lastMessageTime < 2000) { // 2 segundos entre mensagens
+                return;
+            }
+            lastMessageTime = now;
+            originalSendMessage();
+        };
+
+        console.log('🚀 Sistema COBIT carregado com sucesso!');
+        console.log('📚 Navegue pelas abas para explorar o conteúdo');
+        console.log('🤖 Use o assistente IA para tirar dúvidas');
     </script>
 </body>
 </html>
