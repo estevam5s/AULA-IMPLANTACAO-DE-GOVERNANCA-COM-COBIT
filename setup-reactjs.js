@@ -1,0 +1,3503 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
+
+// Configurações do projeto
+const PROJECT_NAME = 'cobit-curso-react';
+const PROJECT_DIR = path.join(process.cwd(), PROJECT_NAME);
+
+// Cores para output no terminal
+const colors = {
+    reset: '\x1b[0m',
+    bright: '\x1b[1m',
+    green: '\x1b[32m',
+    blue: '\x1b[34m',
+    yellow: '\x1b[33m',
+    red: '\x1b[31m'
+};
+
+const log = (message, color = 'reset') => {
+    console.log(`${colors[color]}${message}${colors.reset}`);
+};
+
+// Função para executar comandos
+const execCommand = (command, cwd = PROJECT_DIR) => {
+    try {
+        log(`Executando: ${command}`, 'blue');
+        execSync(command, { 
+            cwd, 
+            stdio: 'inherit',
+            encoding: 'utf8'
+        });
+        return true;
+    } catch (error) {
+        log(`Erro ao executar comando: ${command}`, 'red');
+        log(error.message, 'red');
+        return false;
+    }
+};
+
+// Criar estrutura de arquivos
+const createFileStructure = () => {
+    log('📁 Criando estrutura de arquivos...', 'yellow');
+    
+    const directories = [
+        'src/components',
+        'src/hooks',
+        'src/services',
+        'src/data',
+        'src/styles',
+        'src/utils',
+        'public'
+    ];
+
+    directories.forEach(dir => {
+        const fullPath = path.join(PROJECT_DIR, dir);
+        if (!fs.existsSync(fullPath)) {
+            fs.mkdirSync(fullPath, { recursive: true });
+            log(`✅ Diretório criado: ${dir}`, 'green');
+        }
+    });
+};
+
+// Arquivo package.json
+const createPackageJson = () => {
+    const packageJson = {
+        "name": "cobit-curso-react",
+        "version": "1.0.0",
+        "description": "Sistema Interativo de Aprendizagem COBIT com React - Prof. Eder José Cassimiro",
+        "private": true,
+        "dependencies": {
+            "@testing-library/jest-dom": "^5.16.4",
+            "@testing-library/react": "^13.3.0",
+            "@testing-library/user-event": "^13.5.0",
+            "react": "^18.2.0",
+            "react-dom": "^18.2.0",
+            "react-scripts": "5.0.1",
+            "web-vitals": "^2.1.4",
+            "axios": "^1.4.0",
+            "react-router-dom": "^6.11.0",
+            "react-markdown": "^8.0.7",
+            "lucide-react": "^0.263.1"
+        },
+        "scripts": {
+            "start": "react-scripts start",
+            "build": "react-scripts build",
+            "test": "react-scripts test",
+            "eject": "react-scripts eject"
+        },
+        "eslintConfig": {
+            "extends": [
+                "react-app",
+                "react-app/jest"
+            ]
+        },
+        "browserslist": {
+            "production": [
+                ">0.2%",
+                "not dead",
+                "not op_mini all"
+            ],
+            "development": [
+                "last 1 chrome version",
+                "last 1 firefox version",
+                "last 1 safari version"
+            ]
+        }
+    };
+
+    fs.writeFileSync(
+        path.join(PROJECT_DIR, 'package.json'),
+        JSON.stringify(packageJson, null, 2)
+    );
+    log('✅ package.json criado', 'green');
+};
+
+// Arquivo index.html público
+const createPublicHtml = () => {
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="description" content="Sistema Interativo de Aprendizagem COBIT - Prof. Eder José Cassimiro" />
+    <title>IMPLANTAÇÃO DE GOVERNANÇA COM COBIT - Prof. Eder José Cassimiro</title>
+  </head>
+  <body>
+    <noscript>Você precisa habilitar JavaScript para executar esta aplicação.</noscript>
+    <div id="root"></div>
+  </body>
+</html>`;
+
+    fs.writeFileSync(path.join(PROJECT_DIR, 'public/index.html'), html);
+    log('✅ public/index.html criado', 'green');
+};
+
+// CSS Global completo do HTML original
+const createGlobalStyles = () => {
+    const css = `/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.header h1 {
+    color: #2c3e50;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.header .subtitle {
+    color: #34495e;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.course-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.info-card {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+}
+
+.info-card strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.professor-info {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.professor-info h3 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+}
+
+.professor-info h3::before {
+    content: "👨‍🏫";
+    margin-right: 10px;
+    font-size: 1.8rem;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.experience-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.experience-item:hover {
+    transform: scale(1.05);
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c3e50;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    border: 2px solid transparent;
+}
+
+.nav-tab:hover, .nav-tab.active {
+    background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.content-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #3498db;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.section-title:hover {
+    color: #3498db;
+}
+
+.section-title::before {
+    margin-right: 15px;
+    font-size: 2rem;
+}
+
+.toggle-icon {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.section-content {
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.section-content.collapsed {
+    max-height: 0;
+}
+
+.section-content.expanded {
+    max-height: 3000px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.card {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card.pdf-card {
+    background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+}
+
+.card.exercise-card {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+}
+
+.card.code-card {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+}
+
+.card.doc-card {
+    background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+}
+
+.card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.card h3::before {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.card-type {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.card p {
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-meta {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.card-action {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.card-action:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.highlight-box {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border-left: 5px solid #e17055;
+}
+
+.highlight-box h4 {
+    color: #2d3436;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+}
+
+.highlight-box h4::before {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #3498db;
+    display: block;
+}
+
+.stat-label {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.ementa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.unidade-card {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.unidade-card:hover {
+    transform: translateY(-5px);
+}
+
+.unidade-card h4 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.unidade-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.unidade-card li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.unidade-card li::before {
+    content: "▶";
+    position: absolute;
+    left: 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.timeline {
+    position: relative;
+    margin: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #667eea, #764ba2);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    margin-left: 70px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -50px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #3498db;
+    border: 4px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.code-display {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+.footer {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Chatbot Styles */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    max-height: 70vh;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-header h3::before {
+    content: "🤖";
+    margin-right: 10px;
+    font-size: 1.8rem;
+}
+
+.chat-status {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f8f9fa;
+    position: relative;
+}
+
+.message {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    animation: fadeInUp 0.4s ease;
+}
+
+.message.user {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin: 0 10px;
+    flex-shrink: 0;
+}
+
+.message.user .message-avatar {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+}
+
+.message.assistant .message-avatar {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+    color: white;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 15px 20px;
+    border-radius: 20px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.message.user .message-content {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.message.assistant .message-content {
+    background: white;
+    color: #2c3e50;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.message-time {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.typing-indicator {
+    display: none;
+    padding: 15px 20px;
+    background: white;
+    border-radius: 20px;
+    border-bottom-left-radius: 5px;
+    margin-left: 50px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.typing-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.typing-dots span {
+    width: 8px;
+    height: 8px;
+    background: #667eea;
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.chat-input-container {
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+}
+
+.chat-input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 25px;
+    font-size: 1rem;
+    resize: none;
+    min-height: 50px;
+    max-height: 120px;
+    font-family: inherit;
+    line-height: 1.4;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.chat-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.chat-send-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-send-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.chat-send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.chat-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.suggestion-chip {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.suggestion-chip:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.welcome-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #64748b;
+}
+
+.welcome-message h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.welcome-message p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid #dc2626;
+}
+
+/* Estilos das Aulas */
+.step-counter {
+    background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.step-content {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    border-radius: 15px;
+    border-left: 5px solid #e17055;
+}
+
+.step-text {
+    flex: 1;
+}
+
+.step-text h4 {
+    color: #2d3436;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.concept-card {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 15px 0;
+    border-left: 5px solid #00b894;
+}
+
+.concept-card h4 {
+    color: #2d3436;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.concept-card h4::before {
+    content: "💡";
+    margin-right: 8px;
+}
+
+.example-box {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+.example-box strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.comparison-table {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.comparison-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comparison-table th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.comparison-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+
+.comparison-table tr:hover {
+    background: #f8f9fa;
+}
+
+.evolution-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.evolution-timeline::before {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #667eea, #764ba2);
+}
+
+.evolution-timeline .timeline-item {
+    background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+    padding: 20px;
+    border-radius: 15px;
+    position: relative;
+    color: white;
+    margin-left: 60px;
+    transition: transform 0.3s ease;
+}
+
+.evolution-timeline .timeline-item:hover {
+    transform: translateX(10px);
+}
+
+.evolution-timeline .timeline-item::before {
+    content: "📅";
+    position: absolute;
+    left: -45px;
+    top: 20px;
+    background: white;
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-year {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    counter-reset: principle-counter;
+}
+
+.principle-card {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    counter-increment: principle-counter;
+    position: relative;
+}
+
+.principle-card:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+.principle-card::before {
+    content: counter(principle-counter);
+    background: rgba(255, 255, 255, 0.2);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.1rem;
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.process-card {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.process-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.process-card.governance {
+    background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+}
+
+.process-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.process-card h3::before {
+    content: "⚙️";
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.process-card.governance h3::before {
+    content: "👑";
+}
+
+.process-type {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.enablers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.enabler-card {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.enabler-card:hover {
+    transform: scale(1.05);
+}
+
+.enabler-card.resource {
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+}
+
+.enabler-type {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.exercise-card-quiz {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.exercise-question {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.exercise-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.exercise-option {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.exercise-option:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.exercise-option.selected {
+    border-color: #fdcb6e;
+    background: rgba(253, 203, 110, 0.3);
+}
+
+.exercise-option.correct {
+    border-color: #00b894;
+    background: rgba(0, 184, 148, 0.3);
+}
+
+.exercise-option.incorrect {
+    border-color: #e17055;
+    background: rgba(225, 112, 85, 0.3);
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .nav-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cards-grid,
+    .principles-grid,
+    .enablers-grid,
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-info {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-container {
+        height: 500px;
+    }
+
+    .message-content {
+        max-width: 85%;
+    }
+
+    .chat-suggestions {
+        flex-direction: column;
+    }
+
+    .evolution-timeline .timeline-item {
+        margin-left: 40px;
+    }
+    
+    .evolution-timeline .timeline-item::before {
+        left: -35px;
+    }
+}
+
+.animated {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.6s ease forwards;
+}
+
+@keyframes slideInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-10px);
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    margin: 2% auto;
+    padding: 30px;
+    border-radius: 20px;
+    width: 95%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-content h1, .modal-content h2, .modal-content h3 {
+    color: #2c3e50;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-content h1 {
+    font-size: 2rem;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    color: #34495e;
+}
+
+.modal-content h3 {
+    font-size: 1.3rem;
+    color: #2980b9;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+    background: none;
+    border: none;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.pdf-download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.pdf-download-item {
+    background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pdf-download-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.aula-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 10px;
+}
+
+.aula-nav-btn {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.aula-nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.aula-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.content-toc {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.content-toc h4 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.content-toc ul {
+    list-style: none;
+    padding: 0;
+}
+
+.content-toc li {
+    margin: 8px 0;
+}
+
+.content-toc a {
+    color: #3498db;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.content-toc a:hover {
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }`;
+
+    fs.writeFileSync(path.join(PROJECT_DIR, 'src/styles/globals.css'), css);
+    log('✅ Estilos globais completos criados', 'green');
+};
+
+// Dados completos do curso com todo o conteúdo das aulas
+const createCourseData = () => {
+    const courseData = `// Configurações da API Gemini
+export const GEMINI_API_KEY = 'AIzaSyCRfarEDTrIlXNPdonkf-KNAU414KrGnEQ';
+export const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+
+// Contexto base sobre a disciplina COBIT
+export const COURSE_CONTEXT = \`
+Você é um assistente virtual especializado na disciplina "Implantação de Governança com COBIT", ministrada pelo Prof. Eder José Cassimiro.
+
+INFORMAÇÕES DA DISCIPLINA:
+- Professor: Eder José Cassimiro
+- Experiência: 14 anos na Estácio BH, 22 anos docência, 30+ anos em TI, Auditor de Sistemas na CEMIG
+- Framework: COBIT 2019
+- Modalidade: Híbrida
+
+CONTEÚDO DAS AULAS:
+
+AULA 01 - CONCEITOS FUNDAMENTAIS:
+- Eficácia vs Eficiência: Eficácia é cumprir tarefas/funções, eficiência é otimizar recursos
+- Controle Interno: garantir confiabilidade das demonstrações financeiras e conformidade
+- Frameworks para TI: necessidade de frameworks específicos como COBIT
+- Evolução do COBIT: de auditoria para governança integrada (COBIT 5 em 2012)
+- 5 Fundamentos: 1)Atender necessidades stakeholders, 2)Cobertura holística, 3)Estrutura integrada, 4)Abordagem holística, 5)Separar governança de gerenciamento
+- 7 Habilitadores: Princípios/políticas, Processos, Estruturas organizacionais, Cultura/ética, Informação, Serviços/infraestrutura, Pessoas/competências
+
+AULA 02 - ESTRUTURA DO COBIT:
+- Governança vs Gerenciamento: estratégico vs operacional
+- 5 Domínios: EDM (governança), APO, BAI, DSS, MEA (gerenciamento)
+- EDM: Evaluate, Direct and Monitor
+- APO: Align, Plan and Organise
+- BAI: Build, Acquire and Implement
+- DSS: Deliver, Service and Support  
+- MEA: Monitor, Evaluate and Assess
+- Build vs Acquire: priorizar aquisição de soluções prontas
+
+AVALIAÇÃO:
+- Participação: 20%
+- Exercícios: 30%
+- Projeto: 25%
+- Avaliação Final: 25%
+
+CRONOGRAMA:
+- Semana 1: Aula 01 - Conceitos Fundamentais
+- Semana 2: Aula 02 - Estrutura do COBIT
+- Semana 3: Revisão e Avaliação
+- Semana 4: Projeto Final
+
+Responda sempre de forma didática, clara e sempre relacionada ao conteúdo do curso COBIT. Use exemplos práticos quando relevante.
+\`;
+
+// Dados das aulas com o conteúdo original completo
+export const aulasData = {
+    'aula01': {
+        title: '📘 Aula 01: Conceitos Fundamentais de Governança',
+        content: \`
+        <h1>Aula 01: Conceitos Fundamentais de Governança</h1>
+        
+        <p><strong>Disciplina:</strong> Implantação de Governança com COBIT<br>
+        <strong>Professor:</strong> Eder José Cassimiro<br>
+        <strong>Duração:</strong> 2 horas</p>
+
+        <h2>🎯 Passo 1: Conceitos Fundamentais</h2>
+        <div class="step-content">
+            <div class="step-counter">1.1</div>
+            <div class="step-text">
+                <h4>Eficácia vs Eficiência</h4>
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Conceito</th>
+                                <th>Definição</th>
+                                <th>Exemplo Prático</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Eficácia</strong></td>
+                                <td>Cumprir as tarefas/funções determinadas</td>
+                                <td>Sistema de folha de pagamento que funciona corretamente</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Eficiência</strong></td>
+                                <td>Cumprir tarefas otimizando recursos (gastando menos do que fornece)</td>
+                                <td>Automatização que custa menos que o processo manual</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">1.2</div>
+            <div class="step-text">
+                <h4>Controle Interno</h4>
+                <div class="concept-card">
+                    <h4>Objetivos do Controle Interno</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Garantir confiabilidade das demonstrações financeiras</li>
+                        <li>Assegurar conformidade com leis e regulamentos vigentes</li>
+                    </ul>
+                </div>
+                <div class="example-box">
+                    <strong>Exemplo Prático:</strong>
+                    Um processo de automatização da folha de pagamento é eficaz se funciona, mas só é eficiente se seu custo mensal for inferior ao que seria gasto com pessoas fazendo o mesmo trabalho manualmente.
+                </div>
+            </div>
+        </div>
+
+        <h2>🏗️ Passo 2: Frameworks para TI</h2>
+        <div class="step-content">
+            <div class="step-counter">2.1</div>
+            <div class="step-text">
+                <h4>Necessidade de Framework Específico</h4>
+                <div class="concept-card">
+                    <h4>Por que COBIT e não apenas COSO?</h4>
+                    <p><strong>COSO:</strong> Framework de controle interno geral, mas não trata especificamente de TI</p>
+                    <p><strong>Solução:</strong> Utilizar frameworks específicos como COBIT ou ITIL v4 (que agora também aborda governança)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">2.2</div>
+            <div class="step-text">
+                <h4>Geração de Valor</h4>
+                <div class="highlight-box">
+                    <h4>💎 A TI deve gerar valor demonstrável</h4>
+                    <p>A área de TI deve:</p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Gerar valor real para a organização</li>
+                        <li>Não ser apenas uma área de gastos</li>
+                        <li>Demonstrar eficiência de forma transparente</li>
+                        <li>Ter processos medidos e transparentes</li>
+                        <li>Atender requisitos de conformidade legais e regulatórios</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2>📈 Passo 3: Evolução Histórica do COBIT</h2>
+        <div class="evolution-timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">Início - Auditoria</div>
+                <p>Primeiras versões focadas em auditoria de sistemas</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">Evolução - Controle</div>
+                <p>Expansão para controles internos de TI</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">Crescimento - Gerenciamento</div>
+                <p>Incorporação de práticas de gerenciamento de TI</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2012 - COBIT 5</div>
+                <p><strong>Grande revolução:</strong> Integração da governança de TI com a governança corporativa. Versões anteriores tratavam governança de TI de forma isolada.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2019 - COBIT 2019</div>
+                <p>Versão ainda mais abrangente e atual</p>
+            </div>
+        </div>
+
+        <h2>🌟 Passo 4: Características do COBIT 5</h2>
+        <div class="step-content">
+            <div class="step-counter">4.1</div>
+            <div class="step-text">
+                <h4>Visão Holística</h4>
+                <div class="concept-card">
+                    <h4>Por que holística?</h4>
+                    <p><strong>Definição:</strong> Trata todas as necessidades e áreas da empresa</p>
+                    <p><strong>Justificativa:</strong> A TI é pervasiva - está presente em todas as áreas da organização. Não existe área empresarial que não tenha pelo menos um mínimo de tecnologia da informação.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">4.2</div>
+            <div class="step-text">
+                <h4>Framework Genérico</h4>
+                <div class="concept-card">
+                    <h4>Aplicabilidade Universal</h4>
+                    <p>Definições genéricas aplicáveis a:</p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Qualquer tipo de organização</li>
+                        <li>Qualquer tamanho de empresa</li>
+                        <li>Desde pequenas empresas até corporações gigantes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2>🏛️ Passo 5: Os 5 Fundamentos do COBIT</h2>
+        <div class="principles-grid">
+            <div class="principle-card">
+                <h3>Atendimento das Necessidades das Partes Interessadas</h3>
+                <p>Foco em atender stakeholders e demonstrar valor gerado pela TI.</p>
+            </div>
+            <div class="principle-card">
+                <h3>Cobertura de Todas as Áreas da Empresa</h3>
+                <p>Visão do todo - abordagem holística que não deixa nenhuma área de fora.</p>
+            </div>
+            <div class="principle-card">
+                <h3>Aplicação de Estrutura Integrada</h3>
+                <p>Não ter vários frameworks trabalhando separadamente, mas uma única estrutura unificada.</p>
+            </div>
+            <div class="principle-card">
+                <h3>Habilitar Abordagem Holística</h3>
+                <p>Permitir que a governança trate a organização como um sistema integrado.</p>
+            </div>
+            <div class="principle-card">
+                <h3>Separar Governança de Gerenciamento</h3>
+                <p><strong>Fundamental:</strong> Distinção clara entre governança (estratégico) e gerenciamento (operacional).</p>
+            </div>
+        </div>
+
+        <h2>🔧 Passo 6: Facilitadores/Habilitadores</h2>
+        <div class="concept-card">
+            <h4>Definição de Habilitadores</h4>
+            <p>Fatores que, individual ou coletivamente, influenciam a forma como a governança e gerenciamento de TI funcionam.</p>
+        </div>
+
+        <h3 style="margin: 30px 0 15px 0; color: #2c3e50;">Estruturais</h3>
+        <div class="enablers-grid">
+            <div class="enabler-card">
+                <div class="enabler-type">ESTRUTURAL</div>
+                <h4>Princípios, Políticas e Modelos</h4>
+                <p>Diretrizes fundamentais da organização</p>
+            </div>
+            <div class="enabler-card">
+                <div class="enabler-type">ESTRUTURAL</div>
+                <h4>Processos</h4>
+                <p>Atividades organizadas para atingir objetivos</p>
+            </div>
+            <div class="enabler-card">
+                <div class="enabler-type">ESTRUTURAL</div>
+                <h4>Estruturas Organizacionais</h4>
+                <p>Como a organização está estruturada</p>
+            </div>
+            <div class="enabler-card">
+                <div class="enabler-type">ESTRUTURAL</div>
+                <h4>Cultura, Ética e Comportamento</h4>
+                <p>Aspectos humanos e culturais</p>
+            </div>
+        </div>
+
+        <h3 style="margin: 30px 0 15px 0; color: #2c3e50;">Recursos</h3>
+        <div class="enablers-grid">
+            <div class="enabler-card resource">
+                <div class="enabler-type">RECURSO</div>
+                <h4>Informação</h4>
+                <p><strong>Recurso mais valioso</strong> da organização</p>
+            </div>
+            <div class="enabler-card resource">
+                <div class="enabler-type">RECURSO</div>
+                <h4>Serviços, Infraestrutura e Aplicativos</h4>
+                <p>Tecnologia e sistemas da organização</p>
+            </div>
+            <div class="enabler-card resource">
+                <div class="enabler-type">RECURSO</div>
+                <h4>Pessoas, Habilidades e Competências</h4>
+                <p>Capital humano e conhecimento</p>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>🎯 Resumo da Aula 01</h4>
+            <ul style="margin: 10px 0 0 20px;">
+                <li><strong>Eficácia ≠ Eficiência:</strong> Fazer certo vs fazer gastando menos</li>
+                <li><strong>COBIT evoluiu:</strong> De auditoria para governança integrada</li>
+                <li><strong>5 Fundamentos:</strong> Base conceitual do framework</li>
+                <li><strong>7 Habilitadores:</strong> Ferramentas para implementação</li>
+                <li><strong>Visão Holística:</strong> TI e negócios integrados</li>
+            </ul>
+        </div>
+        \`
+    },
+    'aula02': {
+        title: '📗 Aula 02: Estrutura e Domínios do COBIT',
+        content: \`
+        <h1>Aula 02: Estrutura e Domínios do COBIT</h1>
+        
+        <p><strong>Disciplina:</strong> Implantação de Governança com COBIT<br>
+        <strong>Professor:</strong> Eder José Cassimiro<br>
+        <strong>Duração:</strong> 2 horas</p>
+
+        <h2>🔄 Passo 7: Governança vs Gerenciamento</h2>
+        <div class="step-content">
+            <div class="step-counter">7.1</div>
+            <div class="step-text">
+                <h4>Separação Fundamental</h4>
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aspecto</th>
+                                <th>Governança</th>
+                                <th>Gerenciamento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Nível</strong></td>
+                                <td>Estratégico</td>
+                                <td>Execução/Operacional</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Função</strong></td>
+                                <td>Define diretrizes, políticas e objetivos</td>
+                                <td>Implementa e operacionaliza as diretrizes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Responsabilidade</strong></td>
+                                <td>Definir "o que" deve ser feito</td>
+                                <td>Definir "como" fazer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">7.2</div>
+            <div class="step-text">
+                <h4>Objetivo Principal do COBIT</h4>
+                <div class="highlight-box">
+                    <h4>🎯 Missão do COBIT</h4>
+                    <p>Ajudar a empresa a atingir seus objetivos através da governança e gerenciamento eficaz de TI, separando adequadamente essas duas funções e demonstrando valor de forma clara para as partes interessadas.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>🌐 Passo 8: Governança Holística e Demonstração de Valor</h2>
+        <div class="step-content">
+            <div class="step-counter">8.1</div>
+            <div class="step-text">
+                <h4>Governança Holística</h4>
+                <div class="concept-card">
+                    <h4>Abordagem Completa</h4>
+                    <p>Abranja todas as partes da empresa, não deixando nada do lado de fora. O COBIT é aplicável a empresas de qualquer natureza ou porte, fornecendo um conjunto de boas práticas genéricas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">8.2</div>
+            <div class="step-text">
+                <h4>Demonstração de Valor</h4>
+                <div class="concept-card">
+                    <h4>TI fora do isolamento</h4>
+                    <p>A TI não só deve agregar valor para a empresa, mas isso deve ser demonstrado de forma clara para as partes interessadas, tirando a TI do isolamento em que vivia décadas atrás.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>⚙️ Passo 9: Os 5 Processos/Domínios do COBIT</h2>
+        <div class="highlight-box">
+            <h4>📊 Estrutura dos Domínios</h4>
+            <p><strong>1 Domínio de Governança:</strong> EDM (Evaluate, Direct and Monitor)</p>
+            <p><strong>4 Domínios de Gerenciamento:</strong> APO, BAI, DSS, MEA</p>
+        </div>
+
+        <div class="process-grid">
+            <div class="process-card governance">
+                <div class="process-type">GOVERNANÇA</div>
+                <h3>EDM - Evaluate, Direct and Monitor</h3>
+                <p><strong>Avaliar, Dirigir e Monitorar</strong></p>
+                <p>Contém 5 processos de governança onde são definidas as práticas de avaliação, direção e monitoração. É o único domínio focado especificamente em governança.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-type">GERENCIAMENTO</div>
+                <h3>APO - Align, Plan and Organise</h3>
+                <p><strong>Alinhar, Planejar e Organizar</strong></p>
+                <p>Tem abrangência estratégica e identifica formas através das quais a TI pode contribuir para atender os objetivos de negócio. Não determina os objetivos, mas como a TI pode agir para atendê-los.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-type">GERENCIAMENTO</div>
+                <h3>BAI - Build, Acquire and Implement</h3>
+                <p><strong>Construir, Adquirir e Implementar</strong></p>
+                <p>Trata do processo de construção ou aquisição e implementação de soluções de TI. Inclui mudanças e manutenções de sistemas. Prioriza-se a aquisição de soluções prontas do mercado.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-type">GERENCIAMENTO</div>
+                <h3>DSS - Deliver, Service and Support</h3>
+                <p><strong>Entregar, Serviço e Suporte</strong></p>
+                <p>O dia a dia da TI. Quando você já tem a solução implementada e vai utilizá-la para entregar valor para os usuários. É a parte do gerenciamento cotidiano da tecnologia da informação.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-type">GERENCIAMENTO</div>
+                <h3>MEA - Monitor, Evaluate and Assess</h3>
+                <p><strong>Monitorar, Avaliar e Medir</strong></p>
+                <p>Assegura a qualidade dos processos, bem como governança e conformidade. Fornece subsídios para o domínio de governança através de mecanismos adequados de avaliação.</p>
+            </div>
+        </div>
+
+        <h2>🏗️ Passo 10: Build vs Acquire - Boas Práticas</h2>
+        <div class="step-content">
+            <div class="step-counter">10.1</div>
+            <div class="step-text">
+                <h4>Regra Atual: Priorizar Aquisição</h4>
+                <div class="concept-card">
+                    <h4>Estratégia Recomendada</h4>
+                    <p><strong>Regra:</strong> Sempre tentar adquirir soluções do mercado prontas e implementá-las com o mínimo de personalização possível.</p>
+                </div>
+                
+                <div class="example-box">
+                    <strong>Por que evitar desenvolvimento interno?</strong>
+                    Desenvolver internamente significa ser responsável por:
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Desenvolvimento completo</li>
+                        <li>Implementação</li>
+                        <li>Suporte contínuo</li>
+                    </ul>
+                    Essas tarefas são pesadas e geralmente fogem da expertise e do negócio principal da empresa.
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">10.2</div>
+            <div class="step-text">
+                <h4>Quando Construir Internamente</h4>
+                <div class="concept-card">
+                    <h4>Exceções à Regra</h4>
+                    <p>Eventualmente há necessidade de construir internamente quando:</p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Não existe solução pronta no mercado</li>
+                        <li>As necessidades são muito específicas</li>
+                        <li>Representa diferencial competitivo estratégico</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2>🎯 Passo 11: Características Finais do Framework</h2>
+        <div class="step-content">
+            <div class="step-counter">11.1</div>
+            <div class="step-text">
+                <h4>Framework Genérico e Abrangente</h4>
+                <div class="concept-card">
+                    <h4>Aplicabilidade Universal</h4>
+                    <p>O COBIT não é um "guia do como fazer" específico, mas sim um conjunto de boas práticas que podem ser aplicadas em organizações de qualquer natureza ou porte.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">11.2</div>
+            <div class="step-text">
+                <h4>Conexão com Governança Corporativa</h4>
+                <div class="concept-card">
+                    <h4>Integração Estratégica</h4>
+                    <p>A governança de TI está diretamente atrelada à governança corporativa, sendo partes distintas mas complementares do mesmo sistema organizacional.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">11.3</div>
+            <div class="step-text">
+                <h4>Objetivo Final</h4>
+                <div class="highlight-box">
+                    <h4>🚀 Meta do COBIT</h4>
+                    <p>Fornecer subsídios adequados para que o domínio de governança (EDM) seja efetivamente implementado na organização, criando valor demonstrável através de TI alinhada aos objetivos de negócio.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>🎯 Resumo da Aula 02</h4>
+            <ul style="margin: 10px 0 0 20px;">
+                <li><strong>Governança ≠ Gerenciamento:</strong> Estratégico vs Operacional</li>
+                <li><strong>EDM é único de Governança:</strong> Os outros 4 são Gerenciamento</li>
+                <li><strong>Cada domínio tem papel específico:</strong> APO planeja, BAI implementa, DSS opera, MEA monitora</li>
+                <li><strong>Build vs Acquire:</strong> Priorize sempre aquisição, exceto quando há vantagem competitiva</li>
+                <li><strong>Framework genérico:</strong> Aplicável a organizações de qualquer porte</li>
+            </ul>
+        </div>
+        \`
+    }
+};
+
+// Dados dos exercícios
+export const exercisesData = [
+    {
+        id: 'exercise1',
+        question: '1. Qual a principal diferença entre eficácia e eficiência em TI?',
+        options: [
+            { text: 'a) Eficácia é fazer certo, eficiência é fazer rápido', correct: false },
+            { text: 'b) Eficácia é cumprir as funções, eficiência é otimizar recursos', correct: true },
+            { text: 'c) Não há diferença entre os conceitos', correct: false },
+            { text: 'd) Eficiência é mais importante que eficácia', correct: false }
+        ]
+    },
+    {
+        id: 'exercise2',
+        question: '2. Quantos domínios possui o COBIT e qual é focado exclusivamente em governança?',
+        options: [
+            { text: 'a) 4 domínios, sendo APO o de governança', correct: false },
+            { text: 'b) 5 domínios, sendo EDM o de governança', correct: true },
+            { text: 'c) 6 domínios, sendo MEA o de governança', correct: false },
+            { text: 'd) 3 domínios, sendo DSS o de governança', correct: false }
+        ]
+    },
+    {
+        id: 'exercise3',
+        question: '3. Qual é o objetivo principal do COBIT?',
+        options: [
+            { text: 'a) Substituir outros frameworks de TI', correct: false },
+            { text: 'b) Ajudar empresas a atingir objetivos através de governança eficaz de TI', correct: true },
+            { text: 'c) Apenas auditar sistemas de informação', correct: false },
+            { text: 'd) Focar exclusivamente em gerenciamento operacional', correct: false }
+        ]
+    }
+];
+
+// Sugestões para o chatbot
+export const chatSuggestions = [
+    'O que é COBIT?',
+    'Diferença entre governança e gerenciamento',
+    'Explique os 5 fundamentos do COBIT',
+    'O que significa EDM no COBIT?',
+    'Build vs Acquire - quando usar?',
+    'Como implementar COBIT na empresa?'
+];`;
+
+    fs.writeFileSync(path.join(PROJECT_DIR, 'src/data/courseData.js'), courseData);
+    log('✅ Dados completos do curso criados', 'green');
+};
+
+// Componente principal App
+const createAppComponent = () => {
+    const app = `import React, { useState, useEffect } from 'react';
+import './styles/globals.css';
+import Header from './components/Header';
+import Navigation from './components/Navigation';
+import Overview from './components/Overview';
+import Ementa from './components/Ementa';
+import Aulas from './components/Aulas';
+import Exercicios from './components/Exercicios';
+import Resumo from './components/Resumo';
+import Recursos from './components/Recursos';
+import Cronograma from './components/Cronograma';
+import Chatbot from './components/Chatbot';
+import Footer from './components/Footer';
+import AulaModal from './components/AulaModal';
+
+const SECTIONS = {
+  overview: 'overview',
+  ementa: 'ementa',
+  aulas: 'aulas',
+  exercicios: 'exercicios',
+  resumo: 'resumo',
+  recursos: 'recursos',
+  cronograma: 'cronograma',
+  chatbot: 'chatbot'
+};
+
+function App() {
+  const [currentSection, setCurrentSection] = useState('overview');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentAula, setCurrentAula] = useState('aula01');
+
+  useEffect(() => {
+    // Auto-save progress
+    const interval = setInterval(() => {
+      localStorage.setItem('cobit_current_section', currentSection);
+      localStorage.setItem('cobit_timestamp', new Date().getTime());
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [currentSection]);
+
+  useEffect(() => {
+    // Load saved progress
+    const savedSection = localStorage.getItem('cobit_current_section');
+    if (savedSection && savedSection !== 'overview') {
+      setCurrentSection(savedSection);
+    }
+
+    // Animações de entrada
+    const animatedElements = document.querySelectorAll('.animated');
+    animatedElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.style.animationDelay = \`\${index * 0.2}s\`;
+      }, index * 100);
+    });
+  }, []);
+
+  const openAulaModal = (aulaId) => {
+    setCurrentAula(aulaId);
+    setModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const renderCurrentSection = () => {
+    switch (currentSection) {
+      case SECTIONS.overview:
+        return <Overview />;
+      case SECTIONS.ementa:
+        return <Ementa />;
+      case SECTIONS.aulas:
+        return <Aulas onOpenAula={openAulaModal} />;
+      case SECTIONS.exercicios:
+        return <Exercicios />;
+      case SECTIONS.resumo:
+        return <Resumo />;
+      case SECTIONS.recursos:
+        return <Recursos />;
+      case SECTIONS.cronograma:
+        return <Cronograma />;
+      case SECTIONS.chatbot:
+        return <Chatbot />;
+      default:
+        return <Overview />;
+    }
+  };
+
+  // Navegação por teclado
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+      
+      if (e.ctrlKey) {
+        switch(e.key) {
+          case '1':
+            e.preventDefault();
+            setCurrentSection('overview');
+            break;
+          case '2':
+            e.preventDefault();
+            setCurrentSection('ementa');
+            break;
+          case '3':
+            e.preventDefault();
+            setCurrentSection('aulas');
+            break;
+          case '4':
+            e.preventDefault();
+            setCurrentSection('exercicios');
+            break;
+          case '5':
+            e.preventDefault();
+            setCurrentSection('resumo');
+            break;
+          case '6':
+            e.preventDefault();
+            setCurrentSection('recursos');
+            break;
+          case '7':
+            e.preventDefault();
+            setCurrentSection('cronograma');
+            break;
+          case '8':
+            e.preventDefault();
+            setCurrentSection('chatbot');
+            break;
+          default:
+            break;
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  return (
+    <div className="App">
+      <div className="container">
+        <Header />
+        <Navigation 
+          currentSection={currentSection}
+          onSectionChange={setCurrentSection}
+        />
+        {renderCurrentSection()}
+        {modalOpen && (
+          <AulaModal
+            aulaId={currentAula}
+            onClose={closeModal}
+            onNavigate={setCurrentAula}
+          />
+        )}
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+export default App;`;
+
+    fs.writeFileSync(path.join(PROJECT_DIR, 'src/App.js'), app);
+    log('✅ Componente App criado', 'green');
+};
+
+// Criar todos os componentes React com conteúdo completo
+const createComponents = () => {
+    log('📝 Criando componentes React completos...', 'yellow');
+
+    // Header Component
+    const headerComponent = `import React from 'react';
+
+const Header = () => {
+  return (
+    <header className="header animated">
+      <h1>IMPLANTAÇÃO DE GOVERNANÇA COM COBIT</h1>
+      <p className="subtitle">Curso Completo - Sistema Interativo de Aprendizagem</p>
+      
+      <div className="course-info">
+        <div className="info-card">
+          <strong>Professor</strong>
+          Eder José Cassimiro
+        </div>
+        <div className="info-card">
+          <strong>Disciplina</strong>
+          Governança de TI
+        </div>
+        <div className="info-card">
+          <strong>Modalidade</strong>
+          Híbrida
+        </div>
+        <div className="info-card">
+          <strong>Framework</strong>
+          COBIT 2019
+        </div>
+      </div>
+      
+      <div className="professor-info">
+        <h3>Professor Eder José Cassimiro</h3>
+        <div className="experience-grid">
+          <div className="experience-item">
+            <strong>14 anos</strong><br />
+            Professor Estácio BH
+          </div>
+          <div className="experience-item">
+            <strong>22 anos</strong><br />
+            Docência Ensino Superior
+          </div>
+          <div className="experience-item">
+            <strong>30+ anos</strong><br />
+            Profissional de TI
+          </div>
+          <div className="experience-item">
+            <strong>Atual</strong><br />
+            Auditor de Sistemas - CEMIG
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;`;
+
+    // Navigation Component
+    const navigationComponent = `import React from 'react';
+
+const Navigation = ({ currentSection, onSectionChange }) => {
+  const sections = [
+    { id: 'overview', label: '📚 Visão Geral' },
+    { id: 'ementa', label: '📋 Ementa' },
+    { id: 'aulas', label: '🎓 Aulas' },
+    { id: 'exercicios', label: '📝 Exercícios' },
+    { id: 'resumo', label: '📄 Resumo' },
+    { id: 'recursos', label: '🔧 Recursos' },
+    { id: 'cronograma', label: '📅 Cronograma' },
+    { id: 'chatbot', label: '🤖 Assistente IA' }
+  ];
+
+  const handleSectionChange = (sectionId) => {
+    onSectionChange(sectionId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Analytics simples
+    const usage = JSON.parse(localStorage.getItem('cobit_usage') || '{}');
+    usage['section_view'] = (usage['section_view'] || 0) + 1;
+    localStorage.setItem('cobit_usage', JSON.stringify(usage));
+  };
+
+  return (
+    <nav className="nav-tabs">
+      {sections.map((section) => (
+        <div
+          key={section.id}
+          className={\`nav-tab \${currentSection === section.id ? 'active' : ''}\`}
+          onClick={() => handleSectionChange(section.id)}
+        >
+          {section.label}
+        </div>
+      ))}
+    </nav>
+  );
+};
+
+export default Navigation;`;
+
+    // Overview Component
+    const overviewComponent = `import React from 'react';
+
+const Overview = () => {
+  return (
+    <div className="content-section active">
+      <div className="section-title">📚 Visão Geral do Curso</div>
+      
+      <div className="highlight-box">
+        <h4>🎯 Por que estudar COBIT?</h4>
+        <p>O framework COBIT é <strong>essencial</strong> para qualquer profissional de TI que deseja trabalhar com governança e gestão, fornecendo:</p>
+        <ul style={{ margin: '10px 0 0 20px' }}>
+          <li><strong>Base sólida</strong> para implementação de governança de TI</li>
+          <li><strong>Alinhamento estratégico</strong> entre TI e negócios</li>
+          <li><strong>Melhores práticas</strong> reconhecidas globalmente</li>
+          <li><strong>Fundamentos</strong> para carreiras em auditoria e consultoria</li>
+        </ul>
+      </div>
+
+      <div className="stats-grid">
+        <div className="stat-item">
+          <span className="stat-number">2</span>
+          <span className="stat-label">Aulas Fundamentais</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">5</span>
+          <span className="stat-label">Fundamentos COBIT</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">5</span>
+          <span className="stat-label">Domínios/Processos</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-number">100%</span>
+          <span className="stat-label">Material Prático</span>
+        </div>
+      </div>
+
+      <div className="highlight-box">
+        <h4>🚀 Metodologia do Curso</h4>
+        <div className="cards-grid">
+          <div className="card">
+            <h3>🔬 Teoria Fundamentada</h3>
+            <p>Conceitos rigorosos baseados no COBIT 2019 oficial</p>
+          </div>
+          <div className="card">
+            <h3>💼 Prática Empresarial</h3>
+            <p>Exemplos reais e estudos de caso do mercado</p>
+          </div>
+          <div className="card">
+            <h3>📊 Análise Comparativa</h3>
+            <p>Comparação entre governança e gerenciamento</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Overview;`;
+
+    // Ementa Component
+    const ementaComponent = `import React from 'react';
+
+const Ementa = () => {
+  return (
+    <div className="content-section">
+      <div className="section-title">📋 Ementa da Disciplina</div>
+      
+      <div className="ementa-grid">
+        <div className="unidade-card">
+          <h4>📚 Unidade I: Conceitos Fundamentais</h4>
+          <ul>
+            <li>Eficácia vs Eficiência em TI</li>
+            <li>Frameworks para Tecnologia da Informação</li>
+            <li>Evolução histórica do COBIT</li>
+            <li>Os 5 Fundamentos do COBIT</li>
+            <li>Os 7 Habilitadores do Framework</li>
+          </ul>
+        </div>
+        
+        <div className="unidade-card">
+          <h4>🏗️ Unidade II: Estrutura do COBIT</h4>
+          <ul>
+            <li>Governança vs Gerenciamento</li>
+            <li>Os 5 Domínios/Processos do COBIT</li>
+            <li>EDM - Evaluate, Direct and Monitor</li>
+            <li>Processos de Gerenciamento (APO, BAI, DSS, MEA)</li>
+            <li>Build vs Acquire - Decisões estratégicas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="highlight-box">
+        <h4>📊 Sistema de Avaliação</h4>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginTop: '15px' }}>
+          <div style={{ textAlign: 'center', padding: '15px', background: 'rgba(116, 185, 255, 0.1)', borderRadius: '10px' }}>
+            <strong>Participação: 20%</strong><br />
+            <small>Engajamento e discussões</small>
+          </div>
+          <div style={{ textAlign: 'center', padding: '15px', background: 'rgba(108, 92, 231, 0.1)', borderRadius: '10px' }}>
+            <strong>Exercícios: 30%</strong><br />
+            <small>Listas práticas</small>
+          </div>
+          <div style={{ textAlign: 'center', padding: '15px', background: 'rgba(253, 121, 168, 0.1)', borderRadius: '10px' }}>
+            <strong>Projeto: 25%</strong><br />
+            <small>Implementação COBIT</small>
+          </div>
+          <div style={{ textAlign: 'center', padding: '15px', background: 'rgba(0, 184, 148, 0.1)', borderRadius: '10px' }}>
+            <strong>Avaliação: 25%</strong><br />
+            <small>Prova final</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Ementa;`;
+
+    // Aulas Component
+    const aulasComponent = `import React from 'react';
+
+const Aulas = ({ onOpenAula }) => {
+  const handleCardClick = (aulaId) => {
+    onOpenAula(aulaId);
+    
+    // Analytics simples
+    const usage = JSON.parse(localStorage.getItem('cobit_usage') || '{}');
+    usage['aula_view'] = (usage['aula_view'] || 0) + 1;
+    localStorage.setItem('cobit_usage', JSON.stringify(usage));
+  };
+
+  return (
+    <div className="content-section">
+      <div className="section-title">🎓 Material das Aulas</div>
+      
+      <div className="cards-grid">
+        <div className="card pdf-card" onClick={() => handleCardClick('aula01')}>
+          <div className="card-type">CONTEÚDO COMPLETO</div>
+          <h3>📘 Aula 01: Conceitos Fundamentais de Governança</h3>
+          <p>Eficácia vs Eficiência, Frameworks para TI, Evolução do COBIT e os 5 Fundamentos essenciais.</p>
+          <div className="card-footer">
+            <span className="card-meta">Fundamentos • Teórica</span>
+            <span className="card-action">Ver Conteúdo</span>
+          </div>
+        </div>
+
+        <div className="card pdf-card" onClick={() => handleCardClick('aula02')}>
+          <div className="card-type">CONTEÚDO COMPLETO</div>
+          <h3>📗 Aula 02: Estrutura e Domínios do COBIT</h3>
+          <p>Governança vs Gerenciamento, os 5 Domínios (EDM, APO, BAI, DSS, MEA) e aplicações práticas.</p>
+          <div className="card-footer">
+            <span className="card-meta">Estrutura • Prática</span>
+            <span className="card-action">Ver Conteúdo</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="highlight-box">
+        <h4>📚 Materiais de Apoio</h4>
+        <div className="pdf-download-grid">
+          <a href="#" className="pdf-download-item">📄 Slides Aula 01</a>
+          <a href="#" className="pdf-download-item">📄 Slides Aula 02</a>
+          <a href="#" className="pdf-download-item">📋 Resumo Executivo</a>
+          <a href="#" className="pdf-download-item">🔗 Links Úteis</a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Aulas;`;
+
+    // Exercicios Component
+    const exerciciosComponent = `import React, { useState } from 'react';
+
+    const Exercicios = () => {
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [showResults, setShowResults] = useState(false);
+
+  const exercises = [
+    {
+      id: 'exercise1',
+      question: '1. Qual a principal diferença entre eficácia e eficiência em TI?',
+      options: [
+        { id: 'a', text: 'a) Eficácia é fazer certo, eficiência é fazer rápido', correct: false },
+        { id: 'b', text: 'b) Eficácia é cumprir as funções, eficiência é otimizar recursos', correct: true },
+        { id: 'c', text: 'c) Não há diferença entre os conceitos', correct: false },
+        { id: 'd', text: 'd) Eficiência é mais importante que eficácia', correct: false }
+      ]
+    },
+    {
+      id: 'exercise2',
+      question: '2. Quantos domínios possui o COBIT e qual é focado exclusivamente em governança?',
+      options: [
+        { id: 'a', text: 'a) 4 domínios, sendo APO o de governança', correct: false },
+        { id: 'b', text: 'b) 5 domínios, sendo EDM o de governança', correct: true },
+        { id: 'c', text: 'c) 6 domínios, sendo MEA o de governança', correct: false },
+        { id: 'd', text: 'd) 3 domínios, sendo DSS o de governança', correct: false }
+      ]
+    },
+    {
+      id: 'exercise3',
+      question: '3. Qual é o objetivo principal do COBIT?',
+      options: [
+        { id: 'a', text: 'a) Substituir outros frameworks de TI', correct: false },
+        { id: 'b', text: 'b) Ajudar empresas a atingir objetivos através de governança eficaz de TI', correct: true },
+        { id: 'c', text: 'c) Apenas auditar sistemas de informação', correct: false },
+        { id: 'd', text: 'd) Focar exclusivamente em gerenciamento operacional', correct: false }
+      ]
+    }
+  ];
+
+  const selectOption = (exerciseId, optionId) => {
+    setSelectedAnswers({
+      ...selectedAnswers,
+      [exerciseId]: optionId
+    });
+  };
+
+  const checkAllAnswers = () => {
+    setShowResults(true);
+  };
+
+  const resetExercises = () => {
+    setSelectedAnswers({});
+    setShowResults(false);
+  };
+
+  const getOptionClass = (exercise, option) => {
+    if (!showResults) {
+      return selectedAnswers[exercise.id] === option.id ? 'exercise-option selected' : 'exercise-option';
+    }
+    
+    let baseClass = 'exercise-option';
+    if (selectedAnswers[exercise.id] === option.id) {
+      baseClass += ' selected';
+    }
+    if (option.correct) {
+      baseClass += ' correct';
+    } else if (selectedAnswers[exercise.id] === option.id && !option.correct) {
+      baseClass += ' incorrect';
+    }
+    return baseClass;
+  };
+
+  return (
+    <div className="content-section">
+      <div className="section-title">📝 Exercícios Práticos</div>
+      
+      {exercises.map((exercise) => (
+        <div key={exercise.id} className="exercise-card-quiz">
+          <div className="exercise-question">{exercise.question}</div>
+          <div className="exercise-options">
+            {exercise.options.map((option) => (
+              <div
+                key={option.id}
+                className={getOptionClass(exercise, option)}
+                onClick={() => !showResults && selectOption(exercise.id, option.id)}
+                style={{ cursor: showResults ? 'default' : 'pointer' }}
+              >
+                {option.text}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div className="text-center mt-20">
+        <button className="nav-tab" onClick={checkAllAnswers} disabled={showResults}>
+          ✅ Verificar Respostas
+        </button>
+        <button className="nav-tab" onClick={resetExercises} style={{ marginLeft: '10px' }}>
+          🔄 Reiniciar
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Exercicios;`;
+
+    // Resumo Component
+    const resumoComponent = `import React from 'react';
+
+const Resumo = () => {
+  return (
+    <div className="content-section">
+      <div className="section-title">📄 Resumo do Curso</div>
+      
+      <div className="concept-card">
+        <h4>Conceitos Fundamentais</h4>
+        <p><strong>Eficácia:</strong> Cumprir tarefas/funções determinadas</p>
+        <p><strong>Eficiência:</strong> Cumprir tarefas otimizando recursos</p>
+        <p><strong>Controle Interno:</strong> Garantir confiabilidade e conformidade</p>
+      </div>
+
+      <div className="concept-card">
+        <h4>5 Fundamentos do COBIT</h4>
+        <ol style={{ margin: '10px 0 0 20px' }}>
+          <li>Atendimento das necessidades das partes interessadas</li>
+          <li>Cobertura de todas as áreas da empresa</li>
+          <li>Aplicação de estrutura integrada</li>
+          <li>Habilitar abordagem holística</li>
+          <li>Separar governança de gerenciamento</li>
+        </ol>
+      </div>
+
+      <div className="concept-card">
+        <h4>5 Domínios do COBIT</h4>
+        <p><strong>EDM</strong> - Evaluate, Direct and Monitor (Governança)</p>
+        <p><strong>APO</strong> - Align, Plan and Organise (Gerenciamento)</p>
+        <p><strong>BAI</strong> - Build, Acquire and Implement (Gerenciamento)</p>
+        <p><strong>DSS</strong> - Deliver, Service and Support (Gerenciamento)</p>
+        <p><strong>MEA</strong> - Monitor, Evaluate and Assess (Gerenciamento)</p>
+      </div>
+
+      <div className="highlight-box">
+        <h4>🎯 Pontos-Chave para Memorizar</h4>
+        <ul style={{ margin: '10px 0 0 20px' }}>
+          <li>COBIT integra governança de TI com governança corporativa</li>
+          <li>Framework genérico aplicável a qualquer organização</li>
+          <li>Separação clara entre governança (estratégico) e gerenciamento (operacional)</li>
+          <li>Priorizar aquisição de soluções prontas sobre desenvolvimento interno</li>
+          <li>TI deve demonstrar valor de forma transparente</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Resumo;`;
+
+    // Recursos Component
+    const recursosComponent = `import React from 'react';
+
+const Recursos = () => {
+  return (
+    <div className="content-section">
+      <div className="section-title">🔧 Recursos Adicionais</div>
+      
+      <div className="process-grid">
+        <div className="process-card">
+          <h3>📖 Materiais de Estudo</h3>
+          <ul style={{ margin: '10px 0 0 20px' }}>
+            <li>Slides das aulas em PDF</li>
+            <li>Resumos executivos</li>
+            <li>Mapas mentais</li>
+            <li>Glossário de termos</li>
+          </ul>
+        </div>
+        
+        <div className="process-card governance">
+          <h3>🎥 Conteúdo Multimídia</h3>
+          <ul style={{ margin: '10px 0 0 20px' }}>
+            <li>Vídeo-aulas gravadas</li>
+            <li>Webinars complementares</li>
+            <li>Estudos de caso</li>
+            <li>Entrevistas com especialistas</li>
+          </ul>
+        </div>
+        
+        <div className="process-card">
+          <h3>📚 Bibliografia</h3>
+          <ul style={{ margin: '10px 0 0 20px' }}>
+            <li>COBIT 2019 Framework</li>
+            <li>Livros sobre Governança de TI</li>
+            <li>Artigos acadêmicos</li>
+            <li>Cases empresariais</li>
+          </ul>
+        </div>
+        
+        <div className="process-card governance">
+          <h3>🔗 Links Úteis</h3>
+          <ul style={{ margin: '10px 0 0 20px' }}>
+            <li>Site oficial ISACA</li>
+            <li>Documentação COBIT</li>
+            <li>Comunidades de prática</li>
+            <li>Fóruns de discussão</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Recursos;`;
+
+    // Cronograma Component
+    const cronogramaComponent = `import React from 'react';
+
+const Cronograma = () => {
+  return (
+    <div className="content-section">
+      <div className="section-title">📅 Cronograma do Curso</div>
+      
+      <div className="evolution-timeline">
+        <div className="timeline-item">
+          <div className="timeline-year">Semana 1</div>
+          <strong>Aula 01 - Conceitos Fundamentais</strong>
+          <p>• Eficácia vs Eficiência<br />• Frameworks para TI<br />• Evolução do COBIT<br />• 5 Fundamentos</p>
+        </div>
+        
+        <div className="timeline-item">
+          <div className="timeline-year">Semana 2</div>
+          <strong>Aula 02 - Estrutura do COBIT</strong>
+          <p>• Governança vs Gerenciamento<br />• 5 Domínios/Processos<br />• Build vs Acquire<br />• Exercícios Práticos</p>
+        </div>
+        
+        <div className="timeline-item">
+          <div className="timeline-year">Semana 3</div>
+          <strong>Revisão e Avaliação</strong>
+          <p>• Revisão geral do conteúdo<br />• Exercícios complementares<br />• Estudos de caso<br />• Avaliação final</p>
+        </div>
+        
+        <div className="timeline-item">
+          <div className="timeline-year">Semana 4</div>
+          <strong>Projeto Final</strong>
+          <p>• Elaboração de projeto<br />• Aplicação prática<br />• Apresentação<br />• Feedback e certificação</p>
+        </div>
+      </div>
+
+      <div className="highlight-box">
+        <h4>📋 Entregas e Prazos</h4>
+        <ul style={{ margin: '10px 0 0 20px' }}>
+          <li><strong>Exercícios Aula 01:</strong> Até o final da Semana 1</li>
+          <li><strong>Exercícios Aula 02:</strong> Até o final da Semana 2</li>
+          <li><strong>Avaliação Intermediária:</strong> Semana 3</li>
+          <li><strong>Projeto Final:</strong> Semana 4</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Cronograma;`;
+
+    // Chatbot Component com integração Gemini
+    const chatbotComponent = `import React, { useState, useEffect, useRef } from 'react';
+import { GEMINI_API_KEY, GEMINI_API_URL, COURSE_CONTEXT, chatSuggestions } from '../data/courseData';
+
+const Chatbot = () => {
+  const [messages, setMessages] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [chatHistory, setChatHistory] = useState([]);
+  const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const formatMessage = (content) => {
+    let formatted = content
+      .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')
+      .replace(/\\*(.*?)\\*/g, '<em>$1</em>')
+      .replace(/\`(.*?)\`/g, '<code style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace;">$1</code>')
+      .replace(/\\n/g, '<br>')
+      .replace(/https?:\\/\\/[^\\s]+/g, '<a href="$&" target="_blank" style="color: #3498db;">$&</a>');
+
+    formatted = formatted.replace(/\`\`\`(\\w+)?\\n?([\\s\\S]*?)\`\`\`/g, (match, lang, code) => {
+      return \`<pre style="background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto; margin: 10px 0;"><code>\${code.trim()}</code></pre>\`;
+    });
+
+    return formatted;
+  };
+
+  const addMessage = (content, sender, isError = false) => {
+    const newMessage = {
+      id: Date.now(),
+      content,
+      sender,
+      timestamp: new Date().toLocaleTimeString(),
+      isError
+    };
+    setMessages(prev => [...prev, newMessage]);
+  };
+
+  const callGeminiAPI = async (message) => {
+    let contextWithHistory = COURSE_CONTEXT + "\\n\\nHISTÓRICO DA CONVERSA:\\n";
+    chatHistory.slice(-10).forEach(item => {
+      contextWithHistory += \`\${item.role}: \${item.content}\\n\`;
+    });
+    contextWithHistory += \`\\nUSUÁRIO: \${message}\\nASSISTENTE:\`;
+
+    const requestBody = {
+      contents: [{
+        parts: [{
+          text: contextWithHistory
+        }]
+      }],
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 2048,
+      }
+    };
+
+    const response = await fetch(\`\${GEMINI_API_URL}?key=\${GEMINI_API_KEY}\`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      throw new Error(\`HTTP error! status: \${response.status}\`);
+    }
+
+    const data = await response.json();
+    
+    if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+      const aiResponse = data.candidates[0].content.parts[0].text;
+      
+      setChatHistory(prev => {
+        const newHistory = [...prev, 
+          { role: 'user', content: message },
+          { role: 'assistant', content: aiResponse }
+        ];
+        return newHistory.slice(-20);
+      });
+      
+      return aiResponse;
+    } else {
+      throw new Error('Resposta inválida da API');
+    }
+  };
+
+  const sendMessage = async () => {
+    const message = inputValue.trim();
+    if (!message) return;
+
+    setInputValue('');
+    addMessage(message, 'user');
+    setIsTyping(true);
+
+    try {
+      const response = await callGeminiAPI(message);
+      setIsTyping(false);
+      addMessage(response, 'assistant');
+    } catch (error) {
+      console.error('Erro ao chamar API:', error);
+      setIsTyping(false);
+      addMessage('Desculpe, ocorreu um erro. Tente novamente mais tarde.', 'assistant', true);
+    }
+  };
+
+  const sendSuggestion = (suggestion) => {
+    setInputValue(suggestion);
+    inputRef.current?.focus();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    e.target.style.height = 'auto';
+    e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+  };
+
+  return (
+    <div className="content-section">
+      <div className="section-title">🤖 Assistente de IA - Professor Virtual COBIT</div>
+      
+      <div className="chat-container">
+        <div className="chat-header">
+          <h3>Assistant Virtual de Governança</h3>
+          <div className="chat-status">
+            <span>Pronto para ajudar com suas dúvidas sobre COBIT!</span>
+          </div>
+        </div>
+
+        <div className="chat-messages">
+          {messages.length === 0 ? (
+            <div className="welcome-message">
+              <h4>👋 Olá! Sou seu Assistant Virtual de COBIT</h4>
+              <p>Estou aqui para ajudar com dúvidas sobre <strong>Implantação de Governança com COBIT</strong>. Posso explicar conceitos, ajudar com exercícios, esclarecer sobre as aulas e muito mais!</p>
+              <div className="chat-suggestions">
+                {chatSuggestions.map((suggestion, index) => (
+                  <div
+                    key={index}
+                    className="suggestion-chip"
+                    onClick={() => sendSuggestion(suggestion)}
+                  >
+                    {suggestion}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            messages.map((message) => (
+              <div key={message.id} className={\`message \${message.sender}\`}>
+                <div className="message-avatar">
+                  {message.sender === 'user' ? '👤' : '🤖'}
+                </div>
+                <div>
+                  <div
+                    className={\`message-content \${message.isError ? 'error-message' : ''}\`}
+                    dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
+                  />
+                  <div className="message-time">{message.timestamp}</div>
+                </div>
+              </div>
+            ))
+          )}
+
+          {isTyping && (
+            <div className="typing-indicator" style={{ display: 'block' }}>
+              <div className="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          )}
+          
+          <div ref={messagesEndRef} />
+        </div>
+
+        <div className="chat-input-container">
+          <div className="chat-input-wrapper">
+            <textarea
+              ref={inputRef}
+              className="chat-input"
+              placeholder="Digite sua pergunta sobre COBIT, governança, exercícios..."
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              rows="1"
+            />
+            <button
+              className="chat-send-btn"
+              onClick={sendMessage}
+              disabled={!inputValue.trim() || isTyping}
+            >
+              <span>➤</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="highlight-box">
+        <h4>🎯 Como posso te ajudar?</h4>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px', marginTop: '15px' }}>
+          <div style={{ padding: '15px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+            <strong>📚 Explicar Conceitos</strong><br />
+            <small>COBIT, governança, domínios, processos</small>
+          </div>
+          <div style={{ padding: '15px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+            <strong>🏢 Casos Práticos</strong><br />
+            <small>Implementação em organizações reais</small>
+          </div>
+          <div style={{ padding: '15px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+            <strong>📝 Exercícios</strong><br />
+            <small>Dicas e orientações para exercícios</small>
+          </div>
+          <div style={{ padding: '15px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+            <strong>📅 Informações</strong><br />
+            <small>Cronograma, avaliações, prazos</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Chatbot;`;
+
+    // Footer Component
+    const footerComponent = `import React from 'react';
+
+const Footer = () => {
+  return (
+    <footer className="footer">
+      <p>© 2025 - Disciplina: Implantação de Governança com COBIT | Professor: Eder José Cassimiro</p>
+      <p>Sistema Interativo de Aprendizagem com IA</p>
+    </footer>
+  );
+};
+
+export default Footer;`;
+
+    // AulaModal Component
+    const aulaModalComponent = `import React, { useEffect } from 'react';
+import { aulasData } from '../data/courseData';
+
+const AulaModal = ({ aulaId, onClose, onNavigate }) => {
+  const aula = aulasData[aulaId];
+  const aulaKeys = Object.keys(aulasData);
+  const currentIndex = aulaKeys.indexOf(aulaId);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+      if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        onNavigate(aulaKeys[currentIndex - 1]);
+      }
+      if (e.key === 'ArrowRight' && currentIndex < aulaKeys.length - 1) {
+        onNavigate(aulaKeys[currentIndex + 1]);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex, aulaKeys, onClose, onNavigate]);
+
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  const navigateAula = (direction) => {
+    if (direction === 'prev' && currentIndex > 0) {
+      onNavigate(aulaKeys[currentIndex - 1]);
+    } else if (direction === 'next' && currentIndex < aulaKeys.length - 1) {
+      onNavigate(aulaKeys[currentIndex + 1]);
+    }
+  };
+
+  if (!aula) return null;
+
+  return (
+    <div className="modal" onClick={handleBackdropClick}>
+      <div className="modal-content">
+        <button className="close" onClick={onClose}>&times;</button>
+        
+        <div className="aula-navigation">
+          <button
+            className="aula-nav-btn"
+            onClick={() => navigateAula('prev')}
+            disabled={currentIndex === 0}
+          >
+            ⬅ Anterior
+          </button>
+          <span style={{ fontWeight: 'bold', color: '#2c3e50' }}>{aula.title}</span>
+          <button
+            className="aula-nav-btn"
+            onClick={() => navigateAula('next')}
+            disabled={currentIndex === aulaKeys.length - 1}
+          >
+            Próxima ➡
+          </button>
+        </div>
+        
+        <div dangerouslySetInnerHTML={{ __html: aula.content }} />
+      </div>
+    </div>
+  );
+};
+
+export default AulaModal;`;
+
+    // Salvar todos os componentes
+    const components = [
+      { name: 'Header', content: headerComponent },
+      { name: 'Navigation', content: navigationComponent },
+      { name: 'Overview', content: overviewComponent },
+      { name: 'Ementa', content: ementaComponent },
+      { name: 'Aulas', content: aulasComponent },
+      { name: 'Exercicios', content: exerciciosComponent },
+      { name: 'Resumo', content: resumoComponent },
+      { name: 'Recursos', content: recursosComponent },
+      { name: 'Cronograma', content: cronogramaComponent },
+      { name: 'Chatbot', content: chatbotComponent },
+      { name: 'Footer', content: footerComponent },
+      { name: 'AulaModal', content: aulaModalComponent }
+    ];
+
+    components.forEach(component => {
+      fs.writeFileSync(
+        path.join(PROJECT_DIR, `src/components/${component.name}.js`),
+        component.content
+      );
+      log(`✅ Componente ${component.name} criado`, 'green');
+    });
+};
+
+// Criar arquivo index.js
+const createIndexFile = () => {
+    const index = `import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// Analytics simples
+const updateVisitorCount = () => {
+  let count = localStorage.getItem('cobit_visitor_count') || 0;
+  count = parseInt(count) + 1;
+  localStorage.setItem('cobit_visitor_count', count);
+  console.log(\`Visita número: \${count}\`);
+};
+
+updateVisitorCount();
+console.log('🚀 Sistema COBIT carregado com sucesso!');
+console.log('📚 Navegue pelas abas para explorar o conteúdo');
+console.log('🤖 Use o assistente IA para tirar dúvidas');
+console.log('⌨️ Atalhos: Ctrl+1-8 para navegação rápida');`;
+
+    fs.writeFileSync(path.join(PROJECT_DIR, 'src/index.js'), index);
+    log('✅ index.js criado', 'green');
+};
+
+// Criar hook personalizado para o chatbot
+const createChatHook = () => {
+    const hook = `import { useState, useEffect } from 'react';
+
+export const useChatbot = () => {
+  const [messages, setMessages] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [chatHistory, setChatHistory] = useState([]);
+
+  // Prevenção de spam
+  const [lastMessageTime, setLastMessageTime] = useState(0);
+
+  const canSendMessage = () => {
+    const now = Date.now();
+    const timeDiff = now - lastMessageTime;
+    return timeDiff >= 2000; // 2 segundos entre mensagens
+  };
+
+  const updateLastMessageTime = () => {
+    setLastMessageTime(Date.now());
+  };
+
+  // Persistir histórico
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('cobit_chat_history');
+    if (savedHistory) {
+      try {
+        setChatHistory(JSON.parse(savedHistory));
+      } catch (error) {
+        console.error('Erro ao carregar histórico do chat:', error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (chatHistory.length > 0) {
+      localStorage.setItem('cobit_chat_history', JSON.stringify(chatHistory.slice(-20)));
+    }
+  }, [chatHistory]);
+
+  return {
+    messages,
+    setMessages,
+    isTyping,
+    setIsTyping,
+    chatHistory,
+    setChatHistory,
+    canSendMessage,
+    updateLastMessageTime
+  };
+};
+
+export default useChatbot;`;
+
+    fs.writeFileSync(path.join(PROJECT_DIR, 'src/hooks/useChatbot.js'), hook);
+    log('✅ Hook do chatbot criado', 'green');
+};
+
+// Criar utilitários
+const createUtils = () => {
+    const utils = `// Utilitários para o sistema COBIT
+
+export const trackUsage = (action, element = '') => {
+  const usage = JSON.parse(localStorage.getItem('cobit_usage') || '{}');
+  const key = element ? \`\${action}_\${element}\` : action;
+  usage[key] = (usage[key] || 0) + 1;
+  localStorage.setItem('cobit_usage', JSON.stringify(usage));
+  console.log('Ação rastreada:', key, 'Total:', usage[key]);
+};
+
+export const getUsageStats = () => {
+  return JSON.parse(localStorage.getItem('cobit_usage') || '{}');
+};
+
+export const formatTime = (timestamp) => {
+  return new Date(timestamp).toLocaleString('pt-BR');
+};
+
+export const debounce = (func, wait) => {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
+export const throttle = (func, limit) => {
+  let inThrottle;
+  return function() {
+    const args = arguments;
+    const context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+};
+
+export const saveProgress = (section, aula = null) => {
+  const progress = {
+    section,
+    aula,
+    timestamp: Date.now()
+  };
+  localStorage.setItem('cobit_progress', JSON.stringify(progress));
+};
+
+export const loadProgress = () => {
+  const saved = localStorage.getItem('cobit_progress');
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch (error) {
+      console.error('Erro ao carregar progresso:', error);
+    }
+  }
+  return null;
+};
+
+export const exportUserData = () => {
+  const data = {
+    progress: loadProgress(),
+    usage: getUsageStats(),
+    chatHistory: JSON.parse(localStorage.getItem('cobit_chat_history') || '[]'),
+    timestamp: Date.now()
+  };
+  
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = \`cobit-dados-\${new Date().toISOString().split('T')[0]}.json\`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
+
+export const clearAllData = () => {
+  const keys = ['cobit_progress', 'cobit_usage', 'cobit_chat_history', 'cobit_visitor_count'];
+  keys.forEach(key => localStorage.removeItem(key));
+  console.log('Todos os dados foram limpos');
+};`;
+
+    fs.writeFileSync(path.join(PROJECT_DIR, 'src/utils/helpers.js'), utils);
+    log('✅ Utilitários criados', 'green');
+};
+
+// Função principal
+const main = async () => {
+    try {
+        log('🚀 Iniciando setup COMPLETO do projeto React COBIT...', 'bright');
+        
+        // Verificar se Node.js está instalado
+        try {
+            execSync('node --version', { stdio: 'ignore' });
+            execSync('npm --version', { stdio: 'ignore' });
+        } catch (error) {
+            log('❌ Node.js ou npm não encontrados. Instale Node.js primeiro.', 'red');
+            process.exit(1);
+        }
+
+        // Criar diretório do projeto
+        if (fs.existsSync(PROJECT_DIR)) {
+            log(`❌ Diretório ${PROJECT_NAME} já existe. Removendo...`, 'yellow');
+            fs.rmSync(PROJECT_DIR, { recursive: true, force: true });
+        }
+
+        fs.mkdirSync(PROJECT_DIR);
+        log(`✅ Diretório ${PROJECT_NAME} criado`, 'green');
+
+        // Criar estrutura de arquivos
+        createFileStructure();
+
+        // Criar arquivos principais
+        createPackageJson();
+        createPublicHtml();
+        createGlobalStyles();
+        createCourseData();
+        createAppComponent();
+        createIndexFile();
+        createComponents();
+        createChatHook();
+        createUtils();
+
+        // Instalar dependências
+        log('📦 Instalando dependências...', 'yellow');
+        if (!execCommand('npm install')) {
+            log('❌ Erro ao instalar dependências', 'red');
+            process.exit(1);
+        }
+
+        // Criar arquivo README completo
+        const readme = `# COBIT - Sistema Interativo de Aprendizagem
+
+Sistema interativo completo para o curso "Implantação de Governança com COBIT" desenvolvido em React.
+
+## 🎯 Sobre o Projeto
+
+Este sistema foi desenvolvido para apoiar o ensino da disciplina de Governança de TI utilizando o framework COBIT 2019, ministrada pelo Prof. Eder José Cassimiro.
+
+## 🚀 Como executar
+
+\`\`\`bash
+# Instalar dependências
+npm install
+
+# Executar em modo de desenvolvimento
+npm start
+
+# Construir para produção
+npm run build
+\`\`\`
+
+O sistema estará disponível em: http://localhost:3000
+
+## ✨ Funcionalidades
+
+- ✅ **Interface moderna e responsiva** com gradientes e animações
+- ✅ **Sistema de navegação por abas** (8 seções principais)
+- ✅ **Chatbot integrado com IA** (Google Gemini API)
+- ✅ **Exercícios interativos** com feedback instantâneo
+- ✅ **Material didático completo** das 2 aulas
+- ✅ **Sistema de modais** para visualização de aulas
+- ✅ **Persistência de dados** com LocalStorage
+- ✅ **Analytics simples** de uso
+- ✅ **Navegação por teclado** (Ctrl+1-8)
+- ✅ **Sistema de sugestões** no chatbot
+- ✅ **Prevenção de spam** no chat
+- ✅ **Formatação de markdown** nas mensagens
+- ✅ **Sistema de cronograma** interativo
+- ✅ **Recursos adicionais** e bibliografia
+
+## 📚 Conteúdo do Curso
+
+### Aula 01: Conceitos Fundamentais
+- Eficácia vs Eficiência em TI
+- Frameworks para Tecnologia da Informação  
+- Evolução histórica do COBIT
+- Os 5 Fundamentos do COBIT
+- Os 7 Habilitadores do Framework
+
+### Aula 02: Estrutura e Domínios
+- Governança vs Gerenciamento
+- Os 5 Domínios/Processos do COBIT
+- EDM - Evaluate, Direct and Monitor
+- Processos de Gerenciamento (APO, BAI, DSS, MEA)
+- Build vs Acquire - Decisões estratégicas
+
+## 🤖 Assistente Virtual
+
+O sistema inclui um assistente virtual integrado com Google Gemini que pode:
+- Explicar conceitos do COBIT
+- Ajudar com exercícios
+- Fornecer casos práticos
+- Esclarecer dúvidas sobre o curso
+
+## 🛠 Tecnologias Utilizadas
+
+- **React 18** - Framework principal
+- **CSS3** - Estilos com gradientes e animações
+- **Google Gemini API** - IA para chatbot
+- **LocalStorage** - Persistência de dados
+- **ES6+** - JavaScript moderno
+
+## 📱 Design Responsivo
+
+O sistema é totalmente responsivo e funciona em:
+- 💻 Desktop
+- 📱 Tablets
+- 📱 Smartphones
+
+## ⌨️ Atalhos de Teclado
+
+- \`Ctrl+1\` - Visão Geral
+- \`Ctrl+2\` - Ementa
+- \`Ctrl+3\` - Aulas
+- \`Ctrl+4\` - Exercícios
+- \`Ctrl+5\` - Resumo
+- \`Ctrl+6\` - Recursos
+- \`Ctrl+7\` - Cronograma
+- \`Ctrl+8\` - Chatbot
+- \`Esc\` - Fechar modais
+
+## 📊 Sistema de Avaliação
+
+- **Participação**: 20%
+- **Exercícios**: 30%
+- **Projeto**: 25%
+- **Avaliação Final**: 25%
+
+## 🔧 Configuração da API
+
+Para utilizar o chatbot, certifique-se de que a API key do Google Gemini está configurada em:
+\`src/data/courseData.js\`
+
+## 📁 Estrutura do Projeto
+
+\`\`\`
+src/
+├── components/          # Componentes React
+│   ├── Header.js
+│   ├── Navigation.js
+│   ├── Overview.js
+│   ├── Ementa.js
+│   ├── Aulas.js
+│   ├── Exercicios.js
+│   ├── Resumo.js
+│   ├── Recursos.js
+│   ├── Cronograma.js
+│   ├── Chatbot.js
+│   ├── Footer.js
+│   └── AulaModal.js
+├── data/               # Dados do curso
+│   └── courseData.js
+├── hooks/              # Hooks customizados
+│   └── useChatbot.js
+├── styles/             # Estilos CSS
+│   └── globals.css
+├── utils/              # Utilitários
+│   └── helpers.js
+├── App.js              # Componente principal
+└── index.js            # Ponto de entrada
+\`\`\`
+
+## 📈 Analytics
+
+O sistema coleta dados simples de uso (armazenados localmente):
+- Navegação entre seções
+- Interações com aulas
+- Uso do chatbot
+- Contagem de visitas
+
+## 👨‍🏫 Professor
+
+**Eder José Cassimiro**
+- 14 anos como Professor na Estácio BH
+- 22 anos de experiência em Docência no Ensino Superior
+- 30+ anos como Profissional de TI
+- Atual Auditor de Sistemas na CEMIG
+
+## 📄 Licença
+
+Este projeto é para uso educacional na disciplina de Governança de TI.
+
+---
+
+Desenvolvido com ❤️ para o ensino de COBIT 2019
+`;
+
+        fs.writeFileSync(path.join(PROJECT_DIR, 'README.md'), readme);
+        log('✅ README.md completo criado', 'green');
+
+        // Criar .gitignore
+        const gitignore = `# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+build/
+
+# Misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+*.log`;
+
+        fs.writeFileSync(path.join(PROJECT_DIR, '.gitignore'), gitignore);
+        log('✅ .gitignore criado', 'green');
+
+        // Sucesso!
+        log('\n🎉 Projeto React COBIT criado com SUCESSO TOTAL!', 'bright');
+        log('\n📊 Estatísticas do projeto:', 'yellow');
+        log(`   📁 ${Object.keys(fs.readdirSync(path.join(PROJECT_DIR, 'src'), { recursive: true })).length} arquivos criados`, 'blue');
+        log(`   📝 12 componentes React completos`, 'blue');
+        log(`   🎨 CSS completo com todas as animações`, 'blue');
+        log(`   🤖 Chatbot funcional com IA`, 'blue');
+        log(`   📚 Conteúdo completo das 2 aulas`, 'blue');
+        log(`   📝 Sistema de exercícios interativo`, 'blue');
+        
+        log('\n📋 Próximos passos:', 'yellow');
+        log(`   1. cd ${PROJECT_NAME}`, 'blue');
+        log('   2. npm start', 'blue');
+        log('   3. Abrir http://localhost:3000', 'blue');
+        log('   4. Configure a API key do Gemini (se necessário)', 'blue');
+        
+        log('\n🔧 Funcionalidades implementadas:', 'yellow');
+        log('   ✅ Todas as 8 seções do sistema original', 'green');
+        log('   ✅ Sistema completo de navegação', 'green');
+        log('   ✅ Chatbot com IA integrada', 'green');
+        log('   ✅ Exercícios interativos completos', 'green');
+        log('   ✅ Sistema de modais para aulas', 'green');
+        log('   ✅ Persistência de dados', 'green');
+        log('   ✅ Design responsivo', 'green');
+        log('   ✅ Animações e efeitos visuais', 'green');
+        log('   ✅ Atalhos de teclado', 'green');
+        log('   ✅ Analytics de uso', 'green');
+
+        // Perguntar se quer iniciar automaticamente
+        console.log('\n❓ Deseja iniciar o servidor de desenvolvimento agora? (y/n)');
+        
+        process.stdin.setEncoding('utf8');
+        process.stdin.once('data', (data) => {
+            const answer = data.toString().trim().toLowerCase();
+            if (answer === 'y' || answer === 'yes' || answer === 's' || answer === 'sim') {
+                log('\n🚀 Iniciando servidor de desenvolvimento...', 'green');
+                execCommand('npm start');
+            } else {
+                log('\n✅ Setup COMPLETO concluído!', 'green');
+                log('Execute "npm start" dentro da pasta do projeto quando estiver pronto.', 'blue');
+                process.exit(0);
+            }
+        });
+
+    } catch (error) {
+        log(`❌ Erro durante o setup: ${error.message}`, 'red');
+        process.exit(1);
+    }
+};
+
+// Executar se chamado diretamente
+if (require.main === module) {
+    main();
+}
+
+module.exports = { main };
