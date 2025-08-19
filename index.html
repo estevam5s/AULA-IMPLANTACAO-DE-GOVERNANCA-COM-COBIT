@@ -162,11 +162,36 @@
             border-bottom: 3px solid #3498db;
             display: flex;
             align-items: center;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .section-title:hover {
+            color: #3498db;
         }
 
         .section-title::before {
             margin-right: 15px;
             font-size: 2rem;
+        }
+
+        .toggle-icon {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .section-content {
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+        }
+
+        .section-content.expanded {
+            max-height: 3000px;
         }
 
         .cards-grid {
@@ -678,6 +703,333 @@
             border-left: 4px solid #dc2626;
         }
 
+        /* Estilos das Aulas */
+        .step-counter {
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            border-left: 5px solid #e17055;
+        }
+
+        .step-text {
+            flex: 1;
+        }
+
+        .step-text h4 {
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .concept-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border-left: 5px solid #00b894;
+        }
+
+        .concept-card h4 {
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .concept-card h4::before {
+            content: "💡";
+            margin-right: 8px;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .example-box strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .evolution-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .evolution-timeline::before {
+            content: '';
+            position: absolute;
+            left: 25px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+
+        .evolution-timeline .timeline-item {
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+            color: white;
+            margin-left: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .evolution-timeline .timeline-item:hover {
+            transform: translateX(10px);
+        }
+
+        .evolution-timeline .timeline-item::before {
+            content: "📅";
+            position: absolute;
+            left: -45px;
+            top: 20px;
+            background: white;
+            padding: 8px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            counter-reset: principle-counter;
+        }
+
+        .principle-card {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+            counter-increment: principle-counter;
+            position: relative;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .principle-card::before {
+            content: counter(principle-counter);
+            background: rgba(255, 255, 255, 0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.1rem;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .process-card {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .process-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .process-card.governance {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+        }
+
+        .process-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .process-card h3::before {
+            content: "⚙️";
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .process-card.governance h3::before {
+            content: "👑";
+        }
+
+        .process-type {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .enablers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .enabler-card {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .enabler-card:hover {
+            transform: scale(1.05);
+        }
+
+        .enabler-card.resource {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+        }
+
+        .enabler-type {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .exercise-card-quiz {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .exercise-question {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .exercise-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .exercise-option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .exercise-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .exercise-option.selected {
+            border-color: #fdcb6e;
+            background: rgba(253, 203, 110, 0.3);
+        }
+
+        .exercise-option.correct {
+            border-color: #00b894;
+            background: rgba(0, 184, 148, 0.3);
+        }
+
+        .exercise-option.incorrect {
+            border-color: #e17055;
+            background: rgba(225, 112, 85, 0.3);
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -688,7 +1040,10 @@
                 align-items: center;
             }
             
-            .cards-grid {
+            .cards-grid,
+            .principles-grid,
+            .enablers-grid,
+            .process-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -706,6 +1061,14 @@
 
             .chat-suggestions {
                 flex-direction: column;
+            }
+
+            .evolution-timeline .timeline-item {
+                margin-left: 40px;
+            }
+            
+            .evolution-timeline .timeline-item::before {
+                left: -35px;
             }
         }
 
@@ -786,63 +1149,6 @@
         .modal-content h3 {
             font-size: 1.3rem;
             color: #2980b9;
-        }
-
-        .modal-content pre {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 20px;
-            border-radius: 10px;
-            overflow-x: auto;
-            margin: 15px 0;
-        }
-
-        .modal-content code {
-            background: #f8f9fa;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #e83e8c;
-            font-family: 'Courier New', monospace;
-        }
-
-        .modal-content pre code {
-            background: transparent;
-            padding: 0;
-            color: #e2e8f0;
-        }
-
-        .modal-content ul, .modal-content ol {
-            margin: 15px 0;
-            padding-left: 30px;
-        }
-
-        .modal-content li {
-            margin-bottom: 8px;
-        }
-
-        .modal-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        .modal-content th, .modal-content td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        .modal-content th {
-            background: #f8f9fa;
-            font-weight: bold;
-        }
-
-        .modal-content blockquote {
-            border-left: 4px solid #3498db;
-            margin: 20px 0;
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border-radius: 5px;
         }
 
         .close {
@@ -948,286 +1254,6 @@
 
         .content-toc a:hover {
             background: rgba(52, 152, 219, 0.1);
-        }
-
-        /* Estilos específicos do COBIT */
-        .principles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-            counter-reset: principle-counter;
-        }
-
-        .principle-card {
-            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease;
-            counter-increment: principle-counter;
-            position: relative;
-        }
-
-        .principle-card:hover {
-            transform: translateY(-5px) scale(1.02);
-        }
-
-        .principle-card::before {
-            content: counter(principle-counter);
-            background: rgba(255, 255, 255, 0.2);
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 1.1rem;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-top: 25px;
-        }
-
-        .process-card {
-            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .process-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .process-card.governance {
-            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
-        }
-
-        .process-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .process-card h3::before {
-            content: "⚙️";
-            margin-right: 10px;
-            font-size: 1.5rem;
-        }
-
-        .process-card.governance h3::before {
-            content: "👑";
-        }
-
-        .process-type {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .comparison-table {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-        }
-
-        .comparison-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .comparison-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .comparison-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            vertical-align: top;
-        }
-
-        .comparison-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .evolution-timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .evolution-timeline::before {
-            content: '';
-            position: absolute;
-            left: 25px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, #667eea, #764ba2);
-        }
-
-        .timeline-item {
-            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
-            padding: 20px;
-            border-radius: 15px;
-            position: relative;
-            color: white;
-            margin-left: 60px;
-            transition: transform 0.3s ease;
-        }
-
-        .timeline-item:hover {
-            transform: translateX(10px);
-        }
-
-        .timeline-item::before {
-            content: "📅";
-            position: absolute;
-            left: -45px;
-            top: 20px;
-            background: white;
-            padding: 8px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .timeline-year {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-
-        .concept-card {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            border-left: 5px solid #00b894;
-        }
-
-        .concept-card h4 {
-            color: #2d3436;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .concept-card h4::before {
-            content: "💡";
-            margin-right: 8px;
-        }
-
-        .step-counter {
-            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-
-        .step-content {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            border-radius: 15px;
-            border-left: 5px solid #e17055;
-        }
-
-        .step-text {
-            flex: 1;
-        }
-
-        .step-text h4 {
-            color: #2d3436;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-
-        .exercise-card-quiz {
-            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .exercise-question {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .exercise-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .exercise-option {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 12px 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .exercise-option:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .exercise-option.selected {
-            border-color: #fdcb6e;
-            background: rgba(253, 203, 110, 0.3);
-        }
-
-        .exercise-option.correct {
-            border-color: #00b894;
-            background: rgba(0, 184, 148, 0.3);
-        }
-
-        .exercise-option.incorrect {
-            border-color: #e17055;
-            background: rgba(225, 112, 85, 0.3);
         }
 
         .loading {
@@ -1808,7 +1834,7 @@
         let currentSection = 'overview';
         let currentAula = 'aula01';
 
-        // Dados das aulas
+        // Dados das aulas com o conteúdo original completo
         const aulasData = {
             'aula01': {
                 title: '📘 Aula 01: Conceitos Fundamentais de Governança',
@@ -1819,15 +1845,7 @@
                 <strong>Professor:</strong> Eder José Cassimiro<br>
                 <strong>Duração:</strong> 2 horas</p>
 
-                <h2>Objetivos de Aprendizagem</h2>
-                <p>Ao final desta aula, o estudante será capaz de:</p>
-                <ul>
-                    <li>Distinguir claramente entre eficácia e eficiência</li>
-                    <li>Compreender a evolução histórica do COBIT</li>
-                    <li>Dominar os 5 fundamentos essenciais do framework</li>
-                    <li>Identificar os 7 habilitadores para implementação</li>
-                </ul>
-
+                <h2>🎯 Passo 1: Conceitos Fundamentais</h2>
                 <div class="step-content">
                     <div class="step-counter">1.1</div>
                     <div class="step-text">
@@ -1855,141 +1873,186 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                        <div class="concept-card">
-                            <h4>🎯 Exemplo Prático Integrado</h4>
-                            <p><strong>Cenário:</strong> Uma empresa precisa processar 1000 pedidos por dia.</p>
-                            <p><strong>Sistema Eficaz:</strong> Processa os 1000 pedidos sem erros</p>
-                            <p><strong>Sistema Eficiente:</strong> Processa os 1000 pedidos gastando 50% menos recursos</p>
-                            <p><strong>Sistema Eficaz E Eficiente:</strong> Processa corretamente com otimização de recursos</p>
-                        </div>
                     </div>
                 </div>
 
                 <div class="step-content">
                     <div class="step-counter">1.2</div>
                     <div class="step-text">
-                        <h4>Evolução Histórica do COBIT</h4>
-                        <div class="evolution-timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-year">Início (1996)</div>
-                                <p><strong>Foco em Auditoria:</strong> Primeiras versões focadas exclusivamente em auditoria de sistemas de informação</p>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-year">2012 - COBIT 5</div>
-                                <p><strong>Grande Revolução:</strong> Integração da governança de TI com a governança corporativa. Marco histórico que mudou o paradigma do framework</p>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-year">2019 - COBIT 2019</div>
-                                <p><strong>Versão Atual:</strong> Framework ainda mais abrangente, flexível e adaptável às necessidades organizacionais modernas</p>
-                            </div>
-                        </div>
-                        
+                        <h4>Controle Interno</h4>
                         <div class="concept-card">
-                            <h4>🚀 Por que essa evolução foi importante?</h4>
-                            <p>A evolução do COBIT reflete a mudança do papel da TI nas organizações: de suporte operacional para habilitador estratégico de negócios.</p>
+                            <h4>Objetivos do Controle Interno</h4>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Garantir confiabilidade das demonstrações financeiras</li>
+                                <li>Assegurar conformidade com leis e regulamentos vigentes</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <strong>Exemplo Prático:</strong>
+                            Um processo de automatização da folha de pagamento é eficaz se funciona, mas só é eficiente se seu custo mensal for inferior ao que seria gasto com pessoas fazendo o mesmo trabalho manualmente.
+                        </div>
+                    </div>
+                </div>
+
+                <h2>🏗️ Passo 2: Frameworks para TI</h2>
+                <div class="step-content">
+                    <div class="step-counter">2.1</div>
+                    <div class="step-text">
+                        <h4>Necessidade de Framework Específico</h4>
+                        <div class="concept-card">
+                            <h4>Por que COBIT e não apenas COSO?</h4>
+                            <p><strong>COSO:</strong> Framework de controle interno geral, mas não trata especificamente de TI</p>
+                            <p><strong>Solução:</strong> Utilizar frameworks específicos como COBIT ou ITIL v4 (que agora também aborda governança)</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="step-content">
-                    <div class="step-counter">1.3</div>
+                    <div class="step-counter">2.2</div>
                     <div class="step-text">
-                        <h4>Os 5 Fundamentos do COBIT</h4>
-                        <div class="principles-grid">
-                            <div class="principle-card">
-                                <h3>Atendimento das Necessidades das Partes Interessadas</h3>
-                                <p>O COBIT foca em criar valor para todas as partes interessadas (stakeholders), demonstrando o retorno dos investimentos em TI de forma transparente e mensurável.</p>
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo:</strong> Relatórios executivos que mostram como TI contribui para receita da empresa
-                                </div>
-                            </div>
-                            <div class="principle-card">
-                                <h3>Cobertura de Todas as Áreas</h3>
-                                <p>Abordagem holística que cobre toda a organização, não deixando nenhuma área de TI ou processo de negócio de fora do escopo de governança.</p>
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo:</strong> Desde infraestrutura até aplicações, passando por pessoas e processos
-                                </div>
-                            </div>
-                            <div class="principle-card">
-                                <h3>Aplicação de Estrutura Integrada</h3>
-                                <p>Uma única estrutura unificada que integra todos os frameworks de TI, evitando sobreposições e conflitos entre diferentes metodologias.</p>
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo:</strong> Integra ITIL, PMBOK, ISO 27001 em uma abordagem coesa
-                                </div>
-                            </div>
-                            <div class="principle-card">
-                                <h3>Habilitar Abordagem Holística</h3>
-                                <p>Trata a organização como um sistema integrado onde TI e negócios trabalham em sinergia, não como departamentos isolados.</p>
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo:</strong> Decisões de TI sempre consideram impacto nos processos de negócio
-                                </div>
-                            </div>
-                            <div class="principle-card">
-                                <h3>Separar Governança de Gerenciamento</h3>
-                                <p>Distinção fundamental entre o nível estratégico (governança) que define diretrizes e o nível operacional (gerenciamento) que executa.</p>
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo:</strong> Board define estratégia, CIO executa táticas operacionais
-                                </div>
-                            </div>
+                        <h4>Geração de Valor</h4>
+                        <div class="highlight-box">
+                            <h4>💎 A TI deve gerar valor demonstrável</h4>
+                            <p>A área de TI deve:</p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Gerar valor real para a organização</li>
+                                <li>Não ser apenas uma área de gastos</li>
+                                <li>Demonstrar eficiência de forma transparente</li>
+                                <li>Ter processos medidos e transparentes</li>
+                                <li>Atender requisitos de conformidade legais e regulatórios</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>📈 Passo 3: Evolução Histórica do COBIT</h2>
+                <div class="evolution-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">Início - Auditoria</div>
+                        <p>Primeiras versões focadas em auditoria de sistemas</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">Evolução - Controle</div>
+                        <p>Expansão para controles internos de TI</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">Crescimento - Gerenciamento</div>
+                        <p>Incorporação de práticas de gerenciamento de TI</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2012 - COBIT 5</div>
+                        <p><strong>Grande revolução:</strong> Integração da governança de TI com a governança corporativa. Versões anteriores tratavam governança de TI de forma isolada.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2019 - COBIT 2019</div>
+                        <p>Versão ainda mais abrangente e atual</p>
+                    </div>
+                </div>
+
+                <h2>🌟 Passo 4: Características do COBIT 5</h2>
+                <div class="step-content">
+                    <div class="step-counter">4.1</div>
+                    <div class="step-text">
+                        <h4>Visão Holística</h4>
+                        <div class="concept-card">
+                            <h4>Por que holística?</h4>
+                            <p><strong>Definição:</strong> Trata todas as necessidades e áreas da empresa</p>
+                            <p><strong>Justificativa:</strong> A TI é pervasiva - está presente em todas as áreas da organização. Não existe área empresarial que não tenha pelo menos um mínimo de tecnologia da informação.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="step-content">
-                    <div class="step-counter">1.4</div>
+                    <div class="step-counter">4.2</div>
                     <div class="step-text">
-                        <h4>Os 7 Habilitadores do COBIT</h4>
-                        <p>Os habilitadores são fatores que, individual ou coletivamente, influenciam o funcionamento eficaz da governança e gerenciamento corporativo.</p>
-                        
-                        <div class="cards-grid" style="margin-top: 20px;">
-                            <div class="card">
-                                <h3>1. Princípios, Políticas e Frameworks</h3>
-                                <p>Diretrizes de alto nível que orientam as decisões e ações da organização</p>
-                            </div>
-                            <div class="card">
-                                <h3>2. Processos</h3>
-                                <p>Conjunto organizado de atividades para atingir objetivos e produzir resultados</p>
-                            </div>
-                            <div class="card">
-                                <h3>3. Estruturas Organizacionais</h3>
-                                <p>Entidades para tomada de decisão organizacional (comitês, roles, responsabilidades)</p>
-                            </div>
-                            <div class="card">
-                                <h3>4. Cultura, Ética e Comportamento</h3>
-                                <p>Valores individuais e coletivos que influenciam comportamentos</p>
-                            </div>
-                            <div class="card">
-                                <h3>5. Informação</h3>
-                                <p>Dados em seu contexto, organizados e processados para transmitir conhecimento</p>
-                            </div>
-                            <div class="card">
-                                <h3>6. Serviços, Infraestrutura e Aplicações</h3>
-                                <p>Tecnologia e recursos que fornecem a base para processamento de informação</p>
-                            </div>
-                            <div class="card">
-                                <h3>7. Pessoas, Habilidades e Competências</h3>
-                                <p>Capacidades humanas necessárias para completar atividades com sucesso</p>
-                            </div>
+                        <h4>Framework Genérico</h4>
+                        <div class="concept-card">
+                            <h4>Aplicabilidade Universal</h4>
+                            <p>Definições genéricas aplicáveis a:</p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Qualquer tipo de organização</li>
+                                <li>Qualquer tamanho de empresa</li>
+                                <li>Desde pequenas empresas até corporações gigantes</li>
+                            </ul>
                         </div>
+                    </div>
+                </div>
+
+                <h2>🏛️ Passo 5: Os 5 Fundamentos do COBIT</h2>
+                <div class="principles-grid">
+                    <div class="principle-card">
+                        <h3>Atendimento das Necessidades das Partes Interessadas</h3>
+                        <p>Foco em atender stakeholders e demonstrar valor gerado pela TI.</p>
+                    </div>
+                    <div class="principle-card">
+                        <h3>Cobertura de Todas as Áreas da Empresa</h3>
+                        <p>Visão do todo - abordagem holística que não deixa nenhuma área de fora.</p>
+                    </div>
+                    <div class="principle-card">
+                        <h3>Aplicação de Estrutura Integrada</h3>
+                        <p>Não ter vários frameworks trabalhando separadamente, mas uma única estrutura unificada.</p>
+                    </div>
+                    <div class="principle-card">
+                        <h3>Habilitar Abordagem Holística</h3>
+                        <p>Permitir que a governança trate a organização como um sistema integrado.</p>
+                    </div>
+                    <div class="principle-card">
+                        <h3>Separar Governança de Gerenciamento</h3>
+                        <p><strong>Fundamental:</strong> Distinção clara entre governança (estratégico) e gerenciamento (operacional).</p>
+                    </div>
+                </div>
+
+                <h2>🔧 Passo 6: Facilitadores/Habilitadores</h2>
+                <div class="concept-card">
+                    <h4>Definição de Habilitadores</h4>
+                    <p>Fatores que, individual ou coletivamente, influenciam a forma como a governança e gerenciamento de TI funcionam.</p>
+                </div>
+
+                <h3 style="margin: 30px 0 15px 0; color: #2c3e50;">Estruturais</h3>
+                <div class="enablers-grid">
+                    <div class="enabler-card">
+                        <div class="enabler-type">ESTRUTURAL</div>
+                        <h4>Princípios, Políticas e Modelos</h4>
+                        <p>Diretrizes fundamentais da organização</p>
+                    </div>
+                    <div class="enabler-card">
+                        <div class="enabler-type">ESTRUTURAL</div>
+                        <h4>Processos</h4>
+                        <p>Atividades organizadas para atingir objetivos</p>
+                    </div>
+                    <div class="enabler-card">
+                        <div class="enabler-type">ESTRUTURAL</div>
+                        <h4>Estruturas Organizacionais</h4>
+                        <p>Como a organização está estruturada</p>
+                    </div>
+                    <div class="enabler-card">
+                        <div class="enabler-type">ESTRUTURAL</div>
+                        <h4>Cultura, Ética e Comportamento</h4>
+                        <p>Aspectos humanos e culturais</p>
+                    </div>
+                </div>
+
+                <h3 style="margin: 30px 0 15px 0; color: #2c3e50;">Recursos</h3>
+                <div class="enablers-grid">
+                    <div class="enabler-card resource">
+                        <div class="enabler-type">RECURSO</div>
+                        <h4>Informação</h4>
+                        <p><strong>Recurso mais valioso</strong> da organização</p>
+                    </div>
+                    <div class="enabler-card resource">
+                        <div class="enabler-type">RECURSO</div>
+                        <h4>Serviços, Infraestrutura e Aplicativos</h4>
+                        <p>Tecnologia e sistemas da organização</p>
+                    </div>
+                    <div class="enabler-card resource">
+                        <div class="enabler-type">RECURSO</div>
+                        <h4>Pessoas, Habilidades e Competências</h4>
+                        <p>Capital humano e conhecimento</p>
                     </div>
                 </div>
 
                 <div class="highlight-box">
-                    <h4>🎯 Exercício de Fixação</h4>
-                    <p><strong>Cenário:</strong> Você é o novo CIO de uma empresa que quer implementar COBIT.</p>
-                    <p><strong>Desafio:</strong> Como você aplicaria os 5 fundamentos na prática?</p>
-                    <ol style="margin: 10px 0 0 20px;">
-                        <li>Identifique as partes interessadas principais</li>
-                        <li>Mapeie as áreas que precisam de cobertura</li>
-                        <li>Liste os frameworks atualmente em uso</li>
-                        <li>Defina a diferença entre governança e gerenciamento na sua organização</li>
-                    </ol>
-                </div>
-
-                <h2>📚 Resumo da Aula</h2>
-                <div class="concept-card">
-                    <h4>Principais Aprendizados</h4>
+                    <h4>🎯 Resumo da Aula 01</h4>
                     <ul style="margin: 10px 0 0 20px;">
                         <li><strong>Eficácia ≠ Eficiência:</strong> Fazer certo vs fazer gastando menos</li>
                         <li><strong>COBIT evoluiu:</strong> De auditoria para governança integrada</li>
@@ -1998,15 +2061,6 @@
                         <li><strong>Visão Holística:</strong> TI e negócios integrados</li>
                     </ul>
                 </div>
-
-                <h2>🔄 Próximos Passos</h2>
-                <p>Na próxima aula estudaremos a <strong>Estrutura do COBIT</strong>, incluindo:</p>
-                <ul style="margin: 10px 0 0 20px;">
-                    <li>Diferenciação prática entre Governança e Gerenciamento</li>
-                    <li>Os 5 Domínios/Processos em detalhes</li>
-                    <li>Como aplicar cada domínio na organização</li>
-                    <li>Casos práticos de implementação</li>
-                </ul>
                 `
             },
             'aula02': {
@@ -2018,19 +2072,11 @@
                 <strong>Professor:</strong> Eder José Cassimiro<br>
                 <strong>Duração:</strong> 2 horas</p>
 
-                <h2>Objetivos de Aprendizagem</h2>
-                <p>Ao final desta aula, o estudante será capaz de:</p>
-                <ul>
-                    <li>Distinguir claramente governança de gerenciamento</li>
-                    <li>Compreender os 5 domínios do COBIT em profundidade</li>
-                    <li>Aplicar os conceitos de Build vs Acquire</li>
-                    <li>Implementar a estrutura COBIT em organizações</li>
-                </ul>
-
+                <h2>🔄 Passo 7: Governança vs Gerenciamento</h2>
                 <div class="step-content">
-                    <div class="step-counter">2.1</div>
+                    <div class="step-counter">7.1</div>
                     <div class="step-text">
-                        <h4>Governança vs Gerenciamento</h4>
+                        <h4>Separação Fundamental</h4>
                         <div class="comparison-table">
                             <table>
                                 <thead>
@@ -2056,364 +2102,172 @@
                                         <td>Definir "o que" deve ser feito</td>
                                         <td>Definir "como" fazer</td>
                                     </tr>
-                                    <tr>
-                                        <td><strong>Horizonte Temporal</strong></td>
-                                        <td>Longo prazo (anos)</td>
-                                        <td>Curto/médio prazo (meses)</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Stakeholders</strong></td>
-                                        <td>Board, acionistas, reguladores</td>
-                                        <td>Equipes operacionais, gerentes</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        
+                    </div>
+                </div>
+
+                <div class="step-content">
+                    <div class="step-counter">7.2</div>
+                    <div class="step-text">
+                        <h4>Objetivo Principal do COBIT</h4>
+                        <div class="highlight-box">
+                            <h4>🎯 Missão do COBIT</h4>
+                            <p>Ajudar a empresa a atingir seus objetivos através da governança e gerenciamento eficaz de TI, separando adequadamente essas duas funções e demonstrando valor de forma clara para as partes interessadas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>🌐 Passo 8: Governança Holística e Demonstração de Valor</h2>
+                <div class="step-content">
+                    <div class="step-counter">8.1</div>
+                    <div class="step-text">
+                        <h4>Governança Holística</h4>
                         <div class="concept-card">
-                            <h4>🏢 Exemplo Prático: Projeto de Digitalização</h4>
-                            <p><strong>Governança decide:</strong></p>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Investir R$ 2 milhões em digitalização</li>
-                                <li>Prazo de 18 meses para implementação</li>
-                                <li>ROI esperado de 25% em 3 anos</li>
-                            </ul>
-                            <p><strong>Gerenciamento executa:</strong></p>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Escolha de tecnologias específicas</li>
-                                <li>Cronograma detalhado de implementação</li>
-                                <li>Gestão de equipes e fornecedores</li>
-                            </ul>
+                            <h4>Abordagem Completa</h4>
+                            <p>Abranja todas as partes da empresa, não deixando nada do lado de fora. O COBIT é aplicável a empresas de qualquer natureza ou porte, fornecendo um conjunto de boas práticas genéricas.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="step-content">
-                    <div class="step-counter">2.2</div>
+                    <div class="step-counter">8.2</div>
                     <div class="step-text">
-                        <h4>Os 5 Domínios/Processos do COBIT</h4>
-                        <div class="process-grid">
-                            <div class="process-card governance">
-                                <div class="process-type">GOVERNANÇA</div>
-                                <h3>EDM - Evaluate, Direct and Monitor</h3>
-                                <p>Contém 5 processos onde são definidas práticas de avaliação, direção e monitoração da governança.</p>
-                                
-                                <div style="margin-top: 15px;">
-                                    <strong>Processos EDM:</strong>
-                                    <ul style="margin: 10px 0 0 20px; font-size: 0.9rem;">
-                                        <li><strong>EDM01:</strong> Assegurar o estabelecimento e manutenção do framework de governança</li>
-                                        <li><strong>EDM02:</strong> Assegurar a entrega de benefícios</li>
-                                        <li><strong>EDM03:</strong> Assegurar a otimização de riscos</li>
-                                        <li><strong>EDM04:</strong> Assegurar a otimização de recursos</li>
-                                        <li><strong>EDM05:</strong> Assegurar transparência para stakeholders</li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo Prático:</strong> Board de TI define política de segurança cibernética e monitora indicadores de conformidade
-                                </div>
-                            </div>
-                            
-                            <div class="process-card">
-                                <div class="process-type">GERENCIAMENTO</div>
-                                <h3>APO - Align, Plan and Organise</h3>
-                                <p>Identifica formas através das quais a TI pode contribuir melhor para atingir os objetivos de negócio.</p>
-                                
-                                <div style="margin-top: 15px;">
-                                    <strong>Áreas Principais:</strong>
-                                    <ul style="margin: 10px 0 0 20px; font-size: 0.9rem;">
-                                        <li>Gestão do framework de TI e estratégia</li>
-                                        <li>Arquitetura empresarial</li>
-                                        <li>Gestão de portfólio e inovação</li>
-                                        <li>Orçamento e custos</li>
-                                        <li>Gestão de recursos humanos de TI</li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo Prático:</strong> Definir plano estratégico de TI alinhado ao plano de negócios da empresa
-                                </div>
-                            </div>
-                            
-                            <div class="process-card">
-                                <div class="process-type">GERENCIAMENTO</div>
-                                <h3>BAI - Build, Acquire and Implement</h3>
-                                <p>Cobre o processo de construção ou aquisição e implementação de soluções de TI e sua integração aos processos de negócio.</p>
-                                
-                                <div style="margin-top: 15px;">
-                                    <strong>Atividades Principais:</strong>
-                                    <ul style="margin: 10px 0 0 20px; font-size: 0.9rem;">
-                                        <li>Gestão de programas e projetos</li>
-                                        <li>Definição de requisitos</li>
-                                        <li>Gestão de soluções</li>
-                                        <li>Gestão de disponibilidade e capacidade</li>
-                                        <li>Gestão de mudanças organizacionais</li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo Prático:</strong> Implementar novo ERP, desde análise de requisitos até go-live
-                                </div>
-                            </div>
-                            
-                            <div class="process-card">
-                                <div class="process-type">GERENCIAMENTO</div>
-                                <h3>DSS - Deliver, Service and Support</h3>
-                                <p>Representa o dia a dia da TI. Entrega e fornecimento de valor requerido para os usuários finais através das soluções implementadas.</p>
-                                
-                                <div style="margin-top: 15px;">
-                                    <strong>Serviços Operacionais:</strong>
-                                    <ul style="margin: 10px 0 0 20px; font-size: 0.9rem;">
-                                        <li>Gestão de operações</li>
-                                        <li>Gestão de requisições e incidentes</li>
-                                        <li>Gestão de problemas</li>
-                                        <li>Gestão de continuidade</li>
-                                        <li>Gestão de serviços de segurança</li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo Prático:</strong> Service Desk que atende chamados de usuários 24x7 com SLA definido
-                                </div>
-                            </div>
-                            
-                            <div class="process-card">
-                                <div class="process-type">GERENCIAMENTO</div>
-                                <h3>MEA - Monitor, Evaluate and Assess</h3>
-                                <p>Assegura que a qualidade dos processos seja mantida e fornece subsídios para os órgãos de governança realizarem suas atividades.</p>
-                                
-                                <div style="margin-top: 15px;">
-                                    <strong>Atividades de Controle:</strong>
-                                    <ul style="margin: 10px 0 0 20px; font-size: 0.9rem;">
-                                        <li>Monitoramento de performance e conformidade</li>
-                                        <li>Avaliação do sistema de controle interno</li>
-                                        <li>Auditoria independente</li>
-                                        <li>Gestão de garantia de qualidade</li>
-                                        <li>Avaliação de riscos</li>
-                                    </ul>
-                                </div>
-                                
-                                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 8px;">
-                                    <strong>Exemplo Prático:</strong> Auditoria trimestral de conformidade com políticas de segurança da informação
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="step-content">
-                    <div class="step-counter">2.3</div>
-                    <div class="step-text">
-                        <h4>Build vs Acquire: Decisão Estratégica Fundamental</h4>
-                        
-                        <div class="comparison-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Critério</th>
-                                        <th>Build (Desenvolver)</th>
-                                        <th>Acquire (Adquirir)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Tempo de Implementação</strong></td>
-                                        <td>Longo (12-36 meses)</td>
-                                        <td>Curto (3-12 meses)</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Custo Inicial</strong></td>
-                                        <td>Alto (desenvolvimento + infraestrutura)</td>
-                                        <td>Médio (licenças + customização)</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Customização</strong></td>
-                                        <td>100% sob medida</td>
-                                        <td>Limitada a parâmetros</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Manutenção</strong></td>
-                                        <td>Equipe interna permanente</td>
-                                        <td>Suporte do fornecedor</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Risco Tecnológico</strong></td>
-                                        <td>Alto (desenvolvimentos próprios)</td>
-                                        <td>Baixo (solução madura)</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
+                        <h4>Demonstração de Valor</h4>
                         <div class="concept-card">
-                            <h4>🎯 Regra de Ouro do COBIT</h4>
-                            <p><strong>"Sempre priorize a aquisição de soluções prontas sobre o desenvolvimento interno, exceto quando há vantagem competitiva diferenciadora."</strong></p>
-                            
-                            <p><strong>Quando Desenvolver (Build):</strong></p>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Processo é core business da empresa</li>
-                                <li>Não existe solução no mercado</li>
-                                <li>Vantagem competitiva sustentável</li>
-                                <li>Requisitos muito específicos</li>
-                            </ul>
-                            
-                            <p><strong>Quando Adquirir (Acquire):</strong></p>
-                            <ul style="margin: 10px 0 0 20px;">
-                                <li>Processo é suporte ao negócio</li>
-                                <li>Existem soluções maduras no mercado</li>
-                                <li>Necessidade de implementação rápida</li>
-                                <li>Falta de expertise técnica interna</li>
-                            </ul>
+                            <h4>TI fora do isolamento</h4>
+                            <p>A TI não só deve agregar valor para a empresa, mas isso deve ser demonstrado de forma clara para as partes interessadas, tirando a TI do isolamento em que vivia décadas atrás.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>⚙️ Passo 9: Os 5 Processos/Domínios do COBIT</h2>
+                <div class="highlight-box">
+                    <h4>📊 Estrutura dos Domínios</h4>
+                    <p><strong>1 Domínio de Governança:</strong> EDM (Evaluate, Direct and Monitor)</p>
+                    <p><strong>4 Domínios de Gerenciamento:</strong> APO, BAI, DSS, MEA</p>
+                </div>
+
+                <div class="process-grid">
+                    <div class="process-card governance">
+                        <div class="process-type">GOVERNANÇA</div>
+                        <h3>EDM - Evaluate, Direct and Monitor</h3>
+                        <p><strong>Avaliar, Dirigir e Monitorar</strong></p>
+                        <p>Contém 5 processos de governança onde são definidas as práticas de avaliação, direção e monitoração. É o único domínio focado especificamente em governança.</p>
+                    </div>
+
+                    <div class="process-card">
+                        <div class="process-type">GERENCIAMENTO</div>
+                        <h3>APO - Align, Plan and Organise</h3>
+                        <p><strong>Alinhar, Planejar e Organizar</strong></p>
+                        <p>Tem abrangência estratégica e identifica formas através das quais a TI pode contribuir para atender os objetivos de negócio. Não determina os objetivos, mas como a TI pode agir para atendê-los.</p>
+                    </div>
+
+                    <div class="process-card">
+                        <div class="process-type">GERENCIAMENTO</div>
+                        <h3>BAI - Build, Acquire and Implement</h3>
+                        <p><strong>Construir, Adquirir e Implementar</strong></p>
+                        <p>Trata do processo de construção ou aquisição e implementação de soluções de TI. Inclui mudanças e manutenções de sistemas. Prioriza-se a aquisição de soluções prontas do mercado.</p>
+                    </div>
+
+                    <div class="process-card">
+                        <div class="process-type">GERENCIAMENTO</div>
+                        <h3>DSS - Deliver, Service and Support</h3>
+                        <p><strong>Entregar, Serviço e Suporte</strong></p>
+                        <p>O dia a dia da TI. Quando você já tem a solução implementada e vai utilizá-la para entregar valor para os usuários. É a parte do gerenciamento cotidiano da tecnologia da informação.</p>
+                    </div>
+
+                    <div class="process-card">
+                        <div class="process-type">GERENCIAMENTO</div>
+                        <h3>MEA - Monitor, Evaluate and Assess</h3>
+                        <p><strong>Monitorar, Avaliar e Medir</strong></p>
+                        <p>Assegura a qualidade dos processos, bem como governança e conformidade. Fornece subsídios para o domínio de governança através de mecanismos adequados de avaliação.</p>
+                    </div>
+                </div>
+
+                <h2>🏗️ Passo 10: Build vs Acquire - Boas Práticas</h2>
+                <div class="step-content">
+                    <div class="step-counter">10.1</div>
+                    <div class="step-text">
+                        <h4>Regra Atual: Priorizar Aquisição</h4>
+                        <div class="concept-card">
+                            <h4>Estratégia Recomendada</h4>
+                            <p><strong>Regra:</strong> Sempre tentar adquirir soluções do mercado prontas e implementá-las com o mínimo de personalização possível.</p>
                         </div>
                         
-                        <div class="cards-grid" style="margin-top: 20px;">
-                            <div class="card" style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);">
-                                <h3>✅ Caso Build: Netflix</h3>
-                                <p><strong>Situação:</strong> Algoritmo de recomendação</p>
-                                <p><strong>Decisão:</strong> Desenvolver internamente</p>
-                                <p><strong>Razão:</strong> Vantagem competitiva core</p>
-                            </div>
-                            <div class="card" style="background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);">
-                                <h3>✅ Caso Acquire: Qualquer Empresa</h3>
-                                <p><strong>Situação:</strong> Sistema de folha de pagamento</p>
-                                <p><strong>Decisão:</strong> Adquirir solução pronta</p>
-                                <p><strong>Razão:</strong> Processo padrão, não diferenciador</p>
-                            </div>
+                        <div class="example-box">
+                            <strong>Por que evitar desenvolvimento interno?</strong>
+                            Desenvolver internamente significa ser responsável por:
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Desenvolvimento completo</li>
+                                <li>Implementação</li>
+                                <li>Suporte contínuo</li>
+                            </ul>
+                            Essas tarefas são pesadas e geralmente fogem da expertise e do negócio principal da empresa.
                         </div>
                     </div>
                 </div>
 
                 <div class="step-content">
-                    <div class="step-counter">2.4</div>
+                    <div class="step-counter">10.2</div>
                     <div class="step-text">
-                        <h4>Implementação Prática do COBIT</h4>
-                        
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-date">Fase 1: Diagnóstico (2-4 semanas)</div>
-                                <h4>Avaliação da Maturidade Atual</h4>
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Mapeamento de processos existentes</li>
-                                    <li>Identificação de gaps de governança</li>
-                                    <li>Avaliação de riscos e controles</li>
-                                    <li>Benchmarking com mercado</li>
-                                </ul>
-                            </div>
+                        <h4>Quando Construir Internamente</h4>
+                        <div class="concept-card">
+                            <h4>Exceções à Regra</h4>
+                            <p>Eventualmente há necessidade de construir internamente quando:</p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Não existe solução pronta no mercado</li>
+                                <li>As necessidades são muito específicas</li>
+                                <li>Representa diferencial competitivo estratégico</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                            <div class="timeline-item">
-                                <div class="timeline-date">Fase 2: Planejamento (4-6 semanas)</div>
-                                <h4>Definição da Estratégia de Implementação</h4>
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Priorização dos domínios COBIT</li>
-                                    <li>Roadmap de implementação</li>
-                                    <li>Definição de métricas e KPIs</li>
-                                    <li>Plano de gestão de mudanças</li>
-                                </ul>
-                            </div>
+                <h2>🎯 Passo 11: Características Finais do Framework</h2>
+                <div class="step-content">
+                    <div class="step-counter">11.1</div>
+                    <div class="step-text">
+                        <h4>Framework Genérico e Abrangente</h4>
+                        <div class="concept-card">
+                            <h4>Aplicabilidade Universal</h4>
+                            <p>O COBIT não é um "guia do como fazer" específico, mas sim um conjunto de boas práticas que podem ser aplicadas em organizações de qualquer natureza ou porte.</p>
+                        </div>
+                    </div>
+                </div>
 
-                            <div class="timeline-item">
-                                <div class="timeline-date">Fase 3: Implementação (6-12 meses)</div>
-                                <h4>Execução do Plano</h4>
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Implantação dos processos EDM</li>
-                                    <li>Estruturação dos processos de gerenciamento</li>
-                                    <li>Treinamento de equipes</li>
-                                    <li>Implementação de ferramentas de monitoramento</li>
-                                </ul>
-                            </div>
+                <div class="step-content">
+                    <div class="step-counter">11.2</div>
+                    <div class="step-text">
+                        <h4>Conexão com Governança Corporativa</h4>
+                        <div class="concept-card">
+                            <h4>Integração Estratégica</h4>
+                            <p>A governança de TI está diretamente atrelada à governança corporativa, sendo partes distintas mas complementares do mesmo sistema organizacional.</p>
+                        </div>
+                    </div>
+                </div>
 
-                            <div class="timeline-item">
-                                <div class="timeline-date">Fase 4: Monitoramento Contínuo</div>
-                                <h4>Sustentação e Melhoria</h4>
-                                <ul style="margin: 10px 0 0 20px;">
-                                    <li>Monitoramento de indicadores</li>
-                                    <li>Auditorias periódicas</li>
-                                    <li>Melhoria contínua dos processos</li>
-                                    <li>Evolução da maturidade</li>
-                                </ul>
-                            </div>
+                <div class="step-content">
+                    <div class="step-counter">11.3</div>
+                    <div class="step-text">
+                        <h4>Objetivo Final</h4>
+                        <div class="highlight-box">
+                            <h4>🚀 Meta do COBIT</h4>
+                            <p>Fornecer subsídios adequados para que o domínio de governança (EDM) seja efetivamente implementado na organização, criando valor demonstrável através de TI alinhada aos objetivos de negócio.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="highlight-box">
-                    <h4>💼 Estudo de Caso: Implementação COBIT no Banco XYZ</h4>
-                    <p><strong>Situação:</strong> Banco médio porte com problemas de compliance e governança de TI</p>
-                    
-                    <p><strong>Desafios Identificados:</strong></p>
-                    <ul style="margin: 10px 0 0 20px;">
-                        <li>Falta de alinhamento estratégico TI-Negócio</li>
-                        <li>Processos de TI não documentados</li>
-                        <li>Ausência de métricas de performance</li>
-                        <li>Riscos de segurança não gerenciados</li>
-                    </ul>
-                    
-                    <p><strong>Solução COBIT Implementada:</strong></p>
-                    <ul style="margin: 10px 0 0 20px;">
-                        <li><strong>EDM:</strong> Criação do Comitê de Governança de TI</li>
-                        <li><strong>APO:</strong> Plano estratégico de TI alinhado ao negócio</li>
-                        <li><strong>BAI:</strong> Metodologia de gestão de projetos</li>
-                        <li><strong>DSS:</strong> Service Desk e SLAs definidos</li>
-                        <li><strong>MEA:</strong> Dashboard executivo com KPIs</li>
-                    </ul>
-                    
-                    <p><strong>Resultados em 18 meses:</strong></p>
-                    <ul style="margin: 10px 0 0 20px;">
-                        <li>Redução de 40% no tempo de entrega de projetos</li>
-                        <li>Melhoria de 60% na satisfação dos usuários</li>
-                        <li>Conformidade 100% com regulamentações bancárias</li>
-                        <li>ROI de 250% no investimento em governança</li>
-                    </ul>
-                </div>
-
-                <h2>📊 Exercício Prático: Mapeamento de Domínios</h2>
-                <div class="concept-card">
-                    <h4>Cenário: Você é consultor contratado por uma empresa de e-commerce</h4>
-                    <p><strong>Situação Atual:</strong></p>
-                    <ul style="margin: 10px 0 0 20px;">
-                        <li>Site fora do ar frequentemente</li>
-                        <li>Projetos de TI sempre atrasam</li>
-                        <li>Falta visibilidade dos custos de TI</li>
-                        <li>Ausência de backup e disaster recovery</li>
-                    </ul>
-                    
-                    <p><strong>Sua Missão:</strong> Mapear cada problema para o domínio COBIT correspondente e propor soluções.</p>
-                    
-                    <div style="margin-top: 15px; padding: 15px; background: rgba(52, 152, 219, 0.1); border-radius: 10px;">
-                        <strong>Dica:</strong> Pense em qual domínio (EDM, APO, BAI, DSS, MEA) seria responsável por cada tipo de problema.
-                    </div>
-                </div>
-
-                <h2>📚 Resumo da Aula</h2>
-                <div class="concept-card">
-                    <h4>Principais Aprendizados</h4>
+                    <h4>🎯 Resumo da Aula 02</h4>
                     <ul style="margin: 10px 0 0 20px;">
                         <li><strong>Governança ≠ Gerenciamento:</strong> Estratégico vs Operacional</li>
                         <li><strong>EDM é único de Governança:</strong> Os outros 4 são Gerenciamento</li>
                         <li><strong>Cada domínio tem papel específico:</strong> APO planeja, BAI implementa, DSS opera, MEA monitora</li>
                         <li><strong>Build vs Acquire:</strong> Priorize sempre aquisição, exceto quando há vantagem competitiva</li>
-                        <li><strong>Implementação faseada:</strong> Diagnóstico → Planejamento → Execução → Monitoramento</li>
+                        <li><strong>Framework genérico:</strong> Aplicável a organizações de qualquer porte</li>
                     </ul>
-                </div>
-
-                <h2>🎯 Próximos Passos</h2>
-                <p>Com o conhecimento das duas aulas, você agora tem a base para:</p>
-                <ul style="margin: 10px 0 0 20px;">
-                    <li><strong>Avaliar a maturidade</strong> de governança de TI em organizações</li>
-                    <li><strong>Propor melhorias</strong> baseadas nos 5 domínios do COBIT</li>
-                    <li><strong>Implementar práticas</strong> de governança alinhadas aos fundamentos</li>
-                    <li><strong>Monitorar e medir</strong> a eficácia da governança implementada</li>
-                </ul>
-
-                <div class="highlight-box">
-                    <h4>🏆 Desafio Final</h4>
-                    <p>Para a próxima aula, prepare um mini-projeto de implementação COBIT para uma empresa fictícia do seu setor de interesse. Inclua:</p>
-                    <ol style="margin: 10px 0 0 20px;">
-                        <li>Diagnóstico da situação atual</li>
-                        <li>Mapeamento dos 5 domínios</li>
-                        <li>Priorização de implementação</li>
-                        <li>Métricas de sucesso</li>
-                    </ol>
                 </div>
                 `
             }
@@ -2479,6 +2333,30 @@
                 openAulaModal(aulaKeys[currentIndex - 1]);
             } else if (direction === 'next' && currentIndex < aulaKeys.length - 1) {
                 openAulaModal(aulaKeys[currentIndex + 1]);
+            }
+        }
+
+        // Função para toggle das seções (se necessário para expandir/colapsar)
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId);
+            if (content) {
+                const icon = content.previousElementSibling.querySelector('.toggle-icon');
+                
+                if (content.classList.contains('collapsed')) {
+                    content.classList.remove('collapsed');
+                    content.classList.add('expanded');
+                    if (icon) {
+                        icon.textContent = '▼';
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                } else {
+                    content.classList.remove('expanded');
+                    content.classList.add('collapsed');
+                    if (icon) {
+                        icon.textContent = '▶';
+                        icon.style.transform = 'rotate(-90deg)';
+                    }
+                }
             }
         }
 
@@ -2757,7 +2635,7 @@
         });
 
         // Efeitos interativos nos cards
-        document.querySelectorAll('.card').forEach(card => {
+        document.querySelectorAll('.card, .principle-card, .enabler-card, .concept-card, .process-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-8px) scale(1.02)';
                 this.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.25)';
