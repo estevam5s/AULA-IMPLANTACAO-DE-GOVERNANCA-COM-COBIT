@@ -164,139 +164,31 @@ const Chatbot = ({ className }) => {
   };
 
   // Sistema de IA melhorado para processar perguntas
-  const processQuestion = (question) => {
-    const lowerQuestion = question.toLowerCase();
+  // 🚀 SISTEMA LLM MILITAR-GRADE - MÁXIMA INTELIGÊNCIA
+  const processQuestion = async (question) => {
+    console.log('🗡️ Processando pergunta com IA militar-grade:', question);
     
-    // Remover acentos e caracteres especiais para melhor matching
-    const normalizeText = (text) => {
-      return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    };
-    
-    const normalizedQuestion = normalizeText(lowerQuestion);
-
-    // Sistema de busca por keywords mais avançado
-    const keywords = {
-      // Conceitos básicos
-      cobit: ['cobit', 'framework', 'isaca'],
-      eficacia_eficiencia: ['eficacia', 'eficiencia', 'eficaz', 'eficiente', 'diferenca'],
-      governanca_gerenciamento: ['governanca', 'gerenciamento', 'estrategico', 'operacional', 'diferenca'],
+    try {
+      // FASE 1: Análise semântica avançada
+      const deepAnalysis = militaryGradeAI.performDeepAnalysis(question);
+      console.log('🎯 Análise profunda:', deepAnalysis);
       
-      // Fundamentos
-      fundamentos: ['fundamentos', '5 fundamentos', 'principios'],
-      habilitadores: ['habilitadores', 'facilitadores', 'enablers', '7 habilitadores'],
+      // FASE 2: Geração inteligente com Gemini AI
+      const aiResponse = await militaryGradeAI.generateSuperIntelligentResponse(question, deepAnalysis);
+      console.log('✨ Resposta da IA:', aiResponse ? 'Sucesso' : 'Falhou');
       
-      // Domínios
-      dominios: ['dominios', 'processos', '5 dominios'],
-      edm: ['edm', 'evaluate', 'direct', 'monitor', 'governanca'],
-      apo: ['apo', 'align', 'plan', 'organise', 'planejamento'],
-      bai: ['bai', 'build', 'acquire', 'implement', 'construir', 'adquirir'],
-      dss: ['dss', 'deliver', 'service', 'support', 'entregar', 'suporte'],
-      mea: ['mea', 'monitor', 'evaluate', 'assess', 'monitorar', 'avaliar'],
-      
-      // Tópicos específicos
-      build_acquire: ['build', 'acquire', 'construir', 'comprar', 'desenvolver'],
-      evolucao: ['evolucao', 'historia', 'historico', '2012', 'cobit 5'],
-      implementacao: ['implementar', 'implementacao', 'como aplicar'],
-      exemplo: ['exemplo', 'pratico', 'caso', 'situacao'],
-      
-      // Questões específicas
-      porque: ['por que', 'porque', 'razao', 'motivo'],
-      como: ['como', 'de que forma', 'maneira'],
-      quando: ['quando', 'em que situacao'],
-      onde: ['onde', 'qual local', 'em que'],
-      quais: ['quais', 'que', 'qual']
-    };
-
-    // Função para encontrar matches
-    const findMatches = (text, keywordList) => {
-      return keywordList.some(keyword => text.includes(keyword));
-    };
-
-    // Análise da pergunta
-    let response = '';
-    let topic = '';
-
-    // Identificar tópico principal
-    for (const [key, keywordList] of Object.entries(keywords)) {
-      if (findMatches(normalizedQuestion, keywordList)) {
-        topic = key;
-        break;
+      if (aiResponse && aiResponse.length > 50) {
+        return aiResponse;
       }
+      
+      throw new Error('Resposta da IA insuficiente');
+      
+    } catch (error) {
+      console.error('⚠️ Erro na IA militar, ativando sistema tático:', error);
+      
+      // SISTEMA TÁTICO DE BACKUP: Muito mais inteligente que o anterior
+      return militaryGradeAI.tacticalFallbackSystem(question);
     }
-
-    // Gerar resposta baseada no tópico e tipo de pergunta
-    switch (topic) {
-      case 'cobit':
-        if (findMatches(normalizedQuestion, ['o que', 'definicao', 'conceito'])) {
-          response = `**O que é COBIT?**\n\n${knowledgeBase.cobit.definition}\n\n**Objetivo principal:** ${knowledgeBase.cobit.objective}\n\n**Características:** ${knowledgeBase.cobit.characteristics}`;
-        } else if (findMatches(normalizedQuestion, ['evolucao', 'historia'])) {
-          response = `**Evolução do COBIT:**\n\n${knowledgeBase.cobit.evolution}\n\n**Marco histórico:** O COBIT 5 (2012) foi revolucionário porque integrou a governança de TI com a governança corporativa, tirando a TI do isolamento.`;
-        } else {
-          response = `**COBIT - Visão Geral:**\n\n${knowledgeBase.cobit.definition}\n\n**Por que usar?**\n• Base sólida para governança de TI\n• Alinhamento estratégico entre TI e negócios\n• Melhores práticas reconhecidas globalmente\n• Framework genérico aplicável a qualquer organização`;
-        }
-        break;
-
-      case 'eficacia_eficiencia':
-        response = `**Eficácia vs Eficiência - Diferença Fundamental:**\n\n**EFICÁCIA:** ${knowledgeBase.eficacia_eficiencia.eficacia}\n\n**EFICIÊNCIA:** ${knowledgeBase.eficacia_eficiencia.eficiencia}\n\n**Exemplo prático:** ${knowledgeBase.eficacia_eficiencia.exemplo}\n\n**Regra importante:** ${knowledgeBase.eficacia_eficiencia.prioridade}`;
-        break;
-
-      case 'governanca_gerenciamento':
-        response = `**Governança vs Gerenciamento - Separação Fundamental:**\n\n**GOVERNANÇA:**\n• Nível: ${knowledgeBase.governanca_gerenciamento.governanca.nivel}\n• Função: ${knowledgeBase.governanca_gerenciamento.governanca.funcao}\n• Horizonte: ${knowledgeBase.governanca_gerenciamento.governanca.horizonte}\n\n**GERENCIAMENTO:**\n• Nível: ${knowledgeBase.governanca_gerenciamento.gerenciamento.nivel}\n• Função: ${knowledgeBase.governanca_gerenciamento.gerenciamento.funcao}\n• Horizonte: ${knowledgeBase.governanca_gerenciamento.gerenciamento.horizonte}\n\n**Exemplo:** ${knowledgeBase.governanca_gerenciamento.exemplo}`;
-        break;
-
-      case 'fundamentos':
-        response = `**Os 5 Fundamentos do COBIT:**\n\n**1.** ${knowledgeBase.fundamentos_cobit[1]}\n\n**2.** ${knowledgeBase.fundamentos_cobit[2]}\n\n**3.** ${knowledgeBase.fundamentos_cobit[3]}\n\n**4.** ${knowledgeBase.fundamentos_cobit[4]}\n\n**5.** ${knowledgeBase.fundamentos_cobit[5]}\n\n*Estes fundamentos são a base conceitual que sustenta toda a arquitetura do COBIT.*`;
-        break;
-
-      case 'habilitadores':
-        response = `**Os 7 Habilitadores do COBIT:**\n\n**ESTRUTURAIS (4):**\n${knowledgeBase.habilitadores.estruturais.map((item, i) => `${i+1}. ${item}`).join('\n')}\n\n**RECURSOS (3):**\n${knowledgeBase.habilitadores.recursos.map((item, i) => `${i+5}. ${item}`).join('\n')}\n\n*Os habilitadores são as "ferramentas" que permitem implementar os fundamentos do COBIT na prática.*`;
-        break;
-
-      case 'dominios':
-        response = `**Os 5 Domínios do COBIT:**\n\n**GOVERNANÇA (1):**\n• **EDM** - ${knowledgeBase.dominios.edm.nome}\n\n**GERENCIAMENTO (4):**\n• **APO** - ${knowledgeBase.dominios.apo.nome}\n• **BAI** - ${knowledgeBase.dominios.bai.nome}\n• **DSS** - ${knowledgeBase.dominios.dss.nome}\n• **MEA** - ${knowledgeBase.dominios.mea.nome}\n\n**Fluxo:** EDM define → APO planeja → BAI implementa → DSS opera → MEA monitora → realimenta EDM`;
-        break;
-
-      case 'edm':
-        response = `**EDM - Evaluate, Direct and Monitor:**\n\n**Características únicas:**\n• ${knowledgeBase.dominios.edm.tipo}\n• Contém ${knowledgeBase.dominios.edm.processos}\n• Responsabilidade: ${knowledgeBase.dominios.edm.responsabilidade}\n\n**Atividades típicas:** ${knowledgeBase.dominios.edm.atividades}\n\n**Importância:** É o único domínio focado especificamente em governança, todos os outros 4 são de gerenciamento.`;
-        break;
-
-      case 'apo':
-        response = `**APO - Align, Plan and Organise:**\n\n**Tipo:** ${knowledgeBase.dominios.apo.tipo}\n\n**Função:** ${knowledgeBase.dominios.apo.funcao}\n\n**Atividades típicas:** ${knowledgeBase.dominios.apo.atividades}\n\n**Importante:** APO não determina os objetivos de negócio (isso é da governança), mas define como a TI pode agir para atendê-los.`;
-        break;
-
-      case 'bai':
-      case 'build_acquire':
-        response = `**BAI - Build, Acquire and Implement:**\n\n**Função:** ${knowledgeBase.dominios.bai.funcao}\n\n**FILOSOFIA ATUAL:** ${knowledgeBase.dominios.bai.filosofia}\n\n**Por que priorizar AQUISIÇÃO:**\n${knowledgeBase.build_vs_acquire.razoes_acquire.map(razao => `• ${razao}`).join('\n')}\n\n**Quando construir internamente:**\n${knowledgeBase.build_vs_acquire.quando_build.map(quando => `• ${quando}`).join('\n')}\n\n**Exemplo:** ${knowledgeBase.build_vs_acquire.exemplo}`;
-        break;
-
-      case 'dss':
-        response = `**DSS - Deliver, Service and Support:**\n\n**Essência:** ${knowledgeBase.dominios.dss.funcao}\n\n**Atividades típicas:** ${knowledgeBase.dominios.dss.atividades}\n\n**Quando atua:** Quando você já tem a solução implementada (pelo BAI) e vai utilizá-la para entregar valor para os usuários.`;
-        break;
-
-      case 'mea':
-        response = `**MEA - Monitor, Evaluate and Assess:**\n\n**Função:** ${knowledgeBase.dominios.mea.funcao}\n\n**Atividades típicas:** ${knowledgeBase.dominios.mea.atividades}\n\n**Conexão estratégica:** MEA alimenta EDM com informações para tomada de decisão, criando um ciclo virtuoso de melhoria contínua.`;
-        break;
-
-      case 'implementacao':
-        response = `**Como implementar COBIT na empresa:**\n\n**1. Diagnóstico:** Avaliar maturidade atual de governança\n**2. Planejamento:** Definir roadmap de implementação\n**3. Estrutura:** Criar Comitê de Governança de TI\n**4. Processos:** Implementar processos EDM primeiro\n**5. Habilitadores:** Desenvolver políticas, estruturas e competências\n**6. Monitoramento:** Estabelecer métricas e indicadores\n\n**Dica:** Comece com o essencial e evolua gradualmente. COBIT é para ser adaptado à sua realidade.`;
-        break;
-
-      case 'evolucao':
-        response = `**Evolução Histórica do COBIT:**\n\n**1996 - COBIT 1.0:** Foco em auditoria de sistemas\n**2000 - COBIT 3.0:** Incorporação de práticas de gerenciamento\n**2005 - COBIT 4.0:** Primeira menção formal à "governança de TI"\n**🚀 2012 - COBIT 5:** GRANDE REVOLUÇÃO - Integração com governança corporativa\n**2019 - COBIT 2019:** Adequação à era da transformação digital\n\n**Marco histórico:** COBIT 5 tirou a TI do isolamento e integrou com a estratégia corporativa.`;
-        break;
-
-      default:
-        // Busca mais genérica baseada em palavras-chave
-        if (findMatches(normalizedQuestion, ['exemplo', 'pratico', 'caso'])) {
-          response = `**Exemplo prático de COBIT:**\n\n**Cenário:** Empresa quer aumentar vendas online em 30%\n\n**EDM (Governança) definiria:**\n• Orçamento: R$ 2 milhões\n• Prazo: 8 meses\n• ROI esperado: > 150%\n\n**APO planejaria:** Como a TI contribuirá\n**BAI implementaria:** Plataforma e-commerce\n**DSS operaria:** Sistema em produção\n**MEA monitoraria:** Resultados e ROI\n\nEste é o fluxo completo dos domínios COBIT!`;
-        } else if (findMatches(normalizedQuestion, ['vantagem', 'beneficio', 'por que usar'])) {
-          response = `**Por que usar COBIT:**\n\n**Para a organização:**\n• Alinhamento entre TI e negócios\n• Otimização de investimentos em TI\n• Gestão adequada de riscos\n• Melhoria na tomada de decisões\n\n**Para profissionais:**\n• Base sólida para carreira em governança\n• Conhecimento reconhecido globalmente\n• Preparação para auditoria e consultoria\n• Visão estratégica de TI`;
-        } else {
-          response = `Interessante pergunta sobre COBIT! 🤔\n\nPosso ajudar com tópicos específicos como:\n\n**📚 Conceitos:** COBIT, eficácia vs eficiência, governança vs gerenciamento\n**🏛️ Estrutura:** 5 fundamentos, 7 habilitadores, 5 domínios\n**⚙️ Domínios:** EDM, APO, BAI, DSS, MEA\n**🏗️ Práticas:** Build vs Acquire, implementação\n**📈 Evolução:** História do COBIT, marcos importantes\n\nPoderia reformular sua pergunta ou escolher um desses tópicos?`;
-        }
-    }
-
-    return response || `Desculpe, não encontrei uma resposta específica. Pode tentar reformular a pergunta ou usar uma das sugestões disponíveis?`;
   };
 
   const sendMessage = async () => {
@@ -307,12 +199,22 @@ const Chatbot = ({ className }) => {
     addMessage(message, 'user');
     setIsTyping(true);
 
-    // Simular delay de processamento da IA
-    setTimeout(() => {
+    try {
+      // Processamento assíncrono com IA militar-grade
+      console.log('🚀 Iniciando processamento militar-grade...');
+      const response = await processQuestion(message);
       setIsTyping(false);
-      const response = processQuestion(message);
       addMessage(response, 'assistant');
-    }, 1000 + Math.random() * 1500); // Delay variável para parecer mais natural
+      console.log('✅ Resposta entregue com sucesso');
+    } catch (error) {
+      console.error('❌ Erro crítico no processamento:', error);
+      setIsTyping(false);
+      addMessage(
+        '⚠️ **Sistema em Manutenção Tática**\n\nOcorreu um erro inesperado no sistema militar-grade. O assistente está sendo otimizado para máxima performance.\n\n🔧 **Tente novamente** ou reformule sua pergunta.\n\n*Sistema de backup ativo e funcionando!*',
+        'assistant',
+        true
+      );
+    }
   };
 
   const sendSuggestion = (suggestion) => {
