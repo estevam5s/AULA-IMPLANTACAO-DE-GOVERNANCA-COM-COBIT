@@ -423,24 +423,58 @@ const Chatbot = ({ className }) => {
         </div>
       </div>
 
-      <div className="highlight-box">
-        <h4>🎯 Conhecimento Completo das Aulas</h4>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px', marginTop: '15px' }}>
-          <div style={{ padding: '15px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
-            <strong>📘 Aula 01 Completa</strong><br />
-            <small>Conceitos fundamentais, evolução, fundamentos, habilitadores</small>
+      <div className="ai-info-panel">
+        <div className="ai-panel-header">
+          <h4>🚀 Sistema IA Avançado Ativo</h4>
+          <div className="ai-status-badge">ONLINE</div>
+        </div>
+        
+        <div className="ai-capabilities">
+          <div className="capability-item">
+            <span className="capability-icon">🧠</span>
+            <div>
+              <strong>IA Generativa Avançada</strong>
+              <p>Powered by Google Gemini com análise semântica</p>
+            </div>
           </div>
-          <div style={{ padding: '15px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
-            <strong>📗 Aula 02 Completa</strong><br />
-            <small>Domínios, governança vs gerenciamento, Build vs Acquire</small>
+          
+          <div className="capability-item">
+            <span className="capability-icon">📊</span>
+            <div>
+              <strong>Base de Conhecimento Completa</strong>
+              <p>Todas as aulas do Prof. Eder José Cassimiro integradas</p>
+            </div>
           </div>
-          <div style={{ padding: '15px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
-            <strong>💡 Exemplos Práticos</strong><br />
-            <small>Casos reais, situações empresariais, implementação</small>
+          
+          <div className="capability-item">
+            <span className="capability-icon">⚡</span>
+            <div>
+              <strong>Processamento Inteligente</strong>
+              <p>Análise contextual e respostas personalizadas</p>
+            </div>
           </div>
-          <div style={{ padding: '15px', background: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
-            <strong>🎓 Preparação Avaliações</strong><br />
-            <small>Conceitos-chave, pontos importantes, resumos</small>
+          
+          <div className="capability-item">
+            <span className="capability-icon">🎯</span>
+            <div>
+              <strong>Precisão Científica</strong>
+              <p>Respostas baseadas exclusivamente no conteúdo das aulas</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="performance-metrics">
+          <div className="metric">
+            <span className="metric-value">100%</span>
+            <span className="metric-label">Cobertura das Aulas</span>
+          </div>
+          <div className="metric">
+            <span className="metric-value">AI+</span>
+            <span className="metric-label">Tecnologia</span>
+          </div>
+          <div className="metric">
+            <span className="metric-value">24/7</span>
+            <span className="metric-label">Disponibilidade</span>
           </div>
         </div>
       </div>
