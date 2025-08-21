@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { aulasData } from '../data/courseData';
+import { 
+  aulasData, 
+  COURSE_CONTEXT, 
+  practicalExamples, 
+  GEMINI_API_KEY,
+  GEMINI_API_URL
+} from '../data/courseData';
 
 const Chatbot = ({ className }) => {
   const [messages, setMessages] = useState([]);
@@ -52,114 +57,461 @@ const Chatbot = ({ className }) => {
     setMessages(prev => [...prev, newMessage]);
   };
 
-  // Base de conhecimento expandida com todo o conteúdo das aulas
-  const knowledgeBase = {
-    // Conceitos fundamentais
-    'cobit': {
-      definition: 'O COBIT (Control Objectives for Information and Related Technologies) é um framework de governança e gestão de TI criado pela ISACA.',
-      evolution: 'Evoluiu de um framework de auditoria (1996) para governança integrada (2012 com COBIT 5). O marco histórico foi em 2012 quando integrou governança de TI com governança corporativa.',
-      objective: 'Ajudar organizações a atingir seus objetivos através da governança e gerenciamento eficaz de TI, separando adequadamente essas duas funções.',
-      characteristics: 'Framework genérico aplicável a qualquer organização, independente de porte ou setor. Não é um "guia do como fazer" específico, mas boas práticas adaptáveis.'
+  // 🚀 SISTEMA LLM MILITAR-GRADE: IA DE NÍVEL MILITAR
+  const militaryGradeAI = {
+    
+    // 🎯 ANÁLISE SEMÂNTICA PROFUNDA - NÍVEL MILITAR
+    performDeepAnalysis: (question) => {
+      const lowerQ = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      
+      const analysis = {
+        intent: null,
+        primaryTopic: null,
+        secondaryTopics: [],
+        questionType: 'general',
+        complexity: 'medium',
+        keywords: [],
+        context: [],
+        confidence: 0,
+        militaryClassification: 'standard'
+      };
+      
+      // DETECÇÃO AVANÇADA DE TIPO DE PERGUNTA
+      const questionPatterns = {
+        definition: /\b(o que é|defin|conceito|significa|explique)\b/i,
+        comparison: /\b(diferença|comparar|vs|versus|entre)\b/i,
+        implementation: /\b(como|implementar|aplicar|usar|utilizar)\b/i,
+        example: /\b(exemplo|prático|caso|situação|demonstração)\b/i,
+        exercise: /\b(exercício|questão|pergunta|teste|avaliação|quiz)\b/i,
+        list: /\b(listar|liste|quais são|enumere)\b/i,
+        process: /\b(processo|fluxo|etapa|passo|sequência)\b/i,
+        why: /\b(por que|porque|motivo|razão|justifica)\b/i,
+        when: /\b(quando|em que|momento|situação)\b/i
+      };
+      
+      for (const [type, pattern] of Object.entries(questionPatterns)) {
+        if (pattern.test(question)) {
+          analysis.questionType = type;
+          analysis.confidence += 0.2;
+          break;
+        }
+      }
+      
+      // MAPEAMENTO MILITAR DE TÓPICS
+      const militaryTopicClassification = {
+        // SETOR ALPHA - Conceitos Fundamentais
+        cobit_core: {
+          keywords: ['cobit', 'framework', 'isaca', 'governança de ti'],
+          classification: 'ALPHA-1',
+          priority: 'HIGH'
+        },
+        
+        // SETOR BRAVO - Eficácia e Eficiência  
+        efficiency_effectiveness: {
+          keywords: ['eficácia', 'eficiência', 'eficaz', 'eficiente', 'otimização'],
+          classification: 'BRAVO-1',
+          priority: 'HIGH'
+        },
+        
+        // SETOR CHARLIE - Governança vs Gerenciamento
+        governance_management: {
+          keywords: ['governança', 'gerenciamento', 'estratégico', 'operacional', 'separação'],
+          classification: 'CHARLIE-1',
+          priority: 'CRITICAL'
+        },
+        
+        // SETOR DELTA - Estrutura COBIT
+        cobit_structure: {
+          keywords: ['fundamentos', 'habilitadores', 'domínios', '5 fundamentos', '7 habilitadores'],
+          classification: 'DELTA-1',
+          priority: 'HIGH'
+        },
+        
+        // SETOR ECHO - Domínios Específicos
+        domains: {
+          keywords: ['edm', 'apo', 'bai', 'dss', 'mea', 'evaluate', 'direct', 'monitor', 'align', 'plan'],
+          classification: 'ECHO-1',
+          priority: 'HIGH'
+        },
+        
+        // SETOR FOXTROT - Build vs Acquire
+        build_acquire: {
+          keywords: ['build', 'acquire', 'construir', 'adquirir', 'comprar', 'desenvolver'],
+          classification: 'FOXTROT-1',
+          priority: 'MEDIUM'
+        },
+        
+        // SETOR GOLF - Exercícios e Avaliações
+        exercises: {
+          keywords: ['exercício', 'questão', 'teste', 'avaliação', 'quiz', 'pergunta'],
+          classification: 'GOLF-1',
+          priority: 'TACTICAL'
+        },
+        
+        // SETOR HOTEL - Implementação e Prática
+        implementation: {
+          keywords: ['implementação', 'prática', 'caso prático', 'exemplo', 'aplicação'],
+          classification: 'HOTEL-1',
+          priority: 'MEDIUM'
+        }
+      };
+      
+      // CLASSIFICAÇÃO MILITAR DE TÓPICS
+      for (const [topic, config] of Object.entries(militaryTopicClassification)) {
+        const matches = config.keywords.filter(keyword => lowerQ.includes(keyword)).length;
+        if (matches > 0) {
+          if (!analysis.primaryTopic) {
+            analysis.primaryTopic = topic;
+            analysis.militaryClassification = config.classification;
+          } else {
+            analysis.secondaryTopics.push(topic);
+          }
+          analysis.confidence += matches * 0.1;
+        }
+      }
+      
+      // EXTRAÇÃO DE KEYWORDS MILITARES
+      analysis.keywords = lowerQ.match(/\b\w{3,}\b/g) || [];
+      
+      // CLASSIFICAÇÃO DE COMPLEXIDADE
+      if (analysis.confidence > 0.8) analysis.complexity = 'high';
+      else if (analysis.confidence > 0.5) analysis.complexity = 'medium';
+      else analysis.complexity = 'low';
+      
+      return analysis;
     },
     
-    'eficacia_eficiencia': {
-      eficacia: 'Eficácia é cumprir as tarefas/funções determinadas. Fazer a coisa certa.',
-      eficiencia: 'Eficiência é cumprir tarefas otimizando recursos (gastando menos do que fornece). Fazer certo.',
-      exemplo: 'Sistema de folha de pagamento: é EFICAZ se funciona corretamente, é EFICIENTE se custa menos que o processo manual.',
-      prioridade: 'Primeiro garanta a eficácia, depois otimize a eficiência. Não adianta fazer errado muito bem feito.'
-    },
-
-    'governanca_gerenciamento': {
-      governanca: {
-        nivel: 'Estratégico (Conselho/Diretoria)',
-        funcao: 'Define "O QUE" deve ser feito - diretrizes, políticas e objetivos',
-        horizonte: 'Longo prazo (3-5 anos)',
-        frequencia: 'Reuniões mensais/trimestrais',
-        metricas: 'ROI, valor para negócio, riscos estratégicos'
-      },
-      gerenciamento: {
-        nivel: 'Operacional (Gestores/Executivos)',
-        funcao: 'Define "COMO" fazer - implementa e operacionaliza',
-        horizonte: 'Curto/médio prazo (metas trimestrais)',
-        frequencia: 'Reuniões semanais/diárias',
-        metricas: 'SLA, performance, produtividade'
-      },
-      exemplo: 'Governança aprova orçamento de R$ 2 milhões para e-commerce. Gerenciamento escolhe a plataforma (Magento, Shopify) e implementa.'
-    },
-
-    'fundamentos_cobit': {
-      1: 'Atendimento das necessidades das partes interessadas - Foco em stakeholders e demonstrar valor',
-      2: 'Cobertura de todas as áreas da empresa - Visão holística, TI é pervasiva',
-      3: 'Aplicação de estrutura integrada - Uma única estrutura unificada, não vários frameworks conflitantes',
-      4: 'Habilitar abordagem holística - Organização como sistema integrado',
-      5: 'Separar governança de gerenciamento - Distinção fundamental entre estratégico e operacional'
-    },
-
-    'habilitadores': {
-      estruturais: [
-        'Princípios, Políticas e Modelos - Diretrizes fundamentais',
-        'Processos - Atividades organizadas para atingir objetivos',
-        'Estruturas Organizacionais - Como a organização está estruturada',
-        'Cultura, Ética e Comportamento - Aspectos humanos e culturais'
-      ],
-      recursos: [
-        'Informação - Recurso mais valioso da organização',
-        'Serviços, Infraestrutura e Aplicativos - Tecnologia e sistemas',
-        'Pessoas, Habilidades e Competências - Capital humano e conhecimento'
-      ]
-    },
-
-    'dominios': {
-      edm: {
-        nome: 'Evaluate, Direct and Monitor (Avaliar, Dirigir e Monitorar)',
-        tipo: 'ÚNICO domínio de Governança',
-        processos: '5 processos de governança',
-        responsabilidade: 'Conselho/Alta Direção',
-        atividades: 'Definir políticas, aprovar investimentos, monitorar performance estratégica'
-      },
-      apo: {
-        nome: 'Align, Plan and Organise (Alinhar, Planejar e Organizar)',
-        tipo: 'Gerenciamento - Abrangência estratégica',
-        funcao: 'Identifica como a TI pode contribuir para objetivos de negócio',
-        atividades: 'Planejamento estratégico de TI, arquitetura, gestão de portfólio'
-      },
-      bai: {
-        nome: 'Build, Acquire and Implement (Construir, Adquirir e Implementar)',
-        tipo: 'Gerenciamento - Implementação',
-        funcao: 'Construção/aquisição e implementação de soluções',
-        filosofia: 'PRIORIZAR AQUISIÇÃO - sempre tentar comprar soluções prontas',
-        atividades: 'Desenvolvimento/aquisição de software, implementação, gestão de mudanças'
-      },
-      dss: {
-        nome: 'Deliver, Service and Support (Entregar, Serviço e Suporte)',
-        tipo: 'Gerenciamento - Operação',
-        funcao: 'O dia a dia da TI - operação de soluções já implementadas',
-        atividades: 'Service desk, monitoramento, backup/restore, suporte a usuários'
-      },
-      mea: {
-        nome: 'Monitor, Evaluate and Assess (Monitorar, Avaliar e Medir)',
-        tipo: 'Gerenciamento - Controle',
-        funcao: 'Assegurar qualidade e fornecer subsídios para EDM',
-        atividades: 'Auditoria interna, monitoramento de performance, controle de qualidade'
+    // ✨ GERADOR DE RESPOSTAS SUPER-INTELIGENTES
+    generateSuperIntelligentResponse: async (question, analysis) => {
+      console.log('🤖 Ativando IA Gemini com classificação militar:', analysis.militaryClassification);
+      
+      try {
+        // CONTEXTO MILITAR ESPECIFICADO
+        let militaryContext = COURSE_CONTEXT;
+        
+        // Adicionar conteúdo específico das aulas baseado na classificação
+        const aulaContent = Object.values(aulasData)
+          .map(aula => aula.content.replace(/<[^>]+>/g, ' '))
+          .join('\n\n');
+        militaryContext += `\n\nCONTEÚDO COMPLETO DAS AULAS:\n${aulaContent}`;
+        
+        // Adicionar exemplos práticos se for tático
+        if (analysis.militaryClassification.includes('GOLF') || analysis.questionType === 'exercise') {
+          militaryContext += `\n\nEXEMPLOS PRÁTICOS DISPONÍVEIS:\n${JSON.stringify(practicalExamples, null, 2)}`;
+        }
+        
+        // PROMPT MILITAR-GRADE OTIMIZADO
+        const militaryPrompt = `
+        🚀 OPERAÇÃO: RESPOSTA INTELIGENTE COBIT
+        CLASSIFICAÇÃO: ${analysis.militaryClassification}
+        
+        ${militaryContext}
+        
+        === BRIEFING DA MISSÃO ===
+        PERGUNTA DO ESTUDANTE: "${question}"
+        
+        ANÁLISE TÁTICA:
+        - Tipo de pergunta: ${analysis.questionType}
+        - Tópico primário: ${analysis.primaryTopic}
+        - Nível de confiança: ${(analysis.confidence * 100).toFixed(0)}%
+        - Complexidade: ${analysis.complexity}
+        
+        === OBJETIVOS DA MISSÃO ===
+        ${militaryGradeAI.getMissionObjectives(analysis.questionType, analysis.primaryTopic)}
+        
+        === REGRAS DE ENGAJAMENTO ===
+        1. 🎯 Resposta PRECISA baseada EXCLUSIVAMENTE no conteúdo das aulas
+        2. 📚 Use formatação markdown profissional
+        3. 💡 Inclua exemplos práticos quando relevante
+        4. 🚀 Seja didático mas inteligente
+        5. ✅ Se for exercício, gere questões inteligentes e variadas
+        6. 🧠 Demonstre conhecimento profundo dos conceitos
+        7. 🎯 Se não souber, seja honesto mas ofereça alternativas
+        
+        RESPOSTA (máximo 600 palavras):
+        `;
+        
+        const response = await fetch(GEMINI_API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': GEMINI_API_KEY
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{ text: militaryPrompt }]
+            }],
+            generationConfig: {
+              temperature: 0.4, // Balanceado para precisão e criatividade
+              topK: 30,
+              topP: 0.85,
+              maxOutputTokens: 1200
+            }
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API Error: ${response.status} - ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        
+        if (aiResponse && aiResponse.trim().length > 50) {
+          console.log('✅ IA militar respondeu com sucesso');
+          return aiResponse.trim();
+        } else {
+          throw new Error('Resposta da IA muito curta ou inválida');
+        }
+        
+      } catch (error) {
+        console.error('⚠️ Falha na IA Gemini:', error);
+        throw error;
       }
     },
-
-    'build_vs_acquire': {
-      regra: 'SEMPRE priorizar AQUISIÇÃO (Acquire) de soluções prontas',
-      razoes_acquire: [
-        'Time to Market: Rápido (semanas/meses) vs Lento (meses/anos)',
-        'Custo: Previsível (licenças) vs Imprevisível (desenvolvimento)',
-        'Manutenção: Fornecedor responsável vs Empresa responsável',
-        'Expertise: Especialistas do mercado vs Dependente da equipe interna',
-        'Riscos: Compartilhados/Menores vs Concentrados na empresa'
-      ],
-      quando_build: [
-        'Não existe solução pronta no mercado',
-        'Necessidades muito específicas (personalização > 70%)',
-        'Representa diferencial competitivo estratégico',
-        'Equipe com expertise superior ao mercado'
-      ],
-      exemplo: 'CRM: Salesforce (2-3 meses, R$50-200/usuário/mês) vs Desenvolvimento próprio (12-18 meses, R$500k-2M inicial)'
+    
+    // 🎯 SISTEMA TÁTICO DE BACKUP (MUITO MAIS INTELIGENTE)
+    tacticalFallbackSystem: (question) => {
+      console.log('🛡️ Ativando sistema tático de backup');
+      
+      const analysis = militaryGradeAI.performDeepAnalysis(question);
+      const lowerQ = question.toLowerCase();
+      
+      // BANCO DE CONHECIMENTO TÁTICO
+      const tacticalKnowledge = militaryGradeAI.getTacticalKnowledge();
+      
+      // PROCESSAMENTO INTELIGENTE BASEADO NA CLASSIFICAÇÃO
+      if (analysis.primaryTopic) {
+        return militaryGradeAI.generateTacticalResponse(analysis, tacticalKnowledge);
+      }
+      
+      // DETECÇÃO AVANÇADA DE EXERCÍCIOS
+      if (lowerQ.includes('exerc') || lowerQ.includes('quest') || lowerQ.includes('teste') || lowerQ.includes('aula')) {
+        return militaryGradeAI.generateExerciseResponse(question, analysis);
+      }
+      
+      // RESPOSTA INTELIGENTE PADRÃO
+      return militaryGradeAI.generateIntelligentFallback(question, analysis);
+    },
+    
+    // GERADOR DE OBJETIVOS DE MISSÃO
+    getMissionObjectives: (questionType, primaryTopic) => {
+      const objectives = {
+        definition: 'Fornecer definição clara, precisa e didática',
+        comparison: 'Explicar diferenças com tabela comparativa detalhada',
+        implementation: 'Dar passos práticos de implementação',
+        exercise: 'Gerar exercícios inteligentes e educativos',
+        example: 'Fornecer exemplos práticos relevantes',
+        list: 'Criar lista organizada e completa',
+        process: 'Detalhar processo passo-a-passo'
+      };
+      
+      return objectives[questionType] || 'Fornecer resposta completa e educativa';
+    },
+    
+    // 🧠 BANCO DE CONHECIMENTO TÁTICO
+    getTacticalKnowledge: () => ({
+      cobit_core: {
+        definition: 'O COBIT (Control Objectives for Information and Related Technologies) é um framework de governança e gestão de TI criado pela ISACA.',
+        evolution: '📈 Evolução Histórica:\n• 1996: Auditoria de sistemas\n• 2005: COBIT 4.0 - Primeira menção à governança\n• **2012: COBIT 5 - REVOLUÇÃO** - Integração com governança corporativa\n• 2019: COBIT 2019 - Era digital',
+        objective: 'Ajudar organizações a atingir objetivos através de governança e gerenciamento eficaz de TI'
+      },
+      
+      efficiency_effectiveness: {
+        definition: '🎯 **EFICÁCIA vs EFICIÊNCIA - Diferença Fundamental**\n\n**EFICÁCIA:** Fazer a coisa certa (cumprir funções)\n**EFICIÊNCIA:** Fazer certo (otimizar recursos)\n\n**Exemplo Prático:** Sistema de folha - EFICAZ se funciona, EFICIENTE se custa menos que processo manual\n\n**Regra de Ouro:** Primeiro eficácia, depois eficiência!',
+      },
+      
+      governance_management: {
+        definition: '📊 **GOVERNANÇA vs GERENCIAMENTO**\n\n| Aspecto | Governança | Gerenciamento |\n|---------|-------------|---------------|\n| **Nível** | Estratégico | Operacional |\n| **Função** | Define "O QUE" | Define "COMO" |\n| **Horizonte** | Longo prazo | Curto/médio prazo |\n| **Responsável** | Conselho/Diretoria | Executivos/Gestores |\n\n**Exemplo:** Governança aprova R$ 2M para e-commerce. Gerenciamento escolhe Shopify e implementa.'
+      },
+      
+      cobit_structure: {
+        fundamentos: '🏛️ **OS 5 FUNDAMENTOS DO COBIT:**\n\n**1.** Atender necessidades das partes interessadas\n**2.** Cobertura holística (TI é pervasiva)\n**3.** Estrutura integrada (framework único)\n**4.** Abordagem holística (sistema integrado)\n**5.** Separar governança de gerenciamento\n\n*Base conceitual que sustenta toda arquitetura COBIT*',
+        
+        habilitadores: '🔧 **OS 7 HABILITADORES DO COBIT:**\n\n**ESTRUTURAIS (4):**\n1. Princípios, Políticas e Modelos\n2. Processos\n3. Estruturas Organizacionais\n4. Cultura, Ética e Comportamento\n\n**RECURSOS (3):**\n5. **Informação** (recurso mais valioso)\n6. Serviços, Infraestrutura e Aplicativos\n7. Pessoas, Habilidades e Competências'
+      },
+      
+      domains: {
+        overview: '⚙️ **OS 5 DOMÍNIOS DO COBIT:**\n\n👑 **GOVERNANÇA (1):** EDM\n🔧 **GERENCIAMENTO (4):** APO, BAI, DSS, MEA\n\n**Fluxo Estratégico:**\nEDM define → APO planeja → BAI implementa → DSS opera → MEA monitora → realimenta EDM',
+        
+        edm: '**EDM - Evaluate, Direct, Monitor**\n• Único domínio de governança\n• 5 processos\n• Responsabilidade: Conselho/Alta Direção',
+        apo: '**APO - Align, Plan, Organise**\n• Planejamento estratégico de TI\n• Identifica como TI contribui para objetivos',
+        bai: '**BAI - Build, Acquire, Implement**\n• **FILOSOFIA: SEMPRE PRIORIZAR AQUISIÇÃO**\n• Comprar soluções prontas do mercado',
+        dss: '**DSS - Deliver, Service, Support**\n• Dia a dia da TI\n• Operação de soluções implementadas',
+        mea: '**MEA - Monitor, Evaluate, Assess**\n• Qualidade e conformidade\n• Alimenta EDM com informações estratégicas'
+      },
+      
+      build_acquire: {
+        definition: '🏗️ **BUILD vs ACQUIRE - Regra de Ouro**\n\n✅ **SEMPRE PRIORIZAR AQUISIÇÃO (ACQUIRE)**\n\n**Por quê Acquire?**\n• Time to Market: Semanas vs Anos\n• Custo: Previsível vs Imprevisível\n• Manutenção: Fornecedor vs Empresa\n• Expertise: Mercado vs Interna\n\n**Quando Build?**\n• Não existe no mercado\n• Diferencial competitivo\n• Necessidades muito específicas\n\n**Exemplo:** CRM - Salesforce (2-3 meses) vs Desenvolvimento (12-18 meses)'
+      }
+    }),
+    
+    // 🎯 GERADOR DE RESPOSTA TÁTICA
+    generateTacticalResponse: (analysis, knowledge) => {
+      const topic = analysis.primaryTopic;
+      const questionType = analysis.questionType;
+      
+      console.log(`🎯 Gerando resposta tática para: ${topic} (${questionType})`);
+      
+      let response = `**🚀 Assistente Militar COBIT** - Classificação: ${analysis.militaryClassification}\n\n`;
+      
+      switch (topic) {
+        case 'cobit_core':
+          if (questionType === 'definition') {
+            response += knowledge.cobit_core.definition + '\n\n' + knowledge.cobit_core.objective;
+          } else if (questionType === 'example') {
+            response += knowledge.cobit_core.evolution;
+          } else {
+            response += knowledge.cobit_core.definition + '\n\n**Evolução:**\n' + knowledge.cobit_core.evolution;
+          }
+          break;
+          
+        case 'efficiency_effectiveness':
+          response += knowledge.efficiency_effectiveness.definition;
+          break;
+          
+        case 'governance_management':
+          response += knowledge.governance_management.definition;
+          break;
+          
+        case 'cobit_structure':
+          if (analysis.keywords.includes('fundamentos')) {
+            response += knowledge.cobit_structure.fundamentos;
+          } else if (analysis.keywords.includes('habilitadores')) {
+            response += knowledge.cobit_structure.habilitadores;
+          } else {
+            response += knowledge.cobit_structure.fundamentos + '\n\n' + knowledge.cobit_structure.habilitadores;
+          }
+          break;
+          
+        case 'domains':
+          if (analysis.keywords.some(k => ['edm', 'evaluate'].includes(k))) {
+            response += knowledge.domains.edm;
+          } else if (analysis.keywords.some(k => ['apo', 'align'].includes(k))) {
+            response += knowledge.domains.apo;
+          } else if (analysis.keywords.some(k => ['bai', 'build', 'acquire'].includes(k))) {
+            response += knowledge.domains.bai;
+          } else if (analysis.keywords.some(k => ['dss', 'deliver'].includes(k))) {
+            response += knowledge.domains.dss;
+          } else if (analysis.keywords.some(k => ['mea', 'monitor'].includes(k))) {
+            response += knowledge.domains.mea;
+          } else {
+            response += knowledge.domains.overview;
+          }
+          break;
+          
+        case 'build_acquire':
+          response += knowledge.build_acquire.definition;
+          break;
+          
+        default:
+          response += 'Tópico identificado mas aguardando classificação especial. Reformule a pergunta para melhor precisão.';
+      }
+      
+      return response;
+    },
+    
+    // 📝 GERADOR DE EXERCÍCIOS INTELIGENTES
+    generateExerciseResponse: (question, analysis) => {
+      console.log('📝 Gerando exercícios inteligentes');
+      
+      const lowerQ = question.toLowerCase();
+      let targetAula = '';
+      
+      if (lowerQ.includes('aula 1') || lowerQ.includes('aula 01')) {
+        targetAula = 'Aula 01';
+      } else if (lowerQ.includes('aula 2') || lowerQ.includes('aula 02')) {
+        targetAula = 'Aula 02';
+      }
+      
+      return `**🎯 Exercícios Inteligentes COBIT** ${targetAula ? `- ${targetAula}` : ''}\n\n` +
+        `🚀 **Sistema de Geração Ativo!**\n\n` +
+        militaryGradeAI.getPreBuiltExercises(targetAula) +
+        '\n\n💡 **Quer exercícios personalizados?** Especifique o tópico:\n' +
+        '• "Exercícios sobre eficácia vs eficiência"\n' +
+        '• "Questões sobre os 5 domínios"\n' +
+        '• "Teste sobre Build vs Acquire"';
+    },
+    
+    // 📋 EXERCÍCIOS PRÉ-CONSTRUÍDOS
+    getPreBuiltExercises: (aula) => {
+      const exercises = {
+        'Aula 01': `📘 **EXERCÍCIOS AULA 01 - Conceitos Fundamentais**\n\n` +
+          `**Questão 1:** Qual a principal diferença entre eficácia e eficiência?\n` +
+          `a) Não há diferença\nb) Eficácia é fazer certo, eficiência é fazer rápido\nc) ✅ Eficácia é cumprir funções, eficiência é otimizar recursos\nd) Eficiência é mais importante\n\n` +
+          `**Questão 2:** Quantos fundamentos tem o COBIT?\n` +
+          `a) 3\nb) ✅ 5\nc) 7\nd) 10\n\n` +
+          `**Questão 3:** O que foi revolucionário no COBIT 5 (2012)?\n` +
+          `a) Foco em auditoria\nb) ✅ Integração com governança corporativa\nc) Criação dos domínios\nd) Foco em TI apenas`,
+          
+        'Aula 02': `📗 **EXERCÍCIOS AULA 02 - Estrutura e Domínios**\n\n` +
+          `**Questão 1:** Quantos domínios tem o COBIT e qual é de governança?\n` +
+          `a) 4 domínios, APO é governança\nb) ✅ 5 domínios, EDM é governança\nc) 6 domínios, MEA é governança\nd) 3 domínios, DSS é governança\n\n` +
+          `**Questão 2:** Qual a regra para Build vs Acquire?\n` +
+          `a) Sempre construir internamente\nb) ✅ Sempre priorizar aquisição\nc) Depende do orçamento\nd) Não há regra\n\n` +
+          `**Questão 3:** O que significa EDM?\n` +
+          `a) Execute, Deploy, Manage\nb) ✅ Evaluate, Direct, Monitor\nc) Establish, Define, Measure\nd) Enable, Develop, Maintain`
+      };
+      
+      if (aula && exercises[aula]) {
+        return exercises[aula];
+      }
+      
+      return `🎯 **EXERCÍCIOS GERAIS COBIT**\n\n` +
+        `**🔥 Questão Rápida:** O que é mais importante: eficácia ou eficiência?\n` +
+        `**Resposta:** Eficácia primeiro! Não adianta fazer errado muito bem feito.\n\n` +
+        `**📊 Questão Estratégica:** Quantos domínios de governança tem o COBIT?\n` +
+        `**Resposta:** Apenas 1 - EDM (Evaluate, Direct, Monitor)`;
+    },
+    
+    // 🚀 GERADOR DE RESPOSTA INTELIGENTE PADRÃO
+    generateIntelligentFallback: (question, analysis) => {
+      const lowerQ = question.toLowerCase();
+      
+      // DETECÇÃO AVANÇADA DE INTENÇÕES
+      if (lowerQ.includes('exerc') || lowerQ.includes('quest') || lowerQ.includes('teste')) {
+        return militaryGradeAI.generateExerciseResponse(question, analysis);
+      }
+      
+      if (lowerQ.includes('exemplo') || lowerQ.includes('prático') || lowerQ.includes('caso')) {
+        return `**💡 Exemplo Prático COBIT**\n\n` +
+          `🏢 **Cenário:** Banco quer reduzir falhas em projetos TI\n\n` +
+          `**Antes:** 70% falha, custos altos, baixa satisfação\n\n` +
+          `**Implementação COBIT:**\n` +
+          `• **EDM:** Criou Comitê Governança TI\n` +
+          `• **APO:** Implementou gestão portfólio\n` +
+          `• **BAI:** Padronizou desenvolvimento\n` +
+          `• **DSS:** Melhorou service desk\n` +
+          `• **MEA:** Auditoria contínua\n\n` +
+          `**Resultado:** 90% sucesso, -25% custos, 85% satisfação \n\n` +
+          `🎯 Este é o poder do COBIT em ação!`;
+      }
+      
+      if (lowerQ.includes('vantagem') || lowerQ.includes('beneficio') || lowerQ.includes('por que usar')) {
+        return `**🚀 Por que usar COBIT?**\n\n` +
+          `**Para Organização:**\n` +
+          `• 🎯 Alinhamento TI-Negócios\n` +
+          `• 💰 Otimização investimentos\n` +
+          `• 🛡️ Gestão de riscos\n` +
+          `• 🧠 Melhores decisões\n\n` +
+          `**Para Profissionais:**\n` +
+          `• 📚 Base sólida carreira\n` +
+          `• 🌍 Reconhecimento global\n` +
+          `• 🔍 Preparação auditoria\n` +
+          `• 🚀 Visão estratégica TI`;
+      }
+      
+      // RESPOSTA INTELIGENTE PERSONALIZADA
+      return `**🤖 Assistente Militar COBIT** - Análise: ${analysis.complexity.toUpperCase()}\n\n` +
+        `📊 **Pergunta identificada com ${(analysis.confidence * 100).toFixed(0)}% de confiança**\n\n` +
+        `🎯 **Posso ajudar especificamente com:**\n\n` +
+        `📘 **Aula 01 - Fundamentos:**\n` +
+        `• Eficácia vs Eficiência\n• 5 Fundamentos COBIT\n• 7 Habilitadores\n• Evolução histórica\n\n` +
+        `📗 **Aula 02 - Estrutura:**\n` +
+        `• Governança vs Gerenciamento\n• 5 Domínios (EDM, APO, BAI, DSS, MEA)\n• Build vs Acquire\n• Implementação prática\n\n` +
+        `📝 **Geração de Conteúdo:**\n` +
+        `• Exercícios inteligentes\n• Casos práticos\n• Comparações detalhadas\n• Implementação passo-a-passo\n\n` +
+        `🚀 **Reformule sua pergunta** ou escolha um tópico específico para resposta militar-grade!`;
     }
   };
 
