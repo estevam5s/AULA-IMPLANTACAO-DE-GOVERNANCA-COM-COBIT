@@ -1845,3 +1845,82 @@ export const practicalExamples = {
     recommendation: 'Acquire - 5x mais rápido e 3x mais barato'
   }
 };
+
+// Prompts específicos para geração de exercícios
+export const EXERCISE_PROMPTS = {
+  aula01: `
+  CONTEÚDO AULA 01 - CONCEITOS FUNDAMENTAIS:
+  
+  1. EFICÁCIA VS EFICIÊNCIA:
+  - Eficácia: Cumprir tarefas/funções determinadas (fazer a coisa certa)
+  - Eficiência: Cumprir tarefas otimizando recursos (fazer gastando menos)
+  - Exemplo: Sistema de folha que funciona (eficaz) vs custo menor que processo manual (eficiente)
+  
+  2. FRAMEWORKS PARA TI:
+  - COSO: Framework geral, não específico para TI
+  - COBIT: Framework específico para governança de TI
+  - Necessidade de frameworks específicos para TI
+  
+  3. EVOLUÇÃO DO COBIT:
+  - 1996: Início focado em auditoria
+  - 2005: COBIT 4.0 primeira menção à governança
+  - 2012: COBIT 5 - REVOLUÇÃO: integração com governança corporativa
+  - 2019: COBIT 2019 versão atual
+  
+  4. 5 FUNDAMENTOS DO COBIT:
+  1) Atendimento das necessidades das partes interessadas
+  2) Cobertura de todas as áreas da empresa (visão holística)
+  3) Aplicação de estrutura integrada
+  4) Habilitar abordagem holística
+  5) Separar governança de gerenciamento
+  
+  5. 7 HABILITADORES:
+  Estruturais (4): Princípios/Políticas, Processos, Estruturas Organizacionais, Cultura/Ética
+  Recursos (3): Informação (mais valioso), Serviços/Infraestrutura, Pessoas/Competências
+  `,
+  
+  aula02: `
+  CONTEÚDO AULA 02 - ESTRUTURA E DOMÍNIOS:
+  
+  1. GOVERNANÇA VS GERENCIAMENTO:
+  - Governança: Estratégico, define "O QUE", Conselho/Diretoria, longo prazo
+  - Gerenciamento: Operacional, define "COMO", Executivos/Gestores, curto/médio prazo
+  
+  2. OS 5 DOMÍNIOS DO COBIT:
+  - 1 Governança: EDM (Evaluate, Direct, Monitor)
+  - 4 Gerenciamento: APO, BAI, DSS, MEA
+  
+  3. DETALHES DOS DOMÍNIOS:
+  - EDM: Único de governança, 5 processos, Conselho/Diretoria
+  - APO: Align, Plan, Organise - planejamento estratégico de TI
+  - BAI: Build, Acquire, Implement - REGRA: priorizar ACQUIRE (comprar)
+  - DSS: Deliver, Service, Support - dia a dia da TI, operação
+  - MEA: Monitor, Evaluate, Assess - qualidade, conformidade, alimenta EDM
+  
+  4. BUILD VS ACQUIRE:
+  - REGRA: Sempre priorizar AQUISIÇÃO de soluções prontas
+  - Build apenas quando: não existe no mercado, vantagem competitiva, necessidades muito específicas
+  - Razões para Acquire: Time to market, custo previsível, manutenção do fornecedor
+  
+  5. CARACTERÍSTICAS FINAIS:
+  - Framework genérico aplicável a qualquer organização
+  - Integração com governança corporativa (não isolado)
+  - Objetivo: habilitar EDM efetivamente, gerar valor demonstrável
+  `
+};
+
+// Configurações de níveis de exercícios
+export const EXERCISE_LEVELS = {
+  basico: {
+    description: 'Conceitos fundamentais e definições básicas',
+    prompt: 'Foque em definições, conceitos básicos e identificação de elementos fundamentais'
+  },
+  medio: {
+    description: 'Aplicação prática e análise de cenários',
+    prompt: 'Inclua cenários práticos, aplicação de conceitos e análise de situações reais'
+  },
+  avancado: {
+    description: 'Análise crítica e resolução de problemas complexos',
+    prompt: 'Apresente situações complexas, análise crítica, comparações avançadas e resolução de problemas'
+  }
+};
