@@ -658,3 +658,131 @@ export const EXERCISE_LEVELS = {
     prompt: 'Apresente situações complexas, análise crítica, comparações avançadas e resolução de problemas'
   }
 };
+
+// Prompts específicos melhorados para geração de exercícios
+export const EXERCISE_PROMPTS_ADVANCED = {
+  aula01: {
+    conceitual: `
+    CONCEITOS ESPECÍFICOS DA AULA 01:
+    - Eficácia vs Eficiência: diferenças práticas e aplicações
+    - Controle Interno: objetivos e implementação
+    - Frameworks para TI: necessidade e tipos
+    - Evolução do COBIT: marcos históricos e mudanças
+    - 5 Fundamentos: detalhamento e aplicação prática
+    - 7 Habilitadores: classificação e funções
+    `,
+    aplicativa: `
+    APLICAÇÕES PRÁTICAS DA AULA 01:
+    - Como implementar controles internos
+    - Quando escolher COBIT vs outros frameworks
+    - Aplicação dos 5 fundamentos em organizações
+    - Uso dos habilitadores na prática
+    - Casos de eficácia vs eficiência em cenários reais
+    `,
+    casos_praticos: `
+    CENÁRIOS REAIS AULA 01:
+    - Empresa implementando COBIT pela primeira vez
+    - Situações onde eficiência prejudica eficácia
+    - Evolução de controles internos em organizações
+    - Integração de habilitadores em projetos
+    - Escolha entre frameworks diferentes
+    `
+  },
+  
+  aula02: {
+    conceitual: `
+    CONCEITOS ESPECÍFICOS DA AULA 02:
+    - Governança vs Gerenciamento: separação e responsabilidades
+    - 5 Domínios: características e objetivos específicos
+    - EDM: processos e responsabilidades
+    - APO, BAI, DSS, MEA: funções específicas e diferenças
+    - Build vs Acquire: critérios de decisão
+    `,
+    aplicativa: `
+    APLICAÇÕES PRÁTICAS DA AULA 02:
+    - Como estruturar governança de TI
+    - Implementação dos domínios na prática
+    - Decisões Build vs Acquire em projetos reais
+    - Organização de processos por domínio
+    - Integração entre governança e gerenciamento
+    `,
+    casos_praticos: `
+    CENÁRIOS REAIS AULA 02:
+    - Empresa decidindo entre construir ou comprar sistema
+    - Implementação de comitê de governança
+    - Conflitos entre governança e gerenciamento
+    - Reorganização de TI usando domínios COBIT
+    - Casos de sucesso e fracasso em implementações
+    `
+  }
+};
+
+// Configurações avançadas de temperatura para IA
+export const AI_TEMPERATURE_CONFIGS = {
+  conservadora: {
+    temperature: 0.1,
+    description: 'Questões mais previsíveis, focadas nos conceitos exatos das aulas',
+    topK: 10,
+    topP: 0.8
+  },
+  equilibrada: {
+    temperature: 0.7,
+    description: 'Equilibrio entre precisão e criatividade nas questões',
+    topK: 20,
+    topP: 0.9
+  },
+  criativa: {
+    temperature: 1.0,
+    description: 'Questões mais criativas e variadas, explorando diferentes ângulos',
+    topK: 40,
+    topP: 0.95
+  }
+};
+
+// Tipos de questão e suas configurações
+export const QUESTION_TYPES = {
+  multipla_escolha: {
+    name: 'Múltipla Escolha',
+    description: '4 alternativas com apenas uma correta',
+    format: 'JSON com options array'
+  },
+  verdadeiro_falso: {
+    name: 'Verdadeiro ou Falso',
+    description: 'Afirmações para avaliar como V ou F',
+    format: 'JSON com boolean correct'
+  },
+  dissertativa: {
+    name: 'Dissertativa',
+    description: 'Questões abertas que exigem resposta elaborada',
+    format: 'JSON com expected_answer'
+  }
+};
+
+// Categorias de exercícios
+export const EXERCISE_CATEGORIES = {
+  conceitual: {
+    name: 'Conceitual',
+    description: 'Definições, terminologias e conceitos fundamentais',
+    color: '#74b9ff'
+  },
+  comparativa: {
+    name: 'Comparativa', 
+    description: 'Diferenças entre conceitos e comparações',
+    color: '#6c5ce7'
+  },
+  aplicativa: {
+    name: 'Aplicativa',
+    description: 'Como implementar e usar na prática',
+    color: '#00b894'
+  },
+  analitica: {
+    name: 'Analítica',
+    description: 'Análise de situações e cenários',
+    color: '#fdcb6e'
+  },
+  estrategica: {
+    name: 'Estratégica',
+    description: 'Tomada de decisão e planejamento',
+    color: '#e17055'
+  }
+};
