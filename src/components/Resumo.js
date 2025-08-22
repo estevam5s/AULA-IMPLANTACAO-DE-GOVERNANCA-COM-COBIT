@@ -7,39 +7,48 @@ const Resumo = ({ className }) => {
       
       <div className="concept-card">
         <h4>Conceitos Fundamentais</h4>
-        <p><strong>Eficácia:</strong> Cumprir tarefas/funções determinadas</p>
-        <p><strong>Eficiência:</strong> Cumprir tarefas otimizando recursos</p>
-        <p><strong>Controle Interno:</strong> Garantir confiabilidade e conformidade</p>
+        <p><strong>Governança de TI:</strong> Proteção do mercado de capitais e seus investidores</p>
+        <p><strong>ITIL:</strong> Conjunto de práticas para gerenciamento de serviços de TI</p>
+        <p><strong>ISO 38500:</strong> Norma para Governança Corporativa da TI</p>
       </div>
 
       <div className="concept-card">
-        <h4>5 Fundamentos do COBIT</h4>
+        <h4>5 Princípios da Governança de TI</h4>
         <ol style={{ margin: '10px 0 0 20px' }}>
-          <li>Atendimento das necessidades das partes interessadas</li>
-          <li>Cobertura de todas as áreas da empresa</li>
-          <li>Aplicação de estrutura integrada</li>
-          <li>Habilitar abordagem holística</li>
-          <li>Separar governança de gerenciamento</li>
+          <li>Gestão de Riscos</li>
+          <li>Entrega de Valor</li>
+          <li>Alinhamento Estratégico</li>
+          <li>Gestão de Recursos</li>
+          <li>Mensuração de Desempenho</li>
         </ol>
       </div>
 
       <div className="concept-card">
-        <h4>5 Domínios do COBIT</h4>
-        <p><strong>EDM</strong> - Evaluate, Direct and Monitor (Governança)</p>
-        <p><strong>APO</strong> - Align, Plan and Organise (Gerenciamento)</p>
-        <p><strong>BAI</strong> - Build, Acquire and Implement (Gerenciamento)</p>
-        <p><strong>DSS</strong> - Deliver, Service and Support (Gerenciamento)</p>
-        <p><strong>MEA</strong> - Monitor, Evaluate and Assess (Gerenciamento)</p>
+        <h4>4 Benefícios da Governança de TI</h4>
+        <p><strong>📈 Produtividade:</strong> Análises de desempenho e automação</p>
+        <p><strong>✅ Qualidade:</strong> Conformidade com requisitos e padrões</p>
+        <p><strong>💰 Redução de Custos:</strong> Otimização de processos e recursos</p>
+        <p><strong>🔄 Flexibilidade:</strong> Infraestrutura ágil e adaptável</p>
+      </div>
+
+      <div className="concept-card">
+        <h4>6 Estruturas de Decisão</h4>
+        <p><strong>🏰 Monarquia de Negócio:</strong> Gerentes sênior de unidades</p>
+        <p><strong>💻 Monarquia de TI:</strong> Profissionais de TI centralizados</p>
+        <p><strong>🏰 Feudalismo:</strong> Decisões independentes por área</p>
+        <p><strong>🤝 Federalismo:</strong> Combinação sede e unidades</p>
+        <p><strong>👥 Duopólio de TI:</strong> TI + unidade de negócio</p>
+        <p><strong>🔀 Anarquia:</strong> Decisões ad hoc individuais</p>
       </div>
 
       <div className="highlight-box">
         <h4>🎯 Pontos-Chave para Memorizar</h4>
         <ul style={{ margin: '10px 0 0 20px' }}>
-          <li>COBIT integra governança de TI com governança corporativa</li>
-          <li>Framework genérico aplicável a qualquer organização</li>
-          <li>Separação clara entre governança (estratégico) e gerenciamento (operacional)</li>
-          <li>Priorizar aquisição de soluções prontas sobre desenvolvimento interno</li>
-          <li>TI deve demonstrar valor de forma transparente</li>
+          <li>Governança de TI integra com governança corporativa</li>
+          <li>ITIL possui mais de 300 práticas de gerenciamento</li>
+          <li>ISO 38500 tem 6 componentes principais</li>
+          <li>Frameworks: COBIT (governança), ITIL (serviços), PMBOK (projetos)</li>
+          <li>Foco na entrega de valor e alinhamento estratégico</li>
         </ul>
       </div>
     </div>

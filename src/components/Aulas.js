@@ -10,9 +10,9 @@ const Aulas = ({ onOpenAula, className }) => {
     }
     
     // Analytics simples
-    const usage = JSON.parse(localStorage.getItem('cobit_usage') || '{}');
+    const usage = JSON.parse(localStorage.getItem('itil_usage') || '{}');
     usage['aula_view'] = (usage['aula_view'] || 0) + 1;
-    localStorage.setItem('cobit_usage', JSON.stringify(usage));
+    localStorage.setItem('itil_usage', JSON.stringify(usage));
   };
 
   const handleDownloadClick = (e, fileName) => {
@@ -32,8 +32,8 @@ const Aulas = ({ onOpenAula, className }) => {
           style={{ cursor: 'pointer' }}
         >
           <div className="card-type">CONTEÚDO COMPLETO</div>
-          <h3>📘 Aula 01: Conceitos Fundamentais de Governança</h3>
-          <p>Eficácia vs Eficiência, Frameworks para TI, Evolução do COBIT e os 5 Fundamentos essenciais.</p>
+          <h3>📘 Aula 01: Princípios da Governança da Informação</h3>
+          <p>Definição de Governança de TI, 5 Princípios fundamentais, 4 Benefícios principais e Frameworks essenciais.</p>
           <div className="card-footer">
             <span className="card-meta">Fundamentos • Teórica</span>
             <span className="card-action">Ver Conteúdo</span>
@@ -46,10 +46,10 @@ const Aulas = ({ onOpenAula, className }) => {
           style={{ cursor: 'pointer' }}
         >
           <div className="card-type">CONTEÚDO COMPLETO</div>
-          <h3>📗 Aula 02: Estrutura e Domínios do COBIT</h3>
-          <p>Governança vs Gerenciamento, os 5 Domínios (EDM, APO, BAI, DSS, MEA) e aplicações práticas.</p>
+          <h3>📗 Aula 02: Processo de Decisão na Governança</h3>
+          <p>6 Estruturas de Decisão, ISO 38500, ITIL Framework e aplicações práticas na gestão de serviços.</p>
           <div className="card-footer">
-            <span className="card-meta">Estrutura • Prática</span>
+            <span className="card-meta">Prática • Frameworks</span>
             <span className="card-action">Ver Conteúdo</span>
           </div>
         </div>
@@ -72,15 +72,15 @@ const Aulas = ({ onOpenAula, className }) => {
           </button>
           <button 
             className="pdf-download-item" 
-            onClick={(e) => handleDownloadClick(e, 'Resumo Executivo')}
+            onClick={(e) => handleDownloadClick(e, 'Norma ISO 38500')}
           >
-            📋 Resumo Executivo
+            📋 Norma ISO 38500
           </button>
           <button 
             className="pdf-download-item" 
-            onClick={(e) => handleDownloadClick(e, 'Links Úteis')}
+            onClick={(e) => handleDownloadClick(e, 'Guia ITIL v4')}
           >
-            🔗 Links Úteis
+            🔗 Guia ITIL v4
           </button>
         </div>
       </div>

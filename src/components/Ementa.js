@@ -7,24 +7,24 @@ const Ementa = ({ className }) => {
       
       <div className="ementa-grid">
         <div className="unidade-card">
-          <h4>📚 Unidade I: Conceitos Fundamentais</h4>
+          <h4>📚 Módulo 3: Princípios da Governança da Informação</h4>
           <ul>
-            <li>Eficácia vs Eficiência em TI</li>
-            <li>Frameworks para Tecnologia da Informação</li>
-            <li>Evolução histórica do COBIT</li>
-            <li>Os 5 Fundamentos do COBIT</li>
-            <li>Os 7 Habilitadores do Framework</li>
+            <li>Definição de Governança de TI</li>
+            <li>Relação com Governança Corporativa</li>
+            <li>Os 5 Princípios da Governança de TI</li>
+            <li>4 Principais Benefícios</li>
+            <li>Frameworks: COBIT, ITIL, PMBOK</li>
           </ul>
         </div>
         
         <div className="unidade-card">
-          <h4>🏗️ Unidade II: Estrutura do COBIT</h4>
+          <h4>🏗️ Módulo 4: Processo de Decisão na Governança</h4>
           <ul>
-            <li>Governança vs Gerenciamento</li>
-            <li>Os 5 Domínios/Processos do COBIT</li>
-            <li>EDM - Evaluate, Direct and Monitor</li>
-            <li>Processos de Gerenciamento (APO, BAI, DSS, MEA)</li>
-            <li>Build vs Acquire - Decisões estratégicas</li>
+            <li>6 Estruturas de Decisão</li>
+            <li>NBR ISO/IEC 38500 - Norma de Governança</li>
+            <li>ITIL - Gerenciamento de Serviços</li>
+            <li>Componentes da ISO 38500</li>
+            <li>Implementação Prática</li>
           </ul>
         </div>
       </div>
@@ -42,7 +42,7 @@ const Ementa = ({ className }) => {
           </div>
           <div style={{ textAlign: 'center', padding: '15px', background: 'rgba(253, 121, 168, 0.1)', borderRadius: '10px' }}>
             <strong>Projeto: 25%</strong><br />
-            <small>Implementação COBIT</small>
+            <small>Implementação ITIL</small>
           </div>
           <div style={{ textAlign: 'center', padding: '15px', background: 'rgba(0, 184, 148, 0.1)', borderRadius: '10px' }}>
             <strong>Avaliação: 25%</strong><br />
