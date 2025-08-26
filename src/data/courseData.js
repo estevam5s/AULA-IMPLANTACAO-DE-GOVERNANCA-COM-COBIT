@@ -56,6 +56,13 @@ CRONOGRAMA:
 - Semana 4: Revisão e Avaliação
 - Semana 5: Projeto Final
 
+MATERIAIS DISPONÍVEIS:
+- Slides PPTX originais das 3 aulas do Prof. Eder José Cassimiro
+- Aula 01: 28 slides sobre conceitos fundamentais (2.1 MB)
+- Aula 02: 35 slides sobre pensamento computacional e estrutura (3.2 MB)
+- Aula 03: 42 slides sobre modelo de governança (4.1 MB)
+- Downloads disponíveis na seção "💻 Slides PPTX"
+
 Responda sempre de forma didática, clara e sempre relacionada ao conteúdo do curso COBIT. Use exemplos práticos quando relevante.
 `;
 
@@ -890,7 +897,8 @@ export const chatSuggestions = [
     'Exercícios sobre Aula 03',
     'O que é compliance no COBIT?',
     'Alinhamento estratégico: estático vs dinâmico',
-    'SLA - Service Level Agreement'
+    'SLA - Service Level Agreement',
+    'Onde baixar slides PPTX das aulas?'
 ];
 
 // Adicione no final do arquivo src/data/courseData.js
@@ -915,7 +923,9 @@ export const searchableContent = {
     'cio': ['cio', 'chief information officer', 'diretor ti', 'lideranca'],
     'premissas': ['premissas', 'implantacao', 'modelo', 'governanca', 'estrategico'],
     'componentes': ['componentes', 'governanca ti', 'riscos', 'compliance', 'mudanca', 'valor'],
-    'plano ti': ['plano ti', 'planejamento', 'estrategia', 'projetos', 'solucoes']
+    'plano ti': ['plano ti', 'planejamento', 'estrategia', 'projetos', 'solucoes'],
+    'slides': ['slides', 'pptx', 'powerpoint', 'apresentacao', 'download', 'material'],
+    'professor eder': ['professor', 'eder', 'cassimiro', 'autor', 'docente', 'instrutor']
   },
   
   // Banco de respostas pré-definidas para perguntas comuns
@@ -929,7 +939,9 @@ export const searchableContent = {
     'premissas implantacao cobit': '7 premissas: 1)TI é estratégico, 2)TI flexível, 3)Prioridades TI=negócio, 4)Reavaliação constante, 5)Criar valor, 6)Marketing interno, 7)TI como negócio.',
     'componentes governanca ti': '7 componentes: Riscos/Compliance, Gestão Mudança, Alinhamento Estratégico, Entrega Valor, Gestão Desempenho, Comunicação, Gerenciamento Recursos.',
     'o que e sla': 'SLA = Service Level Agreement (Acordo de Nível de Serviço). Define disponibilidade, qualidade e funcionalidades, com custos específicos para cada nível.',
-    'plano ti caracteristicas': 'Produto principal do alinhamento estratégico. Períodos ≤3 anos, maior detalhe no 1º ano, revisões anuais obrigatórias.'
+    'plano ti caracteristicas': 'Produto principal do alinhamento estratégico. Períodos ≤3 anos, maior detalhe no 1º ano, revisões anuais obrigatórias.',
+    'slides pptx download': 'Slides PPTX originais disponíveis na seção "💻 Slides PPTX": Aula 01 (28 slides), Aula 02 (35 slides), Aula 03 (42 slides). Total: 105+ slides do Prof. Eder.',
+    'onde baixar slides': 'Acesse a seção "💻 Slides PPTX" no menu para download dos arquivos originais em PowerPoint das 3 aulas.'
   }
 };
 

@@ -11,7 +11,7 @@ const SlidesDownload = ({ className }) => {
       id: 'aula01',
       title: '📘 Aula 01: Conceitos Fundamentais de Governança',
       fileName: 'Aula 01_Gov_Cobit_Eder.pptx',
-      filePath: '/src/doc/aulas/Aula 01_Gov_Cobit_Eder.pptx',
+      filePath: '/slides/Aula 01_Gov_Cobit_Eder.pptx',
       description: 'Apresentação completa sobre eficácia vs eficiência, frameworks para TI, evolução do COBIT e os 5 fundamentos essenciais.',
       topics: [
         'Eficácia vs Eficiência',
@@ -29,7 +29,7 @@ const SlidesDownload = ({ className }) => {
       id: 'aula02',
       title: '📗 Aula 02: Pensamento Computacional',
       fileName: 'Aula_02_Pensamento_Comp.pptx',
-      filePath: '/src/doc/aulas/Aula_02_Pensamento_Comp.pptx',
+      filePath: '/slides/Aula_02_Pensamento_Comp.pptx',
       description: 'Estrutura e domínios do COBIT, governança vs gerenciamento, os 5 domínios e aplicações práticas.',
       topics: [
         'Pensamento Computacional',
@@ -47,7 +47,7 @@ const SlidesDownload = ({ className }) => {
       id: 'aula03',
       title: '📙 Aula 03: Modelo de Governança',
       fileName: 'Aula 03_Gov_Cobit_Eder.pptx',
-      filePath: '/src/doc/aulas/Aula 03_Gov_Cobit_Eder.pptx',
+      filePath: '/slides/Aula 03_Gov_Cobit_Eder.pptx',
       description: 'Framework genérico, premissas de implantação, componentes de governança de TI e alinhamento estratégico.',
       topics: [
         'Framework genérico COBIT',

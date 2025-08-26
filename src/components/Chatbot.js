@@ -181,6 +181,13 @@ const Chatbot = ({ className }) => {
           keywords: ['sla', 'service level agreement', 'acordo nível serviço', 'disponibilidade', 'qualidade'],
           classification: 'LIMA-1',
           priority: 'MEDIUM'
+        },
+        
+        // SETOR MIKE - Slides e Materiais
+        slides_materials: {
+          keywords: ['slides', 'pptx', 'powerpoint', 'apresentação', 'download', 'material', 'professor eder'],
+          classification: 'MIKE-1',
+          priority: 'MEDIUM'
         }
       };
       
@@ -387,6 +394,10 @@ const Chatbot = ({ className }) => {
       
       sla_agreements: {
         definition: '📋 **SLA - SERVICE LEVEL AGREEMENT**\n\n**Definição:** Acordo de Nível de Serviço\n\n**O que define:**\n• **Disponibilidade** do serviço\n• **Qualidade** esperada\n• **Funcionalidades** incluídas\n\n**Aspectos Importantes:**\n• **Custos específicos** para cada nível\n• Empresa decide se **está disposta a pagar**\n• Necessidade de aplicações **define infraestrutura**\n• Estratégia: interno vs terceirizado\n\n**Princípios de TI:**\n• "Sempre compraremos antes de construir"\n• Rede corporativa consistente\n• Acesso remoto seguro'
+      },
+      
+      slides_materials: {
+        definition: '💻 **SLIDES PPTX - MATERIAIS ORIGINAIS**\n\n**Disponíveis para Download:**\n\n📘 **Aula 01:** Conceitos Fundamentais\n• **28 slides** sobre eficácia vs eficiência\n• **2.1 MB** - Frameworks e evolução COBIT\n\n📗 **Aula 02:** Pensamento Computacional\n• **35 slides** sobre estrutura COBIT\n• **3.2 MB** - Domínios e governança vs gerenciamento\n\n📙 **Aula 03:** Modelo de Governança\n• **42 slides** sobre premissas e componentes\n• **4.1 MB** - Alinhamento estratégico e SLA\n\n**👨‍🏫 Autor:** Prof. Eder José Cassimiro\n**📍 Acesso:** Seção "💻 Slides PPTX" no menu\n**📊 Total:** 105+ slides originais das aulas'
       }
     }),
     
@@ -462,6 +473,10 @@ const Chatbot = ({ className }) => {
           
         case 'sla_agreements':
           response += knowledge.sla_agreements.definition;
+          break;
+          
+        case 'slides_materials':
+          response += knowledge.slides_materials.definition;
           break;
           
         default:
