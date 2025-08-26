@@ -18,7 +18,7 @@ const Overview = ({ className }) => {
 
       <div className="stats-grid">
         <div className="stat-item">
-          <span className="stat-number">2</span>
+          <span className="stat-number">3</span>
           <span className="stat-label">Aulas Fundamentais</span>
         </div>
         <div className="stat-item">
