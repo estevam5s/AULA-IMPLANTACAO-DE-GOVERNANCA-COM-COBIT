@@ -27,6 +27,19 @@ const Ementa = ({ className }) => {
             <li>Build vs Acquire - Decisões estratégicas</li>
           </ul>
         </div>
+        
+        <div className="unidade-card">
+          <h4>🎯 Unidade III: Modelo de Governança</h4>
+          <ul>
+            <li>Framework genérico e adaptabilidade</li>
+            <li>7 Premissas de implantação do modelo</li>
+            <li>Componentes típicos de governança de TI</li>
+            <li>Compliance interno e externo</li>
+            <li>Alinhamento estratégico (estático vs dinâmico)</li>
+            <li>Plano de TI e estratégias empresariais</li>
+            <li>SLA e princípios de TI</li>
+          </ul>
+        </div>
       </div>
 
       <div className="highlight-box">

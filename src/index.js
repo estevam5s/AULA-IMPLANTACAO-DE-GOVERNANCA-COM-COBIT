@@ -20,5 +20,6 @@ const updateVisitorCount = () => {
 updateVisitorCount();
 console.log('🚀 Sistema COBIT carregado com sucesso!');
 console.log('📚 Navegue pelas abas para explorar o conteúdo');
+console.log('💻 Nova seção Slides PPTX disponível!');
 console.log('🤖 Use o assistente IA para tirar dúvidas');
-console.log('⌨️ Atalhos: Ctrl+1-8 para navegação rápida');
+console.log('⌨️ Atalhos: Ctrl+1-9 para navegação rápida');

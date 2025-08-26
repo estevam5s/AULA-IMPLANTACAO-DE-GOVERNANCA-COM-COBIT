@@ -53,6 +53,20 @@ const Aulas = ({ onOpenAula, className }) => {
             <span className="card-action">Ver Conteúdo</span>
           </div>
         </div>
+
+        <div 
+          className="card pdf-card" 
+          onClick={() => handleCardClick('aula03')}
+          style={{ cursor: 'pointer' }}
+        >
+          <div className="card-type">CONTEÚDO COMPLETO</div>
+          <h3>📙 Aula 03: Modelo de Governança com COBIT</h3>
+          <p>Framework genérico, 7 premissas de implantação, componentes de governança de TI e alinhamento estratégico.</p>
+          <div className="card-footer">
+            <span className="card-meta">Modelo • Estratégica</span>
+            <span className="card-action">Ver Conteúdo</span>
+          </div>
+        </div>
       </div>
 
       <div className="highlight-box">
@@ -69,6 +83,12 @@ const Aulas = ({ onOpenAula, className }) => {
             onClick={(e) => handleDownloadClick(e, 'Slides Aula 02')}
           >
             📄 Slides Aula 02
+          </button>
+          <button 
+            className="pdf-download-item" 
+            onClick={(e) => handleDownloadClick(e, 'Slides Aula 03')}
+          >
+            📄 Slides Aula 03
           </button>
           <button 
             className="pdf-download-item" 

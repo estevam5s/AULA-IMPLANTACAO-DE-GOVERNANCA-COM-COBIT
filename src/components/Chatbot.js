@@ -153,6 +153,34 @@ const Chatbot = ({ className }) => {
           keywords: ['implementação', 'prática', 'caso prático', 'exemplo', 'aplicação'],
           classification: 'HOTEL-1',
           priority: 'MEDIUM'
+        },
+        
+        // SETOR INDIA - Modelo de Governança (Aula 03)
+        governance_model: {
+          keywords: ['modelo governança', 'framework genérico', 'premissas', 'implantação', 'adaptável'],
+          classification: 'INDIA-1',
+          priority: 'HIGH'
+        },
+        
+        // SETOR JULIET - Compliance e Riscos
+        compliance_risks: {
+          keywords: ['compliance', 'conformidade', 'riscos', 'regulamentações', 'auditoria', 'controles'],
+          classification: 'JULIET-1',
+          priority: 'HIGH'
+        },
+        
+        // SETOR KILO - Alinhamento Estratégico
+        strategic_alignment: {
+          keywords: ['alinhamento estratégico', 'estático', 'dinâmico', 'plano ti', 'estratégia'],
+          classification: 'KILO-1',
+          priority: 'HIGH'
+        },
+        
+        // SETOR LIMA - SLA e Acordos
+        sla_agreements: {
+          keywords: ['sla', 'service level agreement', 'acordo nível serviço', 'disponibilidade', 'qualidade'],
+          classification: 'LIMA-1',
+          priority: 'MEDIUM'
         }
       };
       
@@ -343,6 +371,22 @@ const Chatbot = ({ className }) => {
       
       build_acquire: {
         definition: '🏗️ **BUILD vs ACQUIRE - Regra de Ouro**\n\n✅ **SEMPRE PRIORIZAR AQUISIÇÃO (ACQUIRE)**\n\n**Por quê Acquire?**\n• Time to Market: Semanas vs Anos\n• Custo: Previsível vs Imprevisível\n• Manutenção: Fornecedor vs Empresa\n• Expertise: Mercado vs Interna\n\n**Quando Build?**\n• Não existe no mercado\n• Diferencial competitivo\n• Necessidades muito específicas\n\n**Exemplo:** CRM - Salesforce (2-3 meses) vs Desenvolvimento (12-18 meses)'
+      },
+      
+      governance_model: {
+        definition: '🏢 **MODELO DE GOVERNANÇA - FRAMEWORK GENÉRICO**\n\n**Características Universais:**\n• Adaptável a qualquer tipo de organização\n• Qualquer ramo de atuação e tamanho\n• **Maior desafio:** Alinhamento com o negócio\n• Governança TI dinâmica para acompanhar mudanças\n\n**7 Premissas de Implantação:**\n1. TI é assunto **estratégico** (CIO lidera)\n2. TI deve ser **flexível** (transatlântico vs lancha)\n3. Prioridades TI = Prioridades negócio\n4. **Reavaliação constante** dos custos\n5. Resultados = **Criar valor** + Diminuir riscos\n6. **Marketing interno** (mudanças culturais)\n7. TI gerenciada **como negócio**'
+      },
+      
+      compliance_risks: {
+        definition: '🛡️ **COMPLIANCE E RISCOS - CONFORMIDADE TOTAL**\n\n**Compliance = Conformidade**\n\n| Tipo | Definição | Objetivo |\n|------|-----------|----------|\n| **Externo** | Leis, regulamentos, padrões | Atender requisitos legais |\n| **Interno** | Controles de processos | Operação eficiente/segura |\n| **Auditoria** | Avaliação independente | Verificação imparcial |\n\n**7 Componentes de Governança TI:**\n1. Riscos/Compliance 2. Gestão Mudança 3. Alinhamento Estratégico\n4. Entrega Valor 5. Gestão Desempenho 6. Comunicação 7. Recursos'
+      },
+      
+      strategic_alignment: {
+        definition: '🎯 **ALINHAMENTO ESTRATÉGICO - ESTÁTICO vs DINÂMICO**\n\n| Tipo | Característica | Descrição |\n|------|----------------|----------|\n| **Estático** | Deriva do plano | Vem do plano estratégico - "pronto" |\n| **Dinâmico** | Adaptação | TI se adapta a mudanças organizacionais |\n\n**Plano de TI:**\n• **Produto principal** do alinhamento estratégico\n• Define projetos e soluções de TI\n• **Máximo 3 anos**, maior detalhe no 1º ano\n• **Revisões anuais obrigatórias**\n\n**Estratégias Empresariais:**\n• **Enfoque:** Flexibilizar processos\n• **Diferenciação:** CRM, produtos únicos\n• **Custo:** Mínimo desperdício ("fio da navalha")'
+      },
+      
+      sla_agreements: {
+        definition: '📋 **SLA - SERVICE LEVEL AGREEMENT**\n\n**Definição:** Acordo de Nível de Serviço\n\n**O que define:**\n• **Disponibilidade** do serviço\n• **Qualidade** esperada\n• **Funcionalidades** incluídas\n\n**Aspectos Importantes:**\n• **Custos específicos** para cada nível\n• Empresa decide se **está disposta a pagar**\n• Necessidade de aplicações **define infraestrutura**\n• Estratégia: interno vs terceirizado\n\n**Princípios de TI:**\n• "Sempre compraremos antes de construir"\n• Rede corporativa consistente\n• Acesso remoto seguro'
       }
     }),
     
@@ -404,6 +448,22 @@ const Chatbot = ({ className }) => {
           response += knowledge.build_acquire.definition;
           break;
           
+        case 'governance_model':
+          response += knowledge.governance_model.definition;
+          break;
+          
+        case 'compliance_risks':
+          response += knowledge.compliance_risks.definition;
+          break;
+          
+        case 'strategic_alignment':
+          response += knowledge.strategic_alignment.definition;
+          break;
+          
+        case 'sla_agreements':
+          response += knowledge.sla_agreements.definition;
+          break;
+          
         default:
           response += 'Tópico identificado mas aguardando classificação especial. Reformule a pergunta para melhor precisão.';
       }
@@ -450,7 +510,19 @@ const Chatbot = ({ className }) => {
           `**Questão 2:** Qual a regra para Build vs Acquire?\n` +
           `a) Sempre construir internamente\nb) ✅ Sempre priorizar aquisição\nc) Depende do orçamento\nd) Não há regra\n\n` +
           `**Questão 3:** O que significa EDM?\n` +
-          `a) Execute, Deploy, Manage\nb) ✅ Evaluate, Direct, Monitor\nc) Establish, Define, Measure\nd) Enable, Develop, Maintain`
+          `a) Execute, Deploy, Manage\nb) ✅ Evaluate, Direct, Monitor\nc) Establish, Define, Measure\nd) Enable, Develop, Maintain`,
+          
+        'Aula 03': `📙 **EXERCÍCIOS AULA 03 - Modelo de Governança**\n\n` +
+          `**Questão 1:** Qual é o maior desafio na implantação do COBIT?\n` +
+          `a) Falta de recursos financeiros\nb) ✅ Alinhamento do modelo ao negócio da organização\nc) Resistência dos colaboradores\nd) Complexidade técnica\n\n` +
+          `**Questão 2:** Quantas premissas de implantação tem o modelo COBIT?\n` +
+          `a) 5 premissas\nb) 6 premissas\nc) ✅ 7 premissas\nd) 8 premissas\n\n` +
+          `**Questão 3:** O que significa Compliance?\n` +
+          `a) Complexidade dos sistemas\nb) ✅ Conformidade com regulamentações, leis e padrões\nc) Competência dos profissionais\nd) Compatibilidade entre sistemas\n\n` +
+          `**Questão 4:** Qual a diferença entre alinhamento estático e dinâmico?\n` +
+          `a) Não há diferença\nb) ✅ Estático deriva do plano, dinâmico é adaptação a mudanças\nc) Dinâmico é mais importante\nd) Estático é apenas para grandes empresas\n\n` +
+          `**Questão 5:** Qual o período máximo do Plano de TI?\n` +
+          `a) 2 anos\nb) ✅ 3 anos\nc) 5 anos\nd) 10 anos`
       };
       
       if (aula && exercises[aula]) {
@@ -603,13 +675,15 @@ const Chatbot = ({ className }) => {
           {messages.length === 0 ? (
             <div className="welcome-message">
               <h4>👋 Olá! Sou seu Professor Virtual de COBIT</h4>
-              <p>Tenho conhecimento completo das <strong>Aulas 01 e 02</strong> e posso ajudar com qualquer conceito, exemplo prático ou dúvida sobre:</p>
+              <p>Tenho conhecimento completo das <strong>Aulas 01, 02 e 03</strong> e posso ajudar com qualquer conceito, exemplo prático ou dúvida sobre:</p>
               
               <div style={{ textAlign: 'left', margin: '20px 0', maxWidth: '600px' }}>
                 <p><strong>📚 Conceitos Fundamentais:</strong> Eficácia vs Eficiência, Controle Interno, Frameworks</p>
                 <p><strong>🏛️ Fundamentos:</strong> Os 5 Fundamentos e 7 Habilitadores do COBIT</p>
                 <p><strong>⚙️ Domínios:</strong> EDM, APO, BAI, DSS, MEA - função de cada um</p>
                 <p><strong>🏗️ Boas Práticas:</strong> Build vs Acquire, implementação prática</p>
+                <p><strong>🎯 Modelo de Governança:</strong> 7 Premissas, Compliance, Alinhamento Estratégico</p>
+                <p><strong>📋 Gestão:</strong> SLA, Plano de TI, Estratégias Empresariais</p>
                 <p><strong>📈 Evolução:</strong> História do COBIT, marcos importantes</p>
               </div>
 

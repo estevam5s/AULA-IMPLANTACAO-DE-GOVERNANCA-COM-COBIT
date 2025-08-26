@@ -10,6 +10,7 @@ import Resumo from './components/Resumo';
 import Recursos from './components/Recursos';
 import Cronograma from './components/Cronograma';
 import Chatbot from './components/Chatbot';
+import SlidesDownload from './components/SlidesDownload';
 import Footer from './components/Footer';
 import AulaModal from './components/AulaModal';
 
@@ -17,6 +18,7 @@ const SECTIONS = {
   overview: 'overview',
   ementa: 'ementa',
   aulas: 'aulas',
+  slides: 'slides',
   exercicios: 'exercicios',
   resumo: 'resumo',
   recursos: 'recursos',
@@ -82,6 +84,8 @@ function App() {
         return <Ementa {...sectionProps} />;
       case SECTIONS.aulas:
         return <Aulas onOpenAula={openAulaModal} {...sectionProps} />;
+      case SECTIONS.slides:
+        return <SlidesDownload {...sectionProps} />;
       case SECTIONS.exercicios:
         return <Exercicios {...sectionProps} />;
       case SECTIONS.resumo:
@@ -120,21 +124,25 @@ function App() {
             break;
           case '4':
             e.preventDefault();
-            setCurrentSection('exercicios');
+            setCurrentSection('slides');
             break;
           case '5':
             e.preventDefault();
-            setCurrentSection('resumo');
+            setCurrentSection('exercicios');
             break;
           case '6':
             e.preventDefault();
-            setCurrentSection('recursos');
+            setCurrentSection('resumo');
             break;
           case '7':
             e.preventDefault();
-            setCurrentSection('cronograma');
+            setCurrentSection('recursos');
             break;
           case '8':
+            e.preventDefault();
+            setCurrentSection('cronograma');
+            break;
+          case '9':
             e.preventDefault();
             setCurrentSection('chatbot');
             break;

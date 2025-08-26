@@ -32,6 +32,27 @@ const Resumo = ({ className }) => {
         <p><strong>MEA</strong> - Monitor, Evaluate and Assess (Gerenciamento)</p>
       </div>
 
+      <div className="concept-card">
+        <h4>Modelo de Governança (Aula 03)</h4>
+        <p><strong>7 Premissas de Implantação:</strong></p>
+        <ol style={{ margin: '10px 0 0 20px', fontSize: '0.9em' }}>
+          <li>TI é assunto estratégico da organização</li>
+          <li>TI deve ser flexível para mudanças</li>
+          <li>Prioridades de TI = Prioridades de negócio</li>
+          <li>Reavaliação constante dos elementos de custeio</li>
+          <li>Resultados medidos pela criação de valor</li>
+          <li>Depende de marketing interno</li>
+          <li>TI deve ser gerenciada como um negócio</li>
+        </ol>
+        
+        <p style={{ marginTop: '15px' }}><strong>Alinhamento Estratégico:</strong></p>
+        <p><strong>Estático:</strong> Deriva do plano estratégico de negócios</p>
+        <p><strong>Dinâmico:</strong> Capacidade de adaptação a mudanças</p>
+        
+        <p style={{ marginTop: '15px' }}><strong>Estratégias Empresariais:</strong></p>
+        <p><strong>Enfoque:</strong> Flexibilizar processos • <strong>Diferenciação:</strong> CRM e produtos únicos • <strong>Custo:</strong> Mínimo desperdício</p>
+      </div>
+
       <div className="highlight-box">
         <h4>🎯 Pontos-Chave para Memorizar</h4>
         <ul style={{ margin: '10px 0 0 20px' }}>
@@ -40,6 +61,9 @@ const Resumo = ({ className }) => {
           <li>Separação clara entre governança (estratégico) e gerenciamento (operacional)</li>
           <li>Priorizar aquisição de soluções prontas sobre desenvolvimento interno</li>
           <li>TI deve demonstrar valor de forma transparente</li>
+          <li><strong>Compliance:</strong> Conformidade com regulamentações (externo) e controles (interno)</li>
+          <li><strong>Plano de TI:</strong> Máximo 3 anos com revisões anuais obrigatórias</li>
+          <li><strong>SLA:</strong> Acordo de nível de serviço que define disponibilidade e custos</li>
         </ul>
       </div>
     </div>

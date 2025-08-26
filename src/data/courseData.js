@@ -32,6 +32,17 @@ AULA 02 - ESTRUTURA DO COBIT:
 - MEA: Monitor, Evaluate and Assess
 - Build vs Acquire: priorizar aquisição de soluções prontas
 
+AULA 03 - MODELO DE GOVERNANÇA COM COBIT:
+- Framework Genérico: adaptado a qualquer organização, maior desafio é alinhamento com negócio
+- Premissas de Implantação: 1)TI é assunto estratégico, 2)TI deve ser flexível, 3)Prioridades de TI = negócio, 4)Reavaliação constante, 5)Criar valor/diminuir riscos, 6)Marketing interno, 7)TI como negócio
+- Componentes Governança TI: Riscos/Compliance, Gestão Mudança, Alinhamento Estratégico, Entrega Valor, Gestão Desempenho, Comunicação, Gerenciamento Recursos
+- Compliance: conformidade com regulamentações (externo) e controles internos (interno)
+- Alinhamento Estratégico: estático (deriva do plano) vs dinâmico (adaptação a mudanças)
+- Plano TI: produto principal do alinhamento, períodos ≤3 anos, revisões anuais
+- Estratégias Empresariais: Enfoque (flexibilizar processos), Diferenciação (CRM/produtos únicos), Custo (integração mínimo desperdício)
+- SLA (Service Level Agreement): acordos nível serviço, define disponibilidade/qualidade
+- Princípios TI: "Sempre comprar antes de construir", rede consistente, acesso seguro usuários remotos
+
 AVALIAÇÃO:
 - Participação: 20%
 - Exercícios: 30%
@@ -41,8 +52,9 @@ AVALIAÇÃO:
 CRONOGRAMA:
 - Semana 1: Aula 01 - Conceitos Fundamentais
 - Semana 2: Aula 02 - Estrutura do COBIT
-- Semana 3: Revisão e Avaliação
-- Semana 4: Projeto Final
+- Semana 3: Aula 03 - Modelo de Governança
+- Semana 4: Revisão e Avaliação
+- Semana 5: Projeto Final
 
 Responda sempre de forma didática, clara e sempre relacionada ao conteúdo do curso COBIT. Use exemplos práticos quando relevante.
 `;
@@ -483,6 +495,283 @@ export const aulasData = {
             </ul>
         </div>
         `
+    },
+    'aula03': {
+        title: '📙 Aula 03: Modelo de Governança com COBIT',
+        content: `
+        <h1>Aula 03: Modelo de Governança com COBIT</h1>
+        
+        <p><strong>Disciplina:</strong> Implantação de Governança com COBIT<br>
+        <strong>Professor:</strong> Eder José Cassimiro<br>
+        <strong>Duração:</strong> 2 horas</p>
+
+        <h2>🎯 Plano de Voo da Aula</h2>
+        <div class="step-content">
+            <ol style="margin: 15px 0 0 25px; font-size: 1.1em;">
+                <li>Componentes de gestão</li>
+                <li>Operação</li>
+                <li>Alinhamento estratégico</li>
+                <li>O que é um plano de TI?</li>
+            </ol>
+        </div>
+
+        <h2>🏢 Premissa Básica do Modelo de Governança</h2>
+        
+        <div class="step-content">
+            <div class="step-counter">12.1</div>
+            <div class="step-text">
+                <h4>Framework Genérico (COBIT)</h4>
+                <div class="concept-card">
+                    <h4>Características Universais</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Adaptável</strong> a qualquer tipo de organização</li>
+                        <li><strong>Qualquer ramo</strong> de atuação, especificidade e tamanho</li>
+                        <li><strong>Maior desafio:</strong> Alinhamento do modelo ao negócio da organização</li>
+                        <li><strong>Mundo dinâmico:</strong> A governança de TI precisa ser dinâmica</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2>⚡ Premissas de Implantação do Modelo</h2>
+        
+        <div class="principles-grid">
+            <div class="principle-card">
+                <h3>1. TI não é mais assunto somente de TI</h3>
+                <p>É um assunto <strong>estratégico</strong> da organização. O <strong>CIO</strong> (Chief Information Officer) deve liderar a transformação tecnológica.</p>
+            </div>
+            
+            <div class="principle-card">
+                <h3>2. TI deve ser flexível</h3>
+                <p>Comparação: <strong>transatlântico vs lancha</strong> de alta performance. Mesmo grandes empresas precisam de agilidade nas mudanças.</p>
+            </div>
+            
+            <div class="principle-card">
+                <h3>3. Prioridades de TI = Prioridades de negócio</h3>
+                <p>Não por preferências pessoais de diretores. Deve estar <strong>alinhado às necessidades</strong> do negócio.</p>
+            </div>
+            
+            <div class="principle-card">
+                <h3>4. Reavaliação constante</h3>
+                <p>Dos elementos de custeio para <strong>garantir retorno</strong> do investimento e buscar soluções mais eficientes.</p>
+            </div>
+            
+            <div class="principle-card">
+                <h3>5. Resultados medidos pela criação de valor</h3>
+                <p>E diminuição de riscos. <strong>Tecnologia pela tecnologia não vale nada</strong> - deve agregar valor à organização.</p>
+            </div>
+            
+            <div class="principle-card">
+                <h3>6. Depende de marketing interno</h3>
+                <p>Informar adequadamente as premissas do modelo, demonstrar resultados e promover <strong>mudanças culturais</strong>.</p>
+            </div>
+            
+            <div class="principle-card">
+                <h3>7. TI deve ser gerenciada como um negócio</h3>
+                <p>Vista como serviço contratado para agregar valor. <strong>Sem paixões ou modismos</strong>.</p>
+            </div>
+        </div>
+
+        <h2>🔧 Componentes Típicos de Governança de TI</h2>
+
+        <div class="step-content">
+            <div class="step-counter">12.2</div>
+            <div class="step-text">
+                <h4>1. Riscos e Compliance</h4>
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Definição</th>
+                                <th>Objetivo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Compliance Externo</strong></td>
+                                <td>Conformidade com regulamentações, leis e padrões</td>
+                                <td>Atender requisitos legais e regulatórios</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Compliance Interno</strong></td>
+                                <td>Controles que garantem funcionamento adequado dos processos</td>
+                                <td>Garantir operação eficiente e segura</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Auditoria Independente</strong></td>
+                                <td>Avaliação objetiva do ambiente</td>
+                                <td>Verificação imparcial da efetividade</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="enablers-grid">
+            <div class="enabler-card">
+                <div class="enabler-type">GESTÃO</div>
+                <h4>2. Gestão da Mudança Organizacional</h4>
+                <p>Avaliar prontidão para mudança. <strong>Princípio:</strong> Se TI não fornece solução, usuário buscará por conta própria.</p>
+            </div>
+            
+            <div class="enabler-card">
+                <div class="enabler-type">ESTRATÉGICO</div>
+                <h4>3. Alinhamento Estratégico</h4>
+                <p>Interação entre TI e alta administração. Governança de TI <strong>alinhada à governança corporativa</strong>.</p>
+            </div>
+            
+            <div class="enabler-card">
+                <div class="enabler-type">VALOR</div>
+                <h4>4. Entrega de Valor</h4>
+                <p>TI deve <strong>entregar valor ao negócio</strong>: melhorar funcionamento, criar soluções, diminuir exposição a riscos.</p>
+            </div>
+            
+            <div class="enabler-card">
+                <div class="enabler-type">MEDIÇÃO</div>
+                <h4>5. Gestão do Desempenho</h4>
+                <p>Metas claras com <strong>indicadores objetivos</strong>. Não pode ser subjetivo.</p>
+            </div>
+            
+            <div class="enabler-card">
+                <div class="enabler-type">COMUNICAÇÃO</div>
+                <h4>6. Comunicação</h4>
+                <p>TI deve comunicar adequadamente seu trabalho e como está <strong>agregando valor</strong>.</p>
+            </div>
+            
+            <div class="enabler-card">
+                <div class="enabler-type">RECURSOS</div>
+                <h4>7. Gerenciamento de Recursos</h4>
+                <p><strong>Visão holística:</strong> Evitar compras paralelas. <strong>Inventário de ativos de TI</strong> essencial.</p>
+            </div>
+        </div>
+
+        <h2>📋 Estratégias e Planos</h2>
+
+        <div class="step-content">
+            <div class="step-counter">12.3</div>
+            <div class="step-text">
+                <h4>Hierarquia Estratégica</h4>
+                <div class="concept-card">
+                    <h4>Fluxo de Planejamento</h4>
+                    <p><strong>Estratégia do Negócio</strong> → <strong>Estratégia de TI</strong> → <strong>Plano de TI</strong></p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Estratégia do Negócio:</strong> Direcionamentos da alta cúpula, mapa estratégico</li>
+                        <li><strong>Estratégia de TI:</strong> Elaborada a partir da estratégia de negócio</li>
+                        <li><strong>Plano de TI - Negócios:</strong> Projetos, serviços e inovações da tecnologia</li>
+                        <li><strong>Plano de TI - Interno:</strong> Projetos para atender o plano de negócios</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2>🎯 Alinhamento Estratégico</h2>
+
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Alinhamento</th>
+                        <th>Característica</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Alinhamento Estático</strong></td>
+                        <td>Derivado do plano estratégico</td>
+                        <td>Vem do plano estratégico de negócios da empresa - "pronto"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alinhamento Dinâmico</strong></td>
+                        <td>Capacidade de adaptação</td>
+                        <td>TI se adapta a eventuais mudanças de direcionamento da organização</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="highlight-box">
+            <h4>📊 Plano de Tecnologia da Informação</h4>
+            <p><strong>Produto principal</strong> da fase de alinhamento estratégico:</p>
+            <ul style="margin: 10px 0 0 20px;">
+                <li><strong>Define:</strong> Projetos e soluções de TI que serão implementadas</li>
+                <li><strong>Períodos:</strong> Não superiores a 3 anos</li>
+                <li><strong>Detalhamento:</strong> Maior detalhe no primeiro ano</li>
+                <li><strong>Manutenção:</strong> Revisões anuais obrigatórias</li>
+            </ul>
+        </div>
+
+        <h2>🏢 Estratégias Empresariais e Requisitos de TI</h2>
+
+        <div class="process-grid">
+            <div class="process-card">
+                <div class="process-type">ENFOQUE</div>
+                <h3>1. Estratégia de Enfoque</h3>
+                <p><strong>Objetivo:</strong> Flexibilizar processos relacionados a clientes, produtos e fornecedores. Foco em nichos específicos de mercado.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-type">DIFERENCIAÇÃO</div>
+                <h3>2. Estratégia de Diferenciação</h3>
+                <p><strong>Objetivo:</strong> Processos robustos, produtos únicos. Requer <strong>CRM</strong> (Customer Relationship Management) para relacionamento premium.</p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-type">CUSTO</div>
+                <h3>3. Estratégia de Foco no Custo</h3>
+                <p><strong>Objetivo:</strong> Integração com mínimo desperdício possível. TI deve trabalhar "no fio da navalha".</p>
+            </div>
+        </div>
+
+        <h2>📋 Aspectos Importantes</h2>
+
+        <div class="step-content">
+            <div class="step-counter">12.4</div>
+            <div class="step-text">
+                <h4>SLA - Service Level Agreement</h4>
+                <div class="concept-card">
+                    <h4>Acordos de Nível de Serviço</h4>
+                    <p><strong>Definição:</strong> Acordo que define nível de serviço desejado</p>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Especifica:</strong> Disponibilidade, qualidade, funcionalidades</li>
+                        <li><strong>Implicações:</strong> Custos específicos para cada nível</li>
+                        <li><strong>Decisão:</strong> Empresa deve decidir se está disposta a pagar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-content">
+            <div class="step-counter">12.5</div>
+            <div class="step-text">
+                <h4>Princípios de TI</h4>
+                <div class="highlight-box">
+                    <h4>💡 Exemplos de Princípios Fundamentais</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>"Sempre compraremos antes de construir"</strong> - Priorizar soluções do mercado</li>
+                        <li><strong>Rede corporativa consistente</strong> - Acesso uniforme a aplicações</li>
+                        <li><strong>Acesso remoto seguro</strong> - Usuários externos com controle adequado</li>
+                        <li><strong>Gestão de terceiros</strong> - Controles rigorosos para fornecedores</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>🎯 Resumo da Aula 03</h4>
+            <ul style="margin: 10px 0 0 20px;">
+                <li><strong>Framework Genérico:</strong> COBIT adaptável a qualquer organização</li>
+                <li><strong>7 Premissas de Implantação:</strong> TI estratégica, flexível, alinhada ao negócio</li>
+                <li><strong>7 Componentes de Governança:</strong> Compliance, gestão mudança, alinhamento estratégico, etc.</li>
+                <li><strong>Alinhamento Estratégico:</strong> Estático (do plano) vs Dinâmico (adaptação)</li>
+                <li><strong>Plano de TI:</strong> Produto principal, máximo 3 anos, revisão anual</li>
+                <li><strong>3 Estratégias Empresariais:</strong> Enfoque, Diferenciação, Custo</li>
+                <li><strong>SLA:</strong> Define nível de serviço e custos associados</li>
+            </ul>
+        </div>
+        `
     }
 };
 
@@ -517,6 +806,76 @@ export const exercisesData = [
             { id: 'c', text: 'c) Apenas auditar sistemas de informação', correct: false },
             { id: 'd', text: 'd) Focar exclusivamente em gerenciamento operacional', correct: false }
         ]
+    },
+    {
+        id: 'exercise4',
+        question: '4. Qual é a principal característica do framework COBIT mencionada na Aula 03?',
+        options: [
+            { id: 'a', text: 'a) É específico apenas para empresas de tecnologia', correct: false },
+            { id: 'b', text: 'b) É genérico e adaptável a qualquer tipo de organização', correct: true },
+            { id: 'c', text: 'c) Só funciona em grandes corporações', correct: false },
+            { id: 'd', text: 'd) É exclusivo para o setor financeiro', correct: false }
+        ]
+    },
+    {
+        id: 'exercise5',
+        question: '5. Segundo a Aula 03, qual é o maior desafio na implantação do COBIT?',
+        options: [
+            { id: 'a', text: 'a) Falta de recursos financeiros', correct: false },
+            { id: 'b', text: 'b) Alinhamento do modelo ao negócio da organização', correct: true },
+            { id: 'c', text: 'c) Resistência dos colaboradores', correct: false },
+            { id: 'd', text: 'd) Complexidade técnica do framework', correct: false }
+        ]
+    },
+    {
+        id: 'exercise6',
+        question: '6. Quantos componentes típicos de governança de TI são apresentados na Aula 03?',
+        options: [
+            { id: 'a', text: 'a) 5 componentes', correct: false },
+            { id: 'b', text: 'b) 6 componentes', correct: false },
+            { id: 'c', text: 'c) 7 componentes', correct: true },
+            { id: 'd', text: 'd) 8 componentes', correct: false }
+        ]
+    },
+    {
+        id: 'exercise7',
+        question: '7. O que significa "Compliance" no contexto da governança de TI?',
+        options: [
+            { id: 'a', text: 'a) Complexidade dos sistemas', correct: false },
+            { id: 'b', text: 'b) Conformidade com regulamentações, leis e padrões', correct: true },
+            { id: 'c', text: 'c) Competência dos profissionais', correct: false },
+            { id: 'd', text: 'd) Compatibilidade entre sistemas', correct: false }
+        ]
+    },
+    {
+        id: 'exercise8',
+        question: '8. Qual é a diferença entre alinhamento estático e dinâmico?',
+        options: [
+            { id: 'a', text: 'a) Estático é mais importante que dinâmico', correct: false },
+            { id: 'b', text: 'b) Estático deriva do plano estratégico, dinâmico é capacidade de adaptação', correct: true },
+            { id: 'c', text: 'c) Não há diferença entre eles', correct: false },
+            { id: 'd', text: 'd) Dinâmico é apenas para grandes empresas', correct: false }
+        ]
+    },
+    {
+        id: 'exercise9',
+        question: '9. Segundo a Aula 03, qual deve ser o período máximo do Plano de TI?',
+        options: [
+            { id: 'a', text: 'a) 2 anos', correct: false },
+            { id: 'b', text: 'b) 3 anos', correct: true },
+            { id: 'c', text: 'c) 5 anos', correct: false },
+            { id: 'd', text: 'd) 10 anos', correct: false }
+        ]
+    },
+    {
+        id: 'exercise10',
+        question: '10. O que é SLA (Service Level Agreement)?',
+        options: [
+            { id: 'a', text: 'a) Sistema de Login Avançado', correct: false },
+            { id: 'b', text: 'b) Acordo de Nível de Serviço que define disponibilidade e qualidade', correct: true },
+            { id: 'c', text: 'c) Software de Licenciamento Automático', correct: false },
+            { id: 'd', text: 'd) Serviço de Limpeza de Aplicações', correct: false }
+        ]
     }
 ];
 
@@ -527,7 +886,11 @@ export const chatSuggestions = [
     'Explique os 5 fundamentos do COBIT',
     'O que significa EDM no COBIT?',
     'Build vs Acquire - quando usar?',
-    'Como implementar COBIT na empresa?'
+    'Como implementar COBIT na empresa?',
+    'Exercícios sobre Aula 03',
+    'O que é compliance no COBIT?',
+    'Alinhamento estratégico: estático vs dinâmico',
+    'SLA - Service Level Agreement'
 ];
 
 // Adicione no final do arquivo src/data/courseData.js
@@ -545,7 +908,14 @@ export const searchableContent = {
     'apo': ['apo', 'align', 'plan', 'organise', 'alinhar', 'planejar', 'organizar'],
     'bai': ['bai', 'build', 'acquire', 'implement', 'construir', 'adquirir', 'implementar'],
     'dss': ['dss', 'deliver', 'service', 'support', 'entregar', 'servico', 'suporte'],
-    'mea': ['mea', 'monitor', 'evaluate', 'assess', 'monitorar', 'avaliar', 'medir']
+    'mea': ['mea', 'monitor', 'evaluate', 'assess', 'monitorar', 'avaliar', 'medir'],
+    'compliance': ['compliance', 'conformidade', 'regulamentacoes', 'leis', 'padroes'],
+    'alinhamento': ['alinhamento', 'estatico', 'dinamico', 'estrategico', 'adaptacao'],
+    'sla': ['sla', 'service level agreement', 'acordo nivel servico', 'disponibilidade'],
+    'cio': ['cio', 'chief information officer', 'diretor ti', 'lideranca'],
+    'premissas': ['premissas', 'implantacao', 'modelo', 'governanca', 'estrategico'],
+    'componentes': ['componentes', 'governanca ti', 'riscos', 'compliance', 'mudanca', 'valor'],
+    'plano ti': ['plano ti', 'planejamento', 'estrategia', 'projetos', 'solucoes']
   },
   
   // Banco de respostas pré-definidas para perguntas comuns
@@ -553,7 +923,13 @@ export const searchableContent = {
     'qual diferenca governanca gerenciamento': 'Governança define O QUE fazer (estratégico, conselho), Gerenciamento define COMO fazer (operacional, executivos).',
     'quantos dominios cobit': 'COBIT tem 5 domínios: 1 de Governança (EDM) e 4 de Gerenciamento (APO, BAI, DSS, MEA).',
     'build vs acquire': 'Regra atual: SEMPRE priorizar AQUISIÇÃO de soluções prontas. Construir internamente apenas quando não existe no mercado ou há vantagem competitiva.',
-    'fundamentos cobit': 'São 5: 1)Atender stakeholders, 2)Cobertura holística, 3)Estrutura integrada, 4)Abordagem holística, 5)Separar governança de gerenciamento.'
+    'fundamentos cobit': 'São 5: 1)Atender stakeholders, 2)Cobertura holística, 3)Estrutura integrada, 4)Abordagem holística, 5)Separar governança de gerenciamento.',
+    'o que e compliance': 'Compliance = Conformidade. Externo: aderência a leis e regulamentos. Interno: controles que garantem funcionamento adequado dos processos.',
+    'alinhamento estatico dinamico': 'Estático deriva do plano estratégico de negócios (pronto). Dinâmico é a capacidade de adaptação a mudanças organizacionais.',
+    'premissas implantacao cobit': '7 premissas: 1)TI é estratégico, 2)TI flexível, 3)Prioridades TI=negócio, 4)Reavaliação constante, 5)Criar valor, 6)Marketing interno, 7)TI como negócio.',
+    'componentes governanca ti': '7 componentes: Riscos/Compliance, Gestão Mudança, Alinhamento Estratégico, Entrega Valor, Gestão Desempenho, Comunicação, Gerenciamento Recursos.',
+    'o que e sla': 'SLA = Service Level Agreement (Acordo de Nível de Serviço). Define disponibilidade, qualidade e funcionalidades, com custos específicos para cada nível.',
+    'plano ti caracteristicas': 'Produto principal do alinhamento estratégico. Períodos ≤3 anos, maior detalhe no 1º ano, revisões anuais obrigatórias.'
   }
 };
 
@@ -640,6 +1016,58 @@ export const EXERCISE_PROMPTS = {
   - Framework genérico aplicável a qualquer organização
   - Integração com governança corporativa (não isolado)
   - Objetivo: habilitar EDM efetivamente, gerar valor demonstrável
+  `,
+  
+  aula03: `
+  CONTEÚDO AULA 03 - MODELO DE GOVERNANÇA COM COBIT:
+  
+  1. FRAMEWORK GENÉRICO:
+  - Adaptado a qualquer tipo de organização (qualquer ramo, especificidade, tamanho)
+  - Maior desafio: alinhamento do modelo ao negócio da organização
+  - Mundo dinâmico: governança de TI precisa ser dinâmica para acompanhar mudanças
+  
+  2. 7 PREMISSAS DE IMPLANTAÇÃO:
+  1) TI não é mais assunto somente de TI (é estratégico, CIO lidera)
+  2) TI deve ser flexível (transatlântico vs lancha - agilidade nas mudanças)
+  3) Prioridades de TI = Prioridades de negócio (não preferências pessoais)
+  4) Reavaliação constante dos elementos de custeio (garantir ROI)
+  5) Resultados medidos pela criação de valor e diminuição de riscos
+  6) Depende de marketing interno (mudanças culturais)
+  7) TI deve ser gerenciada como um negócio (sem paixões/modismos)
+  
+  3. 7 COMPONENTES TÍPICOS DE GOVERNANÇA DE TI:
+  1) Riscos e Compliance (externo: leis/regulamentos, interno: controles processos)
+  2) Gestão da Mudança Organizacional (prontidão, agilidade)
+  3) Alinhamento Estratégico (TI + alta administração)
+  4) Entrega de Valor (melhorar funcionamento, criar soluções, diminuir riscos)
+  5) Gestão do Desempenho (metas claras, indicadores objetivos)
+  6) Comunicação (demonstrar valor agregado)
+  7) Gerenciamento de Recursos (visão holística, inventário ativos TI)
+  
+  4. ALINHAMENTO ESTRATÉGICO:
+  - Estático: deriva do plano estratégico de negócios (pronto)
+  - Dinâmico: capacidade de adaptação a mudanças organizacionais
+  
+  5. PLANO DE TI:
+  - Produto principal da fase de alinhamento estratégico
+  - Define projetos e soluções de TI que serão implementadas
+  - Períodos: não superiores a 3 anos, maior detalhe no primeiro ano
+  - Revisões anuais obrigatórias
+  
+  6. ESTRATÉGIAS EMPRESARIAIS E REQUISITOS DE TI:
+  1) Enfoque: flexibilizar processos (clientes, produtos, fornecedores)
+  2) Diferenciação: processos robustos, produtos únicos, CRM
+  3) Foco no custo: integração com mínimo desperdício ("fio da navalha")
+  
+  7. SLA (SERVICE LEVEL AGREEMENT):
+  - Acordo de nível de serviço: define disponibilidade, qualidade, funcionalidades
+  - Implicações em custos específicos para cada nível
+  - Empresa deve decidir se está disposta a pagar pelo nível desejado
+  
+  8. PRINCÍPIOS DE TI:
+  - "Sempre compraremos antes de construir" (priorizar mercado)
+  - Rede corporativa deve prover acesso consistente
+  - Usuários remotos precisam de acesso seguro e controlado
   `
 };
 

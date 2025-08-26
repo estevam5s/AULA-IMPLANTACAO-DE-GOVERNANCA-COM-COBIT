@@ -5,6 +5,7 @@ const Navigation = ({ currentSection, onSectionChange }) => {
     { id: 'overview', label: '📚 Visão Geral' },
     { id: 'ementa', label: '📋 Ementa' },
     { id: 'aulas', label: '🎓 Aulas' },
+    { id: 'slides', label: '💻 Slides PPTX' },
     { id: 'exercicios', label: '📝 Exercícios' },
     { id: 'resumo', label: '📄 Resumo' },
     { id: 'recursos', label: '🔧 Recursos' },
