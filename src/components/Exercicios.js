@@ -5,7 +5,7 @@ const Exercicios = ({ className }) => {
   // Estados para configuração dos exercícios
   const [exerciseConfig, setExerciseConfig] = useState({
     quantidade: 5,
-    aulas: ['aula01'], // aula01, aula02, ou ambas
+    aulas: ['aula01'], // aula01, aula02, aula03, ou combinações
     complexidade: 'medio', // basico, medio, avancado
     temperatura: 0.7, // 0.1 a 1.0 - criatividade da IA
     tipoQuestao: 'multipla_escolha', // multipla_escolha, verdadeiro_falso, dissertativa
@@ -500,6 +500,26 @@ IMPORTANTE:
                 />
                 <span>Aula 02: Estrutura e Domínios</span>
               </label>
+              <label className="checkbox-item">
+                <input 
+                  type="checkbox" 
+                  checked={exerciseConfig.aulas.includes('aula03')}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setExerciseConfig({
+                        ...exerciseConfig, 
+                        aulas: [...exerciseConfig.aulas, 'aula03']
+                      });
+                    } else {
+                      setExerciseConfig({
+                        ...exerciseConfig, 
+                        aulas: exerciseConfig.aulas.filter(a => a !== 'aula03')
+                      });
+                    }
+                  }}
+                />
+                <span>Aula 03: Modelo de Governança</span>
+              </label>
             </div>
           </div>
 
@@ -679,7 +699,15 @@ IMPORTANTE:
     return (
       <div className="generated-exercises">
         <div className="exercise-header">
-          <h3>📝 Exercícios Inteligentes - {exerciseConfig.aulas.includes('aula01') && exerciseConfig.aulas.includes('aula02') ? 'Ambas as Aulas' : exerciseConfig.aulas.includes('aula01') ? 'Aula 01' : 'Aula 02'}</h3>
+          <h3>📝 Exercícios Inteligentes - {
+            exerciseConfig.aulas.length === 3 ? 'Todas as Aulas' :
+            exerciseConfig.aulas.length === 2 ? 
+              (exerciseConfig.aulas.includes('aula01') && exerciseConfig.aulas.includes('aula02') ? 'Aulas 01 e 02' :
+               exerciseConfig.aulas.includes('aula01') && exerciseConfig.aulas.includes('aula03') ? 'Aulas 01 e 03' :
+               'Aulas 02 e 03') :
+            exerciseConfig.aulas.includes('aula01') ? 'Aula 01' :
+            exerciseConfig.aulas.includes('aula02') ? 'Aula 02' : 'Aula 03'
+          }</h3>
           <div className="exercise-info">
             <span>Quantidade: {exercises.length}</span>
             <span>Nível: {exerciseConfig.complexidade.charAt(0).toUpperCase() + exerciseConfig.complexidade.slice(1)}</span>
